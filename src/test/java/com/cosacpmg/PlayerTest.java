@@ -1,15 +1,43 @@
 package com.cosacpmg;
 
 
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 public class PlayerTest {
 
-    Player emptyPlayer = new Player();
-    Player invalidPlayer = new Player();
-    Player edgePlayer = new Player();
+    private String repeatA(int count){
+        return new String(new char[count]).replace('\0','A');
+    }
+
+
+    @Before
+    public void setUpValidPlayer()
+    {
+        Player validPlayer= new Player();
+        validPlayer.setFirstName ("Heff");
+        validPlayer.setLastName("Heffington");
+        validPlayer.setJerseyNo(10);
+        validPlayer.setPosition("Forward");
+        validPlayer.setEmail("Heff1234@gmail.com");
+        validPlayer.setPhoneNumber("3061234567");
+        validPlayer.setEmergencyName("Mother Heffington");
+        validPlayer.setEmergencyPhoneNumber("3061234567");
+        validPlayer.setEmergencyEmail("MotherHeffington@gmail.com");
+        validPlayer.setStreetAddress("123 Fake Street");
+        validPlayer.setCity("Saskatoon");
+        validPlayer.setProvince("Saskatchewan");
+        validPlayer.setPostalCode("S7V0A1");
+
+    }
+
+
+
+
+
+
 
 
     @Test
@@ -37,7 +65,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void testPlayerPosition(Player testPlayer)
+    public void testPlayerPosition()
     {
         assertTrue(emptyPlayer.position.equalsIgnoreCase(""));
         assertTrue(invalidPlayer.position.length()>64);
@@ -48,7 +76,7 @@ public class PlayerTest {
     public void testPlayerEmail()
     {
         assertTrue(emptyPlayer.email.equalsIgnoreCase(""));
-        assertTrue(invalidPlayer.email.length()>64);
+        assertTrue(!(invalidPlayer.email.contains("@")&& invalidPlayer.email.contains(".")));
         assertTrue(edgePlayer.email.contains("@") && edgePlayer.email.contains("."));
     }
 
@@ -56,7 +84,7 @@ public class PlayerTest {
     public void testPlayerPhoneNumber()
     {
         assertTrue(emptyPlayer.phoneNumber.equalsIgnoreCase(""));
-        assertTrue(invalidPlayer.phoneNumber.length()>10);
+        assertTrue(invalidPlayer.phoneNumber.length()!=10);
         assertTrue(edgePlayer.phoneNumber.length()==10);
     }
 
@@ -72,7 +100,7 @@ public class PlayerTest {
     public void testPlayerEmergencyContactPhoneNumber()
     {
         assertTrue(emptyPlayer.emergencyPhoneNumber.equalsIgnoreCase(""));
-        assertTrue(invalidPlayer.emergencyPhoneNumber.length()>10);
+        assertTrue(invalidPlayer.emergencyPhoneNumber.length()!=10);
         assertTrue(edgePlayer.emergencyPhoneNumber.length()==10);
     }
 
@@ -80,7 +108,7 @@ public class PlayerTest {
     public void testPlayerEmergencyEmail()
     {
         assertTrue(emptyPlayer.emergencyEmail.equalsIgnoreCase(""));
-        assertTrue(invalidPlayer.emergencyEmail.length()>64);
+        assertTrue(!(invalidPlayer.emergencyEmail.contains("@")&& invalidPlayer.emergencyEmail.contains(".")));
         assertTrue(edgePlayer.emergencyEmail.contains("@") && edgePlayer.emergencyEmail.contains("."));
     }
 
