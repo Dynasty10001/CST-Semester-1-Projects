@@ -1,4 +1,4 @@
-package com.cosacpmg;
+package models;
 
 public class Field
 {
