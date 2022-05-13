@@ -1,16 +1,45 @@
-package com.cosacpmg;
+package models;
+
+
 
 public class Team
 {
-	private String teamName, city, area, coachName, coachNumber;
+	
+	
+	private String teamName;
+	private String city;
+	private String area;
+	private String coachName;
+	private String coachNumber;
+	
 //	ArrayList<Player> playerList;
-
-	public Team(String teamName, String city, String area, String coachName, String coachNumber)
+	
+	
+	public Team() {
+	}
+	
+	public void setTeamName(String teamName)
 	{
 		this.teamName = teamName;
+	}
+	
+	public void setCity(String city)
+	{
 		this.city = city;
+	}
+	
+	public void setArea(String area)
+	{
 		this.area = area;
+	}
+	
+	public void setCoachName(String coachName)
+	{
 		this.coachName = coachName;
+	}
+	
+	public void setCoachNumber(String coachNumber)
+	{
 		this.coachNumber = coachNumber;
 	}
 
@@ -33,6 +62,7 @@ public class Team
 	public String getCoachNumber() {
 		return coachNumber;
 	}
+	
 
 
 }
