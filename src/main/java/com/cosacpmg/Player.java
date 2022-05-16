@@ -15,7 +15,7 @@ public class Player {
     private String city;
     private String province;
     private String postalCode;
-    private  String phoneNumber;
+    private String phoneNumber;
     private String email;
 
     private String emergencyName;
@@ -24,9 +24,7 @@ public class Player {
 
 
     public Player()
-    {
-
-    }
+    {}
 
 
     public String getFirstName() {
