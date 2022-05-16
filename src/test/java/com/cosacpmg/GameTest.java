@@ -3,6 +3,7 @@ package com.cosacpmg;
 import controllers.GameController;
 import models.Game;
 import models.Team;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Calendar;
@@ -17,19 +18,18 @@ public class GameTest
     @Test
     public void twoObjectsAreTheSame()
     {
-        Game test0 = new Game();
-        Game test1 = GameController.Game();
-        assertEquals(1,1);
-        assertEquals(test0,test1);
-        test1.setStartTime(Calendar.getInstance().set(2002,5,10));
-        assertNotEquals(test0,test1);
+
     }
 
     @Test
     public void UserCreatesNewGame()
     {
-
-        fail();
+        Game testGame = GameController.Game();
+        Calendar time;
+        time = Calendar.getInstance();
+        time.set(2022, Calendar.JUNE,10);
+        testGame.setStartTime(time.getTime());
+        Assert.assertNotNull(testGame);
     }
 
     @Test
@@ -42,10 +42,11 @@ public class GameTest
     public void CreateGameSetInPast()
     {
         Calendar past = Calendar.getInstance();
-        past.set(2002,5,10);
-        assertFalse(masterTest.setStartTime(past.getTime()));
+        past.set(2002, Calendar.JUNE,10);
+        masterTest.setStartTime(past.getTime());
         // Create Contoller method that return if time is valid and then change it
-//        fail();
+        //assertTrue();
+        fail();
     }
 
     @Test

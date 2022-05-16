@@ -1,6 +1,7 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Tournament
 {
@@ -34,5 +35,10 @@ public class Tournament
 
     public void setTeamList(ArrayList<Team> teamList) {
         this.teamList = teamList;
+    }
+
+    public void addGameToSchedule(Game game) {
+        schedule.add(game);
+        schedule.sort(Comparator.comparing(Game::getStartTime));
     }
 }

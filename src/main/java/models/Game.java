@@ -6,7 +6,7 @@ import java.util.Date;
 public class Game {
 
     private Team homeTeam, awayTeam;
-    private boolean winners;
+    private int winners; // 1 is Home, -1 is Away, 0 is a tie game
     private Date startTime;
     private Field location;
     private ArrayList<Event> gameEvents;
@@ -36,12 +36,13 @@ public class Game {
         this.awayTeam = awayTeam;
     }
 
-    public boolean isWinners()
+    public int getWinners()
     {
+        //gameEvents.get()
         return winners;
     }
 
-    public void setWinners(boolean winners)
+    public void setWinners(int winners)
     {
         this.winners = winners;
     }
