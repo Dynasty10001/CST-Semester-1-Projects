@@ -1,12 +1,10 @@
 package com.cosacpmg;
 
 import controllers.TeamController;
-import junit.framework.AssertionFailedError;
 import models.Team;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
 public class TeamTest
 {
@@ -105,11 +103,6 @@ public class TeamTest
     {
         assertTrue(testMaxLength(64, compareTeam.getCoachName()));
     }
-    
-    
-    
-    
-    
     
     /**
      * Helper tests length
