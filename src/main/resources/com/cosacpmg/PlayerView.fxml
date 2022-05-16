@@ -1,20 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
+<?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cosacpmg.PlayerView">
    <children>
-      <GridPane layoutY="-1.0" prefHeight="400.0" prefWidth="600.0">
+      <GridPane layoutY="-1.0" maxHeight="1.7976931348623157E308" prefHeight="400.0" prefWidth="600.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
+         <children>
+            <Label id="lblFirstName" text="First Name" GridPane.rowIndex="1" />
+            <Label id="lblLastName" prefHeight="17.0" prefWidth="95.0" text="Last Name" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <TextField id="tfFirstName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField id="tfLastName" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <TextField id="tfEmail" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="2" />
+            <TextField id="tfPhone" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField id="tfJersey" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+            <Label id="lblEmail" text="Email" GridPane.rowIndex="2" />
+            <Label id="lblPhone" text="Phone Number" GridPane.rowIndex="3" />
+            <Label id="lblJersey" text="Jersey Number" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <Label id="lblCity" text="City" GridPane.rowIndex="4" />
+            <Label id="lblStreet" text="Street Address" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <Label id="lblPostalCode" text="Postal Code" GridPane.rowIndex="5" />
+            <Label id="lblProv" text="Province" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+            <Label id="lblEHeader" prefHeight="17.0" prefWidth="299.0" text="Emergency Contact / Guardian Information" GridPane.columnSpan="2147483647" GridPane.rowIndex="6">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label id="lblEName" text="Name" GridPane.rowIndex="7" />
+            <Label id="lblEEmail" text="Email" GridPane.rowIndex="8" />
+            <Label id="lblTeam" text="Team" GridPane.rowIndex="9" />
+            <Label id="lblEPhone" text="Phone Number" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+            <TextField id="tfEName" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <TextField id="tfEPhone" GridPane.columnIndex="3" GridPane.rowIndex="7" />
+            <TextField id="tfEEmail" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <Label id="lblPosition" text="Position" GridPane.rowIndex="10" />
+            <ComboBox id="cbTeam" prefWidth="150.0" promptText="Select Team" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <ComboBox id="cbPosition" prefWidth="150.0" promptText="Select Position" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+            <ComboBox id="cbProvince" prefWidth="150.0" promptText="Select Province" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+            <TextField id="tfCity" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField id="lfStrret" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+            <TextField id="lfPostalCode" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Button id="cmdCancel" mnemonicParsing="false" text="Cancel" GridPane.columnIndex="2" GridPane.rowIndex="11" />
+            <Button id="cmdSubmit" mnemonicParsing="false" text="Submit" GridPane.columnIndex="3" GridPane.rowIndex="11" />
+            <Label id="lblHeader" text="Add A Player" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+         </children>
       </GridPane>
    </children>
 </AnchorPane>
