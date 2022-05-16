@@ -1,26 +1,45 @@
 package com.cosacpmg;
 
+import controllers.TeamController;
+import junit.framework.AssertionFailedError;
 import models.Team;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 public class TeamTest
 {
     Team compareTeam;
-
+    String teamName = "Sparks";
+    String city = "Saskatoon";
+    String area = "Brighton";
+    String coachName = "John C. Coachington";
+    String coachNum = "306 555 6356";
+    
+    
     @Before
     public void createCompatibleValidTeam()
     {
-        String teamName = "Sparks";
-        String city = "Saskatoon";
-        String area = "Brighton";
-        String coachName = "John C. Coachington";
-        String coachNum = "306 555 6356";
-
-        compareTeam = new Team();
+        compareTeam = TeamController.createTeam(teamName, city, area, coachName, coachNum);
     }
-
+    
+    @Test
+    public void testThatTeamIsCreated()
+    {
+        assertEquals(TeamController.createTeam(teamName, city, area, coachName, coachNum), compareTeam );
+    }
+    
+    @Test
+    public void testThatInvalidTeamWasNotCreated()
+    {
+        assertNull(TeamController.createTeam("", city, area, coachName, coachNum));
+        assertNull(TeamController.createTeam("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                                             city, area, coachName, coachNum));//x x 65
+    
+    }
+    
+    
     @Test
     public void testThatTeamNameIsValid()
     {
@@ -54,6 +73,11 @@ public class TeamTest
         assertTrue(testMaxLength(64, compareTeam.getCoachName()));
     }
     
+    
+    
+    
+    
+    
     /**
      * helper tests length
      * @param length inclusive
@@ -65,6 +89,7 @@ public class TeamTest
         return testString.length() <= length;
     
     }
+    
     
     
     
