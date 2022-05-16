@@ -176,7 +176,7 @@ public class PlayerTest {
         for ( String invalid: invalids)
         {
             validPlayer.setEmail(invalid);
-            assertInvalidPlayer("email", "Invalid email format", invalid);
+            assertInvalidPlayer("email", "Invalid Email Format", invalid);
         }
     }
 
@@ -254,7 +254,7 @@ public class PlayerTest {
     {
         String invalid = "306999999";
         validPlayer.setEmergencyPhoneNumber(invalid);
-        assertInvalidPlayer("emergencyPhoneNumber ", "Invalid Phone Number", invalid);
+        assertInvalidPlayer("emergencyPhoneNumber", "Invalid Phone Number", invalid);
     }
 
     @Test
@@ -279,14 +279,14 @@ public class PlayerTest {
         for ( String invalid: invalids)
         {
             validPlayer.setEmergencyEmail(invalid);
-            assertInvalidPlayer("emergencyEmail", "Invalid email format", invalid);
+            assertInvalidPlayer("emergencyEmail", "Invalid Email Format", invalid);
         }
     }
 
     @Test
     public void testPlayerEmergencyEmailTooLong()
     {
-        String invalid = repeatA(65);
+        String invalid=(repeatA(55) + "@gmail.com");
         validPlayer.setEmergencyEmail(invalid);
         assertInvalidPlayer("emergencyEmail", "All fields have a max Character length of 64", invalid);
     }
@@ -321,7 +321,7 @@ public class PlayerTest {
     @Test
     public void testPlayerStreetAddressTooLong()
     {
-        String invalid = repeatA(65);
+        String invalid = "1" + repeatA(64);
         validPlayer.setStreetAddress((invalid));
         assertInvalidPlayer("streetAddress", "All fields have a max Character length of 64", invalid);
     }
@@ -387,7 +387,7 @@ public class PlayerTest {
         for ( String invalid: invalids)
         {
             validPlayer.setPostalCode(invalid);
-            assertInvalidPlayer("postalCode", "Invalid postal code format", invalid);
+            assertInvalidPlayer("postalCode", "Invalid Postal Code Format", invalid);
         }
     }
 

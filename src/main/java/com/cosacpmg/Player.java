@@ -23,6 +23,7 @@ public class Player implements Serializable {
     private int playerId;
 
     @DatabaseField(canBeNull = false)
+    @Positive(message = "All fields must be filled out with valid information" )
     @Min(value = 1, message="Jersey Number Must have 2 digits")
     @Max(value = 99, message= "Jersey Number Must be an Integer between 01 and 99")
     private int jerseyNo;
@@ -37,6 +38,7 @@ public class Player implements Serializable {
     @DatabaseField(canBeNull = false)
     @NotEmpty(message = "All fields must be filled out with valid information" )
     @Size(max = 64, message="All fields have a max Character length of 64")
+    @Pattern(regexp = "^\\d+[ ]?[a-zA-Z]+.*$", message = "Invalid Street Address")
     private String streetAddress;
 
     @DatabaseField(canBeNull = false)
@@ -50,7 +52,7 @@ public class Player implements Serializable {
 
     @DatabaseField(canBeNull = false)
     @NotEmpty(message = "All fields must be filled out with valid information" )
-    @Pattern(regexp = "^[ABCEGHJ-NPRSTVXY]\\d[ABCEGHJ-NPRSTV-Z][ -]?\\d[ABCEGHJ-NPRSTV-Z]\\d$", message = "Invalid Postal Code")
+    @Pattern(regexp = "^[ABCEGHJ-NPRSTVXY]\\d[ABCEGHJ-NPRSTV-Z][ -]?\\d[ABCEGHJ-NPRSTV-Z]\\d$", message = "Invalid Postal Code Format")
     private String postalCode;
 
     @DatabaseField(canBeNull = false)
@@ -61,7 +63,7 @@ public class Player implements Serializable {
     @DatabaseField(canBeNull = false)
     @NotEmpty(message = "All fields must be filled out with valid information" )
     @Size(max = 64, message="All fields have a max Character length of 64")
-    @Pattern(regexp = "^\\w+@\\w+\\.\\w+$", message = "Invalid Email")
+    @Email(message = "Invalid Email Format")
     private String email;
 
     @DatabaseField(canBeNull = false)
@@ -72,7 +74,7 @@ public class Player implements Serializable {
     @DatabaseField(canBeNull = false)
     @NotEmpty(message = "All fields must be filled out with valid information" )
     @Size(max = 64, message="All fields have a max Character length of 64")
-    @Pattern(regexp = "^\\w+@\\w+\\.\\w+$", message = "Invalid Email")
+    @Email(message = "Invalid Email Format")
     private String emergencyEmail;
 
     @DatabaseField(canBeNull = false)
