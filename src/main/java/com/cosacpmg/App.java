@@ -9,6 +9,7 @@ import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.stage.*;
+import views.AppView;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -20,14 +21,16 @@ public class App extends Application
     private static Stage mainStage;
 //    private static TeamController teamController;
 
+    // AppView.class.getResource("/com.cosacpmg/app-view.fxml")
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("app-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(AppView.class.getResource("com/cosacpmg/app-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
-        startDB();
+        //startDB();
     }
 
     public static void main(String[] args) {
