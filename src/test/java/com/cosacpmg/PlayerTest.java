@@ -79,60 +79,169 @@ public class PlayerTest {
     @Test
     public void testPlayerFirstNameTooLong()
     {
-        validPlayer.setFirstName(repeatA(65));
-        assertInvalidPlayer("firstName", "All fields have a max Character length of 64", "");
+        String invalid = repeatA(65);
+
+        validPlayer.setFirstName(invalid);
+        assertInvalidPlayer("firstName", "All fields have a max Character length of 64", invalid);
+    }
+
+    @Test
+    public void testPlayerFirstNameEdgeCase()
+    {
+        validPlayer.setFirstName(repeatA(64));
+        assertEquals (0, validator.validate(validPlayer ).size());
     }
 
     @Test
     public void testPlayerLastNameEmpty()
     {
         validPlayer.setLastName("");
-        assertInvalidPlayer("firstName", "All fields must be filled out with valid information", "");
+        assertInvalidPlayer("lastName", "All fields must be filled out with valid information", "");
     }
 
     @Test
     public void testPlayerLastNameTooLong()
     {
-        validPlayer.setLastName(repeatA(65));
-        assertInvalidPlayer("firstName", "All fields have a max Character length of 64", "");
+        String invalid = repeatA(65);
+        validPlayer.setLastName(invalid);
+        assertInvalidPlayer("lastName", "All fields have a max Character length of 64", invalid);
     }
 
+    @Test
+    public void testPlayerLastNameEdgeCase()
+    {
+        validPlayer.setLastName(repeatA(64));
+        assertEquals (0, validator.validate(validPlayer ).size());
+    }
    
 
     @Test
-    public void testPlayerJerseyNumber()
+    public void testPlayerValidJerseyNumber()
     {
-
+        validPlayer.setJerseyNo(01);
+        assertEquals (0, validator.validate(validPlayer ).size());
     }
 
     @Test
-    public void testPlayerPosition()
+    public void testPlayerJerseyNumberOneDigit()
     {
-
+       validPlayer.setJerseyNo(1);
+        assertInvalidPlayer("jerseyNo", "Jersey Number Must have 2 digits", 1);
     }
 
     @Test
-    public void testPlayerEmail()
+    public void testPlayerJerseyNumberThreeDigits()
     {
-
+        validPlayer.setJerseyNo(100);
+        assertInvalidPlayer("jerseyNo", "Jersey Number Must be an Integer between 01 and 99", 100);
     }
 
     @Test
-    public void testPlayerPhoneNumber()
+    public void testPlayerJerseyNumberEmpty()
     {
-
+        validPlayer.setJerseyNo(-1);
+        assertInvalidPlayer("jerseyNo", "All fields must be filled out with valid information", -1);
     }
 
     @Test
-    public void testPlayerEmergencyContactName()
+    public void testPlayerPositionValid()
     {
-
+    validPlayer.setPosition("MidField");
+        assertEquals (0, validator.validate(validPlayer ).size());
+    }
+    @Test
+    public void testPlayerPositionEmpty()
+    {
+        validPlayer.setPosition("");
+        assertInvalidPlayer("position", "All fields must be filled out with valid information", "");
     }
 
     @Test
-    public void testPlayerEmergencyContactPhoneNumber()
+    public void testPlayerEmailEmpty()
     {
+        String invalid= "";
+        validPlayer.setEmail(invalid);
+        assertInvalidPlayer("email", "All fields must be filled out with valid information", invalid);
+    }
 
+    @Test
+    public void testPlayerEmailValid()
+    {
+        validPlayer.setEmail(repeatA(54) + "@gmail.com");
+        assertEquals (0, validator.validate(validPlayer ).size());
+    }
+
+    @Test
+    public void testPlayerEmailInvalidPattern()
+    {
+        String[] invalids= {"A&gmail.com", "A@gmail" };
+        for ( String invalid: invalids)
+        {
+            validPlayer.setEmail(invalid);
+            assertInvalidPlayer("email", "Invalid email format", invalid);
+        }
+    }
+
+    @Test
+    public void testPlayerEmailTooLong()
+    {
+        String invalid = repeatA(65);
+        validPlayer.setEmail(invalid);
+        assertInvalidPlayer("email", "All fields have a max Character length of 64", invalid);
+    }
+
+    @Test
+    public void testPlayerPhoneNumberEmpty()
+    {
+        String invalid = "";
+        validPlayer.setPhoneNumber(invalid);
+        assertInvalidPlayer("phoneNumber", "All fields must be filled out with valid information", invalid);
+    }
+
+    @Test
+    public void testPlayerValidPhoneNumber()
+    {
+        validPlayer.setPhoneNumber("3067159999");
+        assertEquals (0, validator.validate(validPlayer ).size());
+    }
+
+    @Test
+    public void testPlayerInvalidPhoneNumber()
+    {
+        String invalid = "306999999";
+        validPlayer.setPhoneNumber(invalid);
+        assertInvalidPlayer("phoneNumber", "Invalid Phone Number", invalid);
+    }
+
+    @Test
+    public void testPlayerEmergencyContactNameEmpty()
+    {
+        String invalid = "";
+        validPlayer.setEmergencyName(invalid);
+        assertInvalidPlayer("emergencyName", "All fields must be filled out with valid information", invalid);
+    }
+
+    @Test
+    public void testPlayerEmergencyContactNameEdgeCase()
+    {
+        validPlayer.setEmergencyName(repeatA(64));
+        assertEquals (0, validator.validate(validPlayer ).size());
+    }
+
+    @Test
+    public void testPlayerEmergencyContactNameTooLong()
+    {
+        String invalid=repeatA(65);
+        validPlayer.setEmergencyName(invalid);
+        assertInvalidPlayer("emergencyName", "All fields have a max Character length of 64", invalid);
+    }
+
+    @Test
+    public void testPlayerEmergencyContactPhoneNumberEmpty()
+    {
+        String invalid = "";
+        validPlayer.setEmergencyPhoneNumber(invalid);
+        assertInvalidPlayer("emergencyPhoneNumber ", "All fields must be filled out with valid information", invalid);
     }
 
     @Test
