@@ -1,31 +1,89 @@
 package com.cosacpmg;
 
-public class Player {
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
+import javax.validation.constraints.*;
+import java.io.Serializable;
+import java.util.*;
 
+public class Player implements Serializable {
+
+    @DatabaseField(canBeNull = false)
+    @NotEmpty(message = "All fields must be filled out with valid information" )
+    @Size(max = 64, message="All fields have a max Character length of 64")
     private String firstName;
+
+    @DatabaseField(canBeNull = false)
+    @NotEmpty(message = "All fields must be filled out with valid information" )
+    @Size(max = 64, message="All fields have a max Character length of 64")
     private String lastName;
 
+    @DatabaseField(generatedId = true)
     private int playerId;
+
+    @DatabaseField(canBeNull = false)
+    @NotEmpty(message = "All fields must be filled out with valid information" )
+    @Min(value = 2, message="Jersey Number Must have 2 digits")
+    @Max(value = 2, message= "Jersey Number Must be an Integer between 01 and 99")
     private int jerseyNo;
+
+    @DatabaseField(canBeNull = true)
     private String team;
+
+    @DatabaseField(canBeNull = false)
+    @NotEmpty(message = "All fields must be filled out with valid information" )
     private String position;
 
+    @DatabaseField(canBeNull = false)
+    @NotEmpty(message = "All fields must be filled out with valid information" )
+    @Size(max = 64, message="All fields have a max Character length of 64")
     private String streetAddress;
+
+    @DatabaseField(canBeNull = false)
+    @NotEmpty(message = "All fields must be filled out with valid information" )
+    @Size(max = 64, message="All fields have a max Character length of 64")
     private String city;
+
+    @DatabaseField(canBeNull = false)
+    @NotEmpty(message = "All fields must be filled out with valid information" )
     private String province;
+
+    @DatabaseField(canBeNull = false)
+    @NotEmpty(message = "All fields must be filled out with valid information" )
+    @Pattern(regexp = "^[ABCEGHJ-NPRSTVXY]\\d[ABCEGHJ-NPRSTV-Z][ -]?\\d[ABCEGHJ-NPRSTV-Z]\\d$", message = "Invalid Postal Code")
     private String postalCode;
+
+    @DatabaseField(canBeNull = false)
+    @NotEmpty(message = "All fields must be filled out with valid information" )
+    @Size(min = 10,max = 10, message="Invalid Phone Number")
     private String phoneNumber;
+
+    @DatabaseField(canBeNull = false)
+    @NotEmpty(message = "All fields must be filled out with valid information" )
+    @Size(max = 64, message="All fields have a max Character length of 64")
+    @Pattern(regexp = "^\\w+@\\w+\\.\\w+$", message = "Invalid Email")
     private String email;
 
+    @DatabaseField(canBeNull = false)
+    @NotEmpty(message = "All fields must be filled out with valid information" )
+    @Size(max = 64, message="All fields have a max Character length of 64")
     private String emergencyName;
+
+    @DatabaseField(canBeNull = false)
+    @NotEmpty(message = "All fields must be filled out with valid information" )
+    @Size(max = 64, message="All fields have a max Character length of 64")
+    @Pattern(regexp = "^\\w+@\\w+\\.\\w+$", message = "Invalid Email")
     private String emergencyEmail;
+
+    @DatabaseField(canBeNull = false)
+    @NotEmpty(message = "All fields must be filled out with valid information" )
+    @Size(min = 10,max = 10, message="Invalid Phone Number")
     private String emergencyPhoneNumber;
 
 
     public Player()
     {}
-
 
     public String getFirstName() {
         return firstName;
@@ -34,8 +92,6 @@ public class Player {
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-
-
 
     public String getLastName() {
         return lastName;

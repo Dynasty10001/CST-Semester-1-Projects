@@ -19,6 +19,9 @@ public class PlayerTest {
     private String repeatA(int count){
         return new String(new char[count]).replace('\0','A');
     }
+    private String repeat1(int count){
+        return new String(new char[count]).replace('\0','1');
+    }
 
     private void assertInvalidPlayer(String expectedProperty, String expectedErrMsg, Object expectedValue){
         Set<ConstraintViolation<Player>> constraintViolations = validator.validate(validPlayer);
@@ -245,33 +248,152 @@ public class PlayerTest {
     }
 
     @Test
-    public void testPlayerEmergencyEmail()
+    public void testPlayerValidEmergencyContactPhoneNumber()
     {
+        validPlayer.setEmergencyPhoneNumber("3067159999");
+        assertEquals (0, validator.validate(validPlayer ).size());
+    }
+
+    @Test
+    public void testPlayerInvalidEmergencyContactPhoneNumber()
+    {
+        String invalid = "306999999";
+        validPlayer.setEmergencyPhoneNumber(invalid);
+        assertInvalidPlayer("emergencyPhoneNumber ", "Invalid Phone Number", invalid);
+    }
+
+    @Test
+    public void testPlayerEmergencyEmailEmpty()
+    {
+        String invalid= "";
+        validPlayer.setEmergencyEmail(invalid);
+        assertInvalidPlayer("emergencyEmail", "All fields must be filled out with valid information", invalid);
+    }
+
+    @Test
+    public void testPlayerEmergencyEmailValid()
+    {
+        validPlayer.setEmergencyEmail(repeatA(54) + "@gmail.com");
+        assertEquals (0, validator.validate(validPlayer ).size());
+    }
+
+    @Test
+    public void testPlayerEmergencyEmailInvalidPattern()
+    {
+        String[] invalids= {"A&gmail.com", "A@gmail" };
+        for ( String invalid: invalids)
+        {
+            validPlayer.setEmergencyEmail(invalid);
+            assertInvalidPlayer("emergencyEmail", "Invalid email format", invalid);
+        }
+    }
+
+    @Test
+    public void testPlayerEmergencyEmailTooLong()
+    {
+        String invalid = repeatA(65);
+        validPlayer.setEmergencyEmail(invalid);
+        assertInvalidPlayer("emergencyEmail", "All fields have a max Character length of 64", invalid);
+    }
+
+    @Test
+    public void testPlayerStreetAddressEmpty()
+    {
+        String invalid = "";
+        validPlayer.setStreetAddress(invalid);
+        assertInvalidPlayer("streetAddress", "All fields must be filled out with valid information", invalid);
+    }
+
+    @Test
+    public void testPlayerValidStreetAddress()
+    {
+        validPlayer.setStreetAddress("1" + repeatA(63));
+        assertEquals (0, validator.validate(validPlayer ).size());
+    }
+
+    @Test
+    public void testPlayerStreetAddressInvalid()
+    {
+        String[] invalids = {repeatA(64), repeat1(64)};
+        for ( String invalid: invalids)
+        {
+            validPlayer.setStreetAddress((invalid));
+            assertInvalidPlayer("streetAddress", "Invalid Street Address", invalid);
+        }
 
     }
 
     @Test
-    public void testPlayerStreetAddress()
+    public void testPlayerStreetAddressTooLong()
     {
-
+        String invalid = repeatA(65);
+        validPlayer.setStreetAddress((invalid));
+        assertInvalidPlayer("streetAddress", "All fields have a max Character length of 64", invalid);
     }
 
     @Test
-    public void testPlayerCity()
+    public void testPlayerCityEmpty()
     {
-
+        String invalid = "";
+        validPlayer.setCity(invalid);
+        assertInvalidPlayer("city", "All fields must be filled out with valid information", invalid);
     }
 
     @Test
-    public void testPlayerProvince()
+    public void testPlayerCityValid()
     {
-
+        validPlayer.setCity(repeatA(64));
+        assertEquals (0, validator.validate(validPlayer ).size());
     }
 
     @Test
-    public void testPlayerPostaCode()
+    public void testPlayerCityTooLong()
+    {
+        String invalid = repeatA(65);
+        validPlayer.setCity(invalid);
+        assertInvalidPlayer("city", "All fields have a max Character length of 64", invalid);
+    }
+
+    @Test
+    public void testPlayerProvinceEmpty()
+    {
+        String invalid = "";
+        validPlayer.setProvince(invalid);
+        assertInvalidPlayer("province", "All fields must be filled out with valid information", invalid);
+    }
+
+    @Test
+    public void testPlayerProvinceValid()
     {
 
+        validPlayer.setProvince("Saskatchewan");
+        assertEquals (0, validator.validate(validPlayer ).size());
+    }
+
+    @Test
+    public void testPlayerPostalCodeEmpty()
+    {
+        String invalid = "";
+        validPlayer.setPostalCode(invalid);
+        assertInvalidPlayer("postalCode", "All fields must be filled out with valid information", invalid);
+    }
+
+    @Test
+    public void testPlayerPostalCodeValid()
+    {
+        validPlayer.setPostalCode("H0H0H0");
+        assertEquals (0, validator.validate(validPlayer ).size());
+    }
+
+    @Test
+    public void testPlayerPostalCodeInvalid()
+    {
+        String[] invalids = {"0H0H0H0H", "H0H0H", "h) 0a0"};
+        for ( String invalid: invalids)
+        {
+            validPlayer.setPostalCode(invalid);
+            assertInvalidPlayer("postalCode", "Invalid postal code format", invalid);
+        }
     }
 
 }
