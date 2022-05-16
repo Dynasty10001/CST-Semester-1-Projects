@@ -126,10 +126,22 @@ public class TeamTest
     public void testThatInvalidCoachNumTeamNotCreated()
     {
         assertNull(teamController.createTeam(teamName, city, area, coachName, ""));
-        assertNull(teamController.createTeam(teamName, city, area, coachName,
-                ));
+//        assertNull(teamController.createTeam(teamName, city, area, coachName, ));
     }
-
+    
+    /**
+     * Purpose:
+     * Test if a team was created with a correct team name that matches the team name pattern.
+     */
+    @Test
+    public void testThatCoachNumberIsValid()
+    {
+        compareTeam.setCoachNumber("123-123-2134");
+        
+        assertInvalidTeam("team",
+                          "Validation Error: Coach phone number must in the following format: xxx xxx xxxx",
+                          "123-123-2134");
+    }
 
     /**
      * Purpose:
@@ -157,22 +169,96 @@ public class TeamTest
         assertEquals(0, validator.validate(compareTeam).size());
     }
     
+    /**
+     * Purpose
+     * Test is for edge case that Team name is too long as its above 64 characters
+     */
     @Test
-    public void testThatCityIsLessThanOrEqual64()
+    public void testThatTeamNameLengthIsInvalid()
     {
-        assertTrue(testMaxLength(64, compareTeam.getCity()));
+        compareTeam.setTeamName(repeatM(65));
+    
+        assertInvalidTeam("teamName",
+                          "Validation Error: Team name has to be 64 characters or less"
+                                        , repeatM(65));
     }
     
+    
+    /**
+     * Purpose:
+     * Test is for edge case for the City during team creation
+     */
+    @Test
+    public void testThatCityNameIsLessThanOrEqual64()
+    {
+        compareTeam.setCity(repeatM(64));
+        assertEquals(0, validator.validate(compareTeam).size());
+    }
+    
+    /**
+     * Purpose
+     * Test is for edge case that City name is too long as its above 64 characters
+     */
+    @Test
+    public void testThatCityLengthIsInvalid()
+    {
+        compareTeam.setCity(repeatM(65));
+        
+        assertInvalidTeam("city",
+                          "Validation Error: City has to be 64 characters or less"
+                , repeatM(65));
+    }
+    
+    
+    /**
+     * Purpose:
+     * Test is for edge case for the team name during team creation
+     */
     @Test
     public void testThatAreaIsLessThanOrEqual64()
     {
-        assertTrue(testMaxLength(64, compareTeam.getArea()));
+        compareTeam.setArea(repeatM(64));
+        assertEquals(0, validator.validate(compareTeam).size());
     }
     
+    /**
+     * Purpose
+     * Test is for edge case that Team name is too long as its above 64 characters
+     */
+    @Test
+    public void testThatCityNameLengthIsInvalid()
+    {
+        compareTeam.setCity(repeatM(65));
+        
+        assertInvalidTeam("city",
+                          "Validation Error: City has to be 64 characters or less"
+                , repeatM(65));
+    }
+    
+    
+    /**
+     * Purpose:
+     * Test is for edge case for the team name during team creation
+     */
     @Test
     public void testThatCoachNameIsLessThanOrEqual64()
     {
-        assertTrue(testMaxLength(64, compareTeam.getCoachName()));
+        compareTeam.setCoachName(repeatM(64));
+        assertEquals(0, validator.validate(compareTeam).size());
+    }
+    
+    /**
+     * Purpose
+     * Test is for edge case that Team name is too long as its above 64 characters
+     */
+    @Test
+    public void testThatCoachNameNameLengthIsInvalid()
+    {
+        compareTeam.setCoachName(repeatM(65));
+        
+        assertInvalidTeam("coachName",
+                          "Validation Error: Coach name has to be 64 characters or less"
+                , repeatM(65));
     }
     
     /**
@@ -196,8 +282,8 @@ public class TeamTest
     private String repeatM(int count){
         return new String(new char[count]).replace('\0','M');
     }
-
-
+    
+    
     /**
      * This method was sources from the sample project.
      * This method will check the validation on the current team (compareTeam) and checks what validation error message

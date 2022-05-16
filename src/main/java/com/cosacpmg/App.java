@@ -3,6 +3,7 @@ package com.cosacpmg;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
 import controllers.TeamController;
+import controllers.TournamentController;
 import javafx.application.Application;
 import javafx.fxml.*;
 import javafx.scene.*;
@@ -41,9 +42,10 @@ public class App extends Application
         try
         {
             connection = new JdbcConnectionSource(CONNECTION_STRING);
+    
+            TournamentController tournamentController = new TournamentController(connection);
             
-           TeamController teamController = new TeamController(connection);
-           teamController.addTeam(teamController.createTeam("asd", "asd" , "asd" , "asd" , "asd"));
+           tournamentController.addTeam(new TeamController().createTeam("asd", "asd" , "asd" , "asd" , "asd"));
         }
         catch (SQLException e)
         {

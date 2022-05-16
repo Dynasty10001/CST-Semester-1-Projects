@@ -38,15 +38,15 @@ public class TournamentController
 	public Team addTeam(Team team)
 	{
 		Team rTeam = null;
-		try
-		{
-
-		}
-		catch (SQLException e)
-		{
-			e.printStackTrace();
-		}
-
+//		try
+//		{
+//
+//		}
+//		catch (SQLException e)
+//		{
+//			e.printStackTrace();
+//		}
+//
 
 		return rTeam;
 

@@ -38,7 +38,7 @@ public class Team implements Serializable
 	@DatabaseField
 	@NotEmpty(message = "Validation Error: Coach phone number field is empty, please enter valid entry")
 	@Pattern(regexp = "^\\d{3}\\s\\d{3}\\s\\d{4}$",
-			message = "Validation Error: Coahc phone number must in the following format: xxx xxx xxxx")
+			message = "Validation Error: Coach phone number must in the following format: xxx xxx xxxx")
 	private String coachNumber;
 	
 //	ArrayList<Player> playerList;
