@@ -18,9 +18,8 @@ public class TournamentController
 	
 	public TournamentController()
 	{
-	
+
 	}
-	
 	
 	public TournamentController(ConnectionSource connection)
 	{
@@ -36,9 +35,21 @@ public class TournamentController
 	}
 	
 	
-	public void addTeam(Team team)
+	public Team addTeam(Team team)
 	{
-	
+		Team rTeam = null;
+		try
+		{
+
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+
+
+		return rTeam;
+
 	}
 	
 	

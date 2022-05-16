@@ -8,7 +8,6 @@ import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.stage.*;
-import models.Team;
 
 import java.io.IOException;
 import java.sql.SQLException;
