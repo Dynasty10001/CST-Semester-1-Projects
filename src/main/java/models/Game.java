@@ -1,16 +1,38 @@
 package models;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
+import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.Date;
 
+@DatabaseTable(tableName = "games")
 public class Game {
 
-    private Team homeTeam, awayTeam;
+    //@Id
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @DatabaseField(generatedId = true)
+    private long gameID;
+
+    //@Column(nullable = false)
+    @DatabaseField(canBeNull = false)
+    @NotEmpty(message = "Game must have a Home Team" )
+    private Team homeTeam;
+
+    //@Column(nullable = false)
+    @DatabaseField(foreign = true,canBeNull = false )
+    @NotEmpty(message = "Game must have an Away Team" )
+    private Team awayTeam;
+
+    //@Column(nullable = true)
+    @DatabaseField(canBeNull = true)
     private int winners; // 1 is Home, -1 is Away, 0 is a tie game
     private Date startTime;
     private Field location;
-    private ArrayList<Event> gameEvents;
+    private ArrayList<GameEvent> gameEvents;
     private Tournament tournament;
+
 
     public Game()
     {
@@ -67,12 +89,12 @@ public class Game {
         this.location = location;
     }
 
-    public ArrayList<Event> getGameEvents()
+    public ArrayList<GameEvent> getGameEvents()
     {
         return gameEvents;
     }
 
-    public void setGameEvents(ArrayList<Event> gameEvents)
+    public void setGameEvents(ArrayList<GameEvent> gameEvents)
     {
         this.gameEvents = gameEvents;
     }

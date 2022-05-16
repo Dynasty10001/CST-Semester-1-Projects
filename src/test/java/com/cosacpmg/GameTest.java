@@ -1,11 +1,18 @@
 package com.cosacpmg;
 
+import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
+import com.j256.ormlite.support.ConnectionSource;
 import controllers.GameController;
+import controllers.TournamentController;
+import models.Field;
 import models.Game;
 import models.Team;
-import org.junit.Assert;
+import models.Tournament;
+import org.junit.Before;
 import org.junit.Test;
+import views.GameView;
 
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -13,29 +20,58 @@ import static org.junit.Assert.*;
 
 public class GameTest
 {
+    //private static final String CONNECT_STRING = "jdbc:sqlight:schedule.db";
+    Game masterTest;
+    Tournament masterTournament;
+    GameController testGameController;
+    TournamentController testTournamentController;
+    ConnectionSource dbConn;
 
-    Game masterTest = new Game();
+    @Before
+    public void TestSetup() throws SQLException {
+
+        dbConn = new JdbcPooledConnectionSource("jdbc:h2:mem:myDb");
+
+        testGameController = new GameController( new JdbcPooledConnectionSource("jdbc:h2:mem:myDb") );
+        testTournamentController = new TournamentController( new JdbcPooledConnectionSource("jdbc:h2:mem:myDb") );
+        masterTest = new Game();
+        masterTournament = new Tournament();
+
+    }
+
     @Test
-    public void twoObjectsAreTheSame()
+    public void ManualCreationOfGame()
     {
+        Calendar time;
+        time = Calendar.getInstance();
+        time.set(2022, Calendar.JUNE,10);
+        Date date = time.getTime();
+        Team testHometeam = null,testAwayTeam = null;
+        Field testLocation = null;
 
+        Game testGame = GameController.Game(testHometeam,testAwayTeam, time.getTime(),testLocation);
+
+        assertNotNull(testGame);
+        assertEquals(testHometeam,testGame.getHomeTeam());
+        assertEquals(testAwayTeam,testGame.getAwayTeam());
+        assertEquals(testLocation,testGame.getLocation());
+        assertEquals(date,testGame.getStartTime());
     }
 
     @Test
     public void UserCreatesNewGame()
     {
-        Game testGame = GameController.Game();
-        Calendar time;
-        time = Calendar.getInstance();
-        time.set(2022, Calendar.JUNE,10);
-        testGame.setStartTime(time.getTime());
-        Assert.assertNotNull(testGame);
+        GameView.setTournament(masterTournament);
+        masterTournament.getSchedule().clear();
+        GameView.submit();
+        assertFalse( masterTournament.getSchedule().isEmpty() );
     }
 
     @Test
     public void UserCancelsCreatingGame()
     {
-        fail();
+        GameView.cancel();
+        assertTrue( masterTournament.getSchedule().isEmpty() );
     }
 
     @Test
