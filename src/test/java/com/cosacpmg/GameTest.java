@@ -5,23 +5,30 @@ import models.Game;
 import models.Team;
 import org.junit.Test;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import static org.junit.Assert.*;
 
-public class GameTest {
+public class GameTest
+{
 
-
+    Game masterTest = new Game();
     @Test
     public void twoObjectsAreTheSame()
     {
-        Game Test0 = new Game();
-        Game Test1 = GameController.Game();
+        Game test0 = new Game();
+        Game test1 = GameController.Game();
         assertEquals(1,1);
-        assertEquals(Test0,Test1);
+        assertEquals(test0,test1);
+        test1.setStartTime(Calendar.getInstance().set(2002,5,10));
+        assertNotEquals(test0,test1);
     }
 
     @Test
     public void UserCreatesNewGame()
     {
+
         fail();
     }
 
@@ -34,7 +41,11 @@ public class GameTest {
     @Test
     public void CreateGameSetInPast()
     {
-        fail();
+        Calendar past = Calendar.getInstance();
+        past.set(2002,5,10);
+        assertFalse(masterTest.setStartTime(past.getTime()));
+        // Create Contoller method that return if time is valid and then change it
+//        fail();
     }
 
     @Test

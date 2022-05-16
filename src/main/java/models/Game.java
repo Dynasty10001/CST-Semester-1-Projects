@@ -16,59 +16,73 @@ public class Game {
     {
     }
 
-    public Team getHomeTeam() {
+    public Team getHomeTeam()
+    {
         return homeTeam;
     }
 
-    public void setHomeTeam(Team homeTeam) {
+    public void setHomeTeam(Team homeTeam)
+    {
         this.homeTeam = homeTeam;
     }
 
-    public Team getAwayTeam() {
+    public Team getAwayTeam()
+    {
         return awayTeam;
     }
 
-    public void setAwayTeam(Team awayTeam) {
+    public void setAwayTeam(Team awayTeam)
+    {
         this.awayTeam = awayTeam;
     }
 
-    public boolean isWinners() {
+    public boolean isWinners()
+    {
         return winners;
     }
 
-    public void setWinners(boolean winners) {
+    public void setWinners(boolean winners)
+    {
         this.winners = winners;
     }
 
-    public Date getStartTime() {
+    public Date getStartTime()
+    {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(Date startTime)
+    {
         this.startTime = startTime;
     }
 
-    public Field getLocation() {
+    public Field getLocation()
+    {
         return location;
     }
 
-    public void setLocation(Field location) {
+    public void setLocation(Field location)
+    {
         this.location = location;
     }
 
-    public ArrayList<Event> getGameEvents() {
+    public ArrayList<Event> getGameEvents()
+    {
         return gameEvents;
     }
 
-    public void setGameEvents(ArrayList<Event> gameEvents) {
+    public void setGameEvents(ArrayList<Event> gameEvents)
+    {
         this.gameEvents = gameEvents;
     }
 
-    public Tournament getTournament() {
+    public Tournament getTournament()
+    {
         return tournament;
     }
 
-    public void setTournament(Tournament tournament) {
+    public void setTournament(Tournament tournament)
+    {
         this.tournament = tournament;
     }
 }
