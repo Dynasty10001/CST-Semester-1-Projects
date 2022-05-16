@@ -29,15 +29,22 @@ public class GameController
     }
 
 
-    public Game Game(Team homeTeam,Team awayTeam, Date startTime, Field location)
-    {
+    public Game Game(Team homeTeam,Team awayTeam, Date startTime, Field location,Tournament tournament) throws SQLException {
 
         Game game = new Game();
         game.setHomeTeam(homeTeam);
         game.setAwayTeam(awayTeam);
         game.setLocation(location);
         game.setStartTime(startTime);
+        game.setWinners(null);
+        game.setTournament(tournament);
+        repo.create(game);
         return game;
+    }
+
+    public boolean addGameToSchedule(TournamentController TC,Game game){
+        //game.setTournament(TC.getTournament());
+        return false;
     }
 
     public void setGameEvents(Game game,ArrayList<GameEvent> gameEvents)
@@ -49,10 +56,7 @@ public class GameController
         game.getGameEvents().add(gameEvent);
     }
 
-    public boolean setTournament(Game game)
-    {
-        return false;
-    }
+
 
     private boolean roundRobinValidator() {
         return false;

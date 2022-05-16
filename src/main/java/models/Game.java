@@ -4,6 +4,7 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import org.hibernate.validator.constraints.UniqueElements;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
@@ -19,7 +20,7 @@ public class Game {
     private long gameID;
 
     //@Column(nullable = false)
-    @DatabaseField(canBeNull = false)
+    @DatabaseField(foreign = true,canBeNull = false,foreignAutoCreate = true,foreignAutoRefresh = true )
     @NotEmpty(message = "Game must have a Home Team" )
     private Team homeTeam;
 
@@ -32,11 +33,12 @@ public class Game {
     @DatabaseField(canBeNull = true)
     @Max(value = 1,message = "Error with winner Field. 1 is Home Team wins, -1 is Away Team Wins, 0 is Tie, null is Game not Played")
     @Min(value = -1 , message = "Error with winner Field. 1 is Home Team wins, -1 is Away Team Wins, 0 is Tie, null is Game not Played")
-    private int winners; // 1 is Home, -1 is Away, 0 is a tie game, null = Game not played yet
+    private Integer winners; // 1 is Home, -1 is Away, 0 is a tie game, null = Game not played yet
 
     //@Column(nullable = false)
     @DatabaseField(unique = true,canBeNull = false)
     @NotEmpty(message = "A date must be selected for the game")
+    @Valid
     @UniqueElements()
     private Date startTime;
 
@@ -45,6 +47,9 @@ public class Game {
     private Field location;
 
     private ArrayList<GameEvent> gameEvents;
+
+    @DatabaseField(foreign = true, canBeNull = false)
+    @NotEmpty(message = "Game must be contained inside a tournament")
     private Tournament tournament;
 
 
@@ -78,7 +83,7 @@ public class Game {
         return winners;
     }
 
-    public void setWinners(int winners)
+    public void setWinners(Integer winners)
     {
         this.winners = winners;
     }
