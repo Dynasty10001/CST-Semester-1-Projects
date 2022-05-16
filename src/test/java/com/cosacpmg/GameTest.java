@@ -2,12 +2,15 @@ package com.cosacpmg;
 
 import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
+import com.j256.ormlite.table.TableUtils;
 import controllers.GameController;
+import controllers.TeamController;
 import controllers.TournamentController;
 import models.Field;
 import models.Game;
 import models.Team;
 import models.Tournament;
+import org.h2.command.ddl.CreateTable;
 import org.junit.Before;
 import org.junit.Test;
 import views.GameView;
@@ -25,17 +28,29 @@ public class GameTest
     Tournament masterTournament;
     GameController testGameController;
     TournamentController testTournamentController;
+    TeamController testTeamController;
     ConnectionSource dbConn;
+    Team testHometeam, testAwayTeam;
+    Field testLocation;
 
     @Before
     public void TestSetup() throws SQLException {
 
         dbConn = new JdbcPooledConnectionSource("jdbc:h2:mem:myDb");
 
+
+        testTeamController = new TeamController( new JdbcPooledConnectionSource("jdbc:h2:mem:myDb") );
         testGameController = new GameController( new JdbcPooledConnectionSource("jdbc:h2:mem:myDb") );
         testTournamentController = new TournamentController( new JdbcPooledConnectionSource("jdbc:h2:mem:myDb") );
+
+        TableUtils.createTable(testTeamController.repo);
+        TableUtils.createTable(testGameController.repo);
+
         masterTest = new Game();
         masterTournament = new Tournament();
+        testHometeam = testTeamController.team();
+        testAwayTeam = testTeamController.team();
+        testLocation = null;
 
     }
 
@@ -46,10 +61,8 @@ public class GameTest
         time = Calendar.getInstance();
         time.set(2022, Calendar.JUNE,10);
         Date date = time.getTime();
-        Team testHometeam = null,testAwayTeam = null;
-        Field testLocation = null;
 
-        Game testGame = GameController.Game(testHometeam,testAwayTeam, time.getTime(),testLocation);
+        Game testGame = testGameController.Game(testHometeam,testAwayTeam, time.getTime(),testLocation);
 
         assertNotNull(testGame);
         assertEquals(testHometeam,testGame.getHomeTeam());
@@ -79,9 +92,10 @@ public class GameTest
     {
         Calendar past = Calendar.getInstance();
         past.set(2002, Calendar.JUNE,10);
-        masterTest.setStartTime(past.getTime());
-        // Create Contoller method that return if time is valid and then change it
-        //assertTrue();
+        past.getTime();
+        masterTest = testGameController.Game(testHometeam,testAwayTeam,past.getTime(),testLocation);
+        // Make Validator that checks Time is in future
+        assertTrue(testGameController.spaceTimeValidator());
         fail();
     }
 

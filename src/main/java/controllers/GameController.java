@@ -3,6 +3,7 @@ package controllers;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.support.ConnectionSource;
+import com.j256.ormlite.table.TableUtils;
 import models.*;
 
 import java.sql.SQLException;
@@ -12,12 +13,15 @@ import java.util.Date;
 public class GameController
 {
 
-    private Dao<Game, Long> repo;
+    public Dao<Game, Long> repo;
     private ValidationHelper vh = new ValidationHelper();
 
     public GameController(ConnectionSource dbConn){
         try {
             this.repo = DaoManager.createDao(dbConn,Game.class);
+            repo.setAutoCommit(dbConn.getReadWriteConnection("Game"), true);
+            //ensure table exist
+            TableUtils.createTableIfNotExists(dbConn, Game.class);
         }
         catch (SQLException e){
             e.printStackTrace();
@@ -25,8 +29,9 @@ public class GameController
     }
 
 
-    public static Game Game(Team homeTeam,Team awayTeam, Date startTime, Field location)
+    public Game Game(Team homeTeam,Team awayTeam, Date startTime, Field location)
     {
+
         Game game = new Game();
         game.setHomeTeam(homeTeam);
         game.setAwayTeam(awayTeam);
@@ -49,11 +54,11 @@ public class GameController
         return false;
     }
 
-    private boolean RoundRobinValidator() {
+    private boolean roundRobinValidator() {
         return false;
     }
 
-    private boolean SpaceTimeValidator() {
+    public boolean spaceTimeValidator() {
         return false;
     }
 }

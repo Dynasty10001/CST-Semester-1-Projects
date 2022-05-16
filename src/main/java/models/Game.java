@@ -2,7 +2,10 @@ package models;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import org.hibernate.validator.constraints.UniqueElements;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,15 +24,26 @@ public class Game {
     private Team homeTeam;
 
     //@Column(nullable = false)
-    @DatabaseField(foreign = true,canBeNull = false )
+    @DatabaseField(foreign = true,canBeNull = false,foreignAutoCreate = true,foreignAutoRefresh = true )
     @NotEmpty(message = "Game must have an Away Team" )
     private Team awayTeam;
 
     //@Column(nullable = true)
     @DatabaseField(canBeNull = true)
-    private int winners; // 1 is Home, -1 is Away, 0 is a tie game
+    @Max(value = 1,message = "Error with winner Field. 1 is Home Team wins, -1 is Away Team Wins, 0 is Tie, null is Game not Played")
+    @Min(value = -1 , message = "Error with winner Field. 1 is Home Team wins, -1 is Away Team Wins, 0 is Tie, null is Game not Played")
+    private int winners; // 1 is Home, -1 is Away, 0 is a tie game, null = Game not played yet
+
+    //@Column(nullable = false)
+    @DatabaseField(unique = true,canBeNull = false)
+    @NotEmpty(message = "A date must be selected for the game")
+    @UniqueElements()
     private Date startTime;
+
+    @DatabaseField(foreign = true)
+    @NotEmpty(message = "Game must have a location that it is played at")
     private Field location;
+
     private ArrayList<GameEvent> gameEvents;
     private Tournament tournament;
 
