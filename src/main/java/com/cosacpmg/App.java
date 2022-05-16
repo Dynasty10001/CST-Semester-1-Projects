@@ -15,10 +15,10 @@ import java.sql.SQLException;
 
 public class App extends Application
 {
-    public static final String CONNECTIONSTRING = "jdbc:sqlite:schedule.db";
-    private static ConnectionSource connection;
+    public static final String CONNECTION_STRING = "jdbc:sqlite:schedule.db";
+    public static ConnectionSource connection;
     private static Stage mainStage;
-    private static TeamController teamController;
+//    private static TeamController teamController;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -27,6 +27,7 @@ public class App extends Application
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
+        startDB();
     }
 
     public static void main(String[] args) {
@@ -40,8 +41,10 @@ public class App extends Application
     {
         try
         {
-            connection = new JdbcConnectionSource(CONNECTIONSTRING);
-            //teamController = new TeamController(connection);
+            connection = new JdbcConnectionSource(CONNECTION_STRING);
+            
+           TeamController teamController = new TeamController(connection);
+           teamController.addTeam(teamController.createTeam("asd", "asd" , "asd" , "asd" , "asd"));
         }
         catch (SQLException e)
         {
@@ -52,11 +55,11 @@ public class App extends Application
 
 
 
-//    @FXML
-//    private Label welcomeText;
-//
-//    @FXML
-//    protected void onHelloButtonClick() {
-//        welcomeText.setText("Welcome to JavaFX Application!");
-//    }
+    @FXML
+    private Label welcomeText;
+
+    @FXML
+    protected void onHelloButtonClick() {
+        welcomeText.setText("Welcome to JavaFX Application!");
+    }
 }

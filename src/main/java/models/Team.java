@@ -1,15 +1,25 @@
 package models;
 
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
-public class Team
+import java.io.Serializable;
+
+@DatabaseTable(tableName = "teams")
+public class Team implements Serializable
 {
 	
 	
+	@DatabaseField
 	private String teamName;
+	@DatabaseField
 	private String city;
+	@DatabaseField
 	private String area;
+	@DatabaseField
 	private String coachName;
+	@DatabaseField
 	private String coachNumber;
 	
 //	ArrayList<Player> playerList;

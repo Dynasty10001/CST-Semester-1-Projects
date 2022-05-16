@@ -14,25 +14,27 @@ public class TeamTest
     String area = "Brighton";
     String coachName = "John C. Coachington";
     String coachNum = "306 555 6356";
+    TeamController teamController;
     
     
     @Before
     public void createCompatibleValidTeam()
     {
-        compareTeam = TeamController.createTeam(teamName, city, area, coachName, coachNum);
+        teamController = new TeamController();
+        compareTeam = teamController.createTeam(teamName, city, area, coachName, coachNum);
     }
     
     @Test
     public void testThatTeamIsCreated()
     {
-        assertEquals(TeamController.createTeam(teamName, city, area, coachName, coachNum), compareTeam);
+        assertEquals(teamController.createTeam(teamName, city, area, coachName, coachNum), compareTeam);
     }
     
     @Test
     public void testThatInvalidTeamWasNotCreated()
     {
-        assertNull(TeamController.createTeam("", city, area, coachName, coachNum));
-        assertNull(TeamController.createTeam("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        assertNull(teamController.createTeam("", city, area, coachName, coachNum));
+        assertNull(teamController.createTeam("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
                 city, area, coachName, coachNum));//x x 65
 
     }
@@ -40,32 +42,32 @@ public class TeamTest
     @Test
     public void testThatInvalidCityTeamNotCreated()
     {
-        assertNull(TeamController.createTeam(teamName, "", area, coachName, coachNum));
-        assertNull(TeamController.createTeam(teamName, "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        assertNull(teamController.createTeam(teamName, "", area, coachName, coachNum));
+        assertNull(teamController.createTeam(teamName, "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
                 area, coachName, coachNum));
     }
 
     @Test
     public void testThatInvalidAreaTeamNotCreated()
     {
-        assertNull(TeamController.createTeam(teamName, city, "", coachName, coachNum));
-        assertNull(TeamController.createTeam(teamName, city,
+        assertNull(teamController.createTeam(teamName, city, "", coachName, coachNum));
+        assertNull(teamController.createTeam(teamName, city,
                 "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", coachName, coachNum));
     }
 
     @Test
     public void testThatInvalidCoachNameTeamNotCreated()
     {
-        assertNull(TeamController.createTeam(teamName, city, area, "", coachNum));
-        assertNull(TeamController.createTeam(teamName, city, area,
+        assertNull(teamController.createTeam(teamName, city, area, "", coachNum));
+        assertNull(teamController.createTeam(teamName, city, area,
                 "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", coachNum));
     }
 
     @Test
     public void testThatInvalidCoachNumTeamNotCreated()
     {
-        assertNull(TeamController.createTeam(teamName, city, area, coachName, ""));
-        assertNull(TeamController.createTeam(teamName, city, area, coachName,
+        assertNull(teamController.createTeam(teamName, city, area, coachName, ""));
+        assertNull(teamController.createTeam(teamName, city, area, coachName,
                 "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"));
     }
 

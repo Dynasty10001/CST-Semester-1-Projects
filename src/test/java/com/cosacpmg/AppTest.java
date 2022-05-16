@@ -1,13 +1,15 @@
 package com.cosacpmg;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import controllers.TeamController;
 import org.junit.Test;
 
 /**
  * Unit test for simple App.
  */
-public class AppTest 
+public class AppTest
 {
     /**
      * Rigorous Test :-)
@@ -16,6 +18,14 @@ public class AppTest
     public void shouldAnswerWithTrue()
     {
         assertTrue( true );
+    }
+    
+    
+    @Test
+    public void testDBConnection()
+    {
+        TeamController teamController = new TeamController(App.connection);
+        assertNotNull(teamController.repo);
     }
 
 }
