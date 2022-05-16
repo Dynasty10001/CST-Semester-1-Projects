@@ -27,7 +27,7 @@ public class TeamTest
     @Test
     public void testThatTeamIsCreated()
     {
-        assertEquals(TeamController.createTeam(teamName, city, area, coachName, coachNum), compareTeam );
+        assertEquals(TeamController.createTeam(teamName, city, area, coachName, coachNum), compareTeam);
     }
     
     @Test
@@ -35,9 +35,42 @@ public class TeamTest
     {
         assertNull(TeamController.createTeam("", city, area, coachName, coachNum));
         assertNull(TeamController.createTeam("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-                                             city, area, coachName, coachNum));//x x 65
-    
+                city, area, coachName, coachNum));//x x 65
+
     }
+
+    @Test
+    public void testThatInvalidCityTeamNotCreated()
+    {
+        assertNull(TeamController.createTeam(teamName, "", area, coachName, coachNum));
+        assertNull(TeamController.createTeam(teamName, "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                area, coachName, coachNum));
+    }
+
+    @Test
+    public void testThatInvalidAreaTeamNotCreated()
+    {
+        assertNull(TeamController.createTeam(teamName, city, "", coachName, coachNum));
+        assertNull(TeamController.createTeam(teamName, city,
+                "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", coachName, coachNum));
+    }
+
+    @Test
+    public void testThatInvalidCoachNameTeamNotCreated()
+    {
+        assertNull(TeamController.createTeam(teamName, city, area, "", coachNum));
+        assertNull(TeamController.createTeam(teamName, city, area,
+                "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", coachNum));
+    }
+
+    @Test
+    public void testThatInvalidCoachNumTeamNotCreated()
+    {
+        assertNull(TeamController.createTeam(teamName, city, area, coachName, ""));
+        assertNull(TeamController.createTeam(teamName, city, area, coachName,
+                "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"));
+    }
+
     
     
     @Test
@@ -79,7 +112,7 @@ public class TeamTest
     
     
     /**
-     * helper tests length
+     * Helper tests length
      * @param length inclusive
      * @param testString
      * @return
