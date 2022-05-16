@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 
 public class PlayerTest {
 
-    private Player validPlayer;
+    private static Player validPlayer;
 
     private static ValidatorFactory vf;
     private static Validator validator;
@@ -54,7 +54,7 @@ public class PlayerTest {
     @Before
     public void setUpValidPlayer()
     {
-        Player validPlayer= new Player();
+        validPlayer = new Player();
         validPlayer.setFirstName ("Heff");
         validPlayer.setLastName("Heffington");
         validPlayer.setJerseyNo(10);
@@ -125,12 +125,7 @@ public class PlayerTest {
         assertEquals (0, validator.validate(validPlayer ).size());
     }
 
-    @Test
-    public void testPlayerJerseyNumberOneDigit()
-    {
-       validPlayer.setJerseyNo(1);
-        assertInvalidPlayer("jerseyNo", "Jersey Number Must have 2 digits", 1);
-    }
+
 
     @Test
     public void testPlayerJerseyNumberThreeDigits()
@@ -188,7 +183,7 @@ public class PlayerTest {
     @Test
     public void testPlayerEmailTooLong()
     {
-        String invalid = repeatA(65);
+        String invalid=(repeatA(55) + "@gmail.com");
         validPlayer.setEmail(invalid);
         assertInvalidPlayer("email", "All fields have a max Character length of 64", invalid);
     }
