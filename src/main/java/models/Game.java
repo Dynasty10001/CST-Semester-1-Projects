@@ -13,7 +13,7 @@ import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.Date;
 
-@DatabaseTable(tableName = "games")
+@DatabaseTable(tableName = "schedule")
 public class Game {
 
     //@Id
@@ -38,10 +38,9 @@ public class Game {
     private Integer winners; // 1 is Home, -1 is Away, 0 is a tie game, null = Game not played yet
 
     //@Column(nullable = false)
-    @DatabaseField(unique = true,canBeNull = false)
+    @DatabaseField(canBeNull = false)
     @Future
     @NotEmpty(message = "A date must be selected for the game")
-    @UniqueElements()
     private Date startTime;
 
     @DatabaseField(foreign = true)

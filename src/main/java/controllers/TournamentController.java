@@ -27,12 +27,12 @@ public class TournamentController {
     }
 
     public Tournament Tournament(String name) throws SQLException {
-        Tournament tournament = new Tournament();
-        tournament.setTournamentName(name);
-        changeTournament(tournament);
-        tournament.setTeamList(new ArrayList<Team>());
-        repo.create(tournament);
-        return tournament;
+        Tournament myTournament = new Tournament();
+        myTournament.setTournamentName(name);
+        changeTournament(myTournament);
+        myTournament.setTeamList(new ArrayList<Team>());
+        repo.create(myTournament);
+        return myTournament;
     }
 
     public Tournament getTournament(){
