@@ -8,31 +8,39 @@ import java.util.*;
 
 public class PlayerController {
 
-    private Dao<Player, Long> repo;
+    public Dao<Player, Long> repo;
+    private ValidationHelper vh = new ValidationHelper();
 
-    public PlayerController(ConnectionSource dbConn)
-    {
-
+    public PlayerController(ConnectionSource dbConn) {
+        try {
+            this.repo = DaoManager.createDao(dbConn, Player.class);
+            repo.setAutoCommit(dbConn.getReadWriteConnection("Player"), true);
+            //ensure table exist
+            TableUtils.createTableIfNotExists(dbConn, Player.class);
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 
 
 
 
-    public static Player getPlayer()
+    public Player getPlayer()
     {
         Player returnedPlayer = null;
 
         return returnedPlayer;
     }
 
-    public static Player addPlayer()
-    {
-        Player returnedPlayer = null;
+    public Player addPlayer(Player player) throws SQLException {
+        Player returnedPlayer = player;
+        this.repo.create(returnedPlayer);
 
         return returnedPlayer;
     }
 
-    public static Player editplayer()
+    public Player editplayer()
     {
         Player returnedPlayer = null;
 

@@ -1,12 +1,14 @@
 package com.cosacpmg;
 
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
 
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.*;
 
+@DatabaseTable
 public class Player implements Serializable {
 
     @DatabaseField(canBeNull = false)

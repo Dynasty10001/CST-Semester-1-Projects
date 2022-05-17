@@ -10,13 +10,6 @@ import com.j256.ormlite.table.TableUtils;
 
 import java.sql.SQLException;
 
-@DatabaseTable
-public class Team
-{
-    @DatabaseField(generatedId = true)
-    private long TeamID;
-}
-
 public class TeamController
 {
     public Dao<Team, Long> repo;
