@@ -10,16 +10,26 @@ import java.io.IOException;
 
 public class AppView
 {
-    BorderPane borderPane;
+    @FXML BorderPane borderPane;
+    
+    protected void initialize(){
+    }
+    
 
-	protected void changePaneHandler(String fxmlPath) throws IOException
+	private void changePaneHandler(String fxmlPath) throws IOException
 	{
-        // Fixme App might be broken. A little unsure check this later if broken.
-		FXMLLoader loader = new FXMLLoader(AppView.class.getResource(fxmlPath));
-		Pane pane = new Pane();
-		pane.getChildren().add(loader.load());
-        borderPane.setCenter(pane);
+        changePaneHandler(fxmlPath, borderPane);
 	}
+    
+    protected static void changePaneHandler(String fxmlPath, BorderPane bP) throws  IOException
+    {
+        // Fixme App might be broken. A little unsure check this later if broken.
+//		FXMLLoader loader = new FXMLLoader(AppView.class.getResource(fxmlPath));
+        FXMLLoader loader = new FXMLLoader(App.class.getResource(fxmlPath));
+        Pane pane = new Pane();
+        pane.getChildren().add(loader.load());
+        bP.setCenter(pane);
+    }
 
     // Todo Do this later. bozo. maybe store an array list of panes as strings in a "history" list
 //    protected void onBackNavHandler()
@@ -43,7 +53,7 @@ public class AppView
     @FXML
     protected void onTeamsNavHandler() throws IOException
     {
-        changePaneHandler("teams-view-pane.fxml");
+        changePaneHandler("team-view.fxml");
     }
 
     @FXML
