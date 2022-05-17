@@ -23,7 +23,6 @@ public class Player implements Serializable {
     private int playerId;
 
     @DatabaseField(canBeNull = false)
-    @Positive(message = "All fields must be filled out with valid information" )
     @Min(value = 1, message="Jersey Number Must have 2 digits")
     @Max(value = 99, message= "Jersey Number Must be an Integer between 01 and 99")
     private int jerseyNo;

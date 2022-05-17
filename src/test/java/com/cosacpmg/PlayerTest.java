@@ -191,7 +191,7 @@ public class PlayerTest {
     @Test
     public void testPlayerPhoneNumberEmpty()
     {
-        String invalid = "";
+        String invalid = null;
         validPlayer.setPhoneNumber(invalid);
         assertInvalidPlayer("phoneNumber", "All fields must be filled out with valid information", invalid);
     }
@@ -237,9 +237,10 @@ public class PlayerTest {
     @Test
     public void testPlayerEmergencyContactPhoneNumberEmpty()
     {
-        String invalid = "";
+        String invalid = null;
         validPlayer.setEmergencyPhoneNumber(invalid);
-        assertInvalidPlayer("emergencyPhoneNumber ", "All fields must be filled out with valid information", invalid);
+        assertInvalidPlayer("emergencyPhoneNumber", "All fields must be filled out with valid information", invalid);
+
     }
 
     @Test
@@ -294,7 +295,7 @@ public class PlayerTest {
     @Test
     public void testPlayerStreetAddressEmpty()
     {
-        String invalid = "";
+        String invalid = null;
         validPlayer.setStreetAddress(invalid);
         assertInvalidPlayer("streetAddress", "All fields must be filled out with valid information", invalid);
     }
@@ -368,7 +369,7 @@ public class PlayerTest {
     @Test
     public void testPlayerPostalCodeEmpty()
     {
-        String invalid = "";
+        String invalid = null;
         validPlayer.setPostalCode(invalid);
         assertInvalidPlayer("postalCode", "All fields must be filled out with valid information", invalid);
     }
