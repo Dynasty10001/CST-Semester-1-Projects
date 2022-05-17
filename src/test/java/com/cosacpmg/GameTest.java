@@ -7,7 +7,6 @@ import controllers.GameController;
 import controllers.TeamController;
 import controllers.TournamentController;
 import models.*;
-import org.h2.command.ddl.CreateTable;
 import org.junit.*;
 import views.GameView;
 
@@ -15,9 +14,11 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+import javax.xml.stream.Location;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import static org.junit.Assert.*;
@@ -29,17 +30,23 @@ public class GameTest
     private static Validator validator;
     Game masterTest;
     Tournament masterTournament;
-    GameController testGameController;
-    TournamentController testTournamentController;
-    TeamController testTeamController;
-    ConnectionSource dbConn;
+    private static GameController testGameController;
+    private static TournamentController testTournamentController;
+    private static TeamController testTeamController;
+    private static ConnectionSource dbConn;
     Team testHometeam, testAwayTeam;
     Field testLocation;
+    Date date;
 
     @BeforeClass
-    public static void SetupValidator(){
+    public static void SetupValidator() throws SQLException {
         VF = Validation.buildDefaultValidatorFactory();
         validator = VF.getValidator();
+
+        dbConn = new JdbcPooledConnectionSource("jdbc:h2:mem:myDb");
+
+
+
 
     }
 
@@ -48,21 +55,29 @@ public class GameTest
     {
         VF.close();
     }
+
+
     @Before
     public void TestSetup() throws SQLException {
 
-        dbConn = new JdbcPooledConnectionSource("jdbc:h2:mem:myDb");
+
+        Calendar time = Calendar.getInstance();
+        time.set(2022, Calendar.JUNE,10);
+        date = time.getTime();
 
 
-        testTeamController = new TeamController( new JdbcPooledConnectionSource("jdbc:h2:mem:myDb") );
-        testGameController = new GameController( new JdbcPooledConnectionSource("jdbc:h2:mem:myDb") );
-        testTournamentController = new TournamentController( new JdbcPooledConnectionSource("jdbc:h2:mem:myDb") );
 
-        TableUtils.createTable(testTeamController.repo);
-        TableUtils.createTable(testGameController.repo);
+        testTeamController = new TeamController(dbConn);
+        testGameController = new GameController( dbConn);
+        testTournamentController = new TournamentController(dbConn);
 
+        TableUtils.clearTable(dbConn,Tournament.class);
+        TableUtils.clearTable(dbConn,Game.class);
+        TableUtils.clearTable(dbConn,Team.class);
+
+        masterTournament = testTournamentController.Tournament("MasterTournament");
         masterTest = new Game();
-        masterTournament = testTournamentController.Tournament("ThisTournament");
+
         testHometeam = testTeamController.team();
         testAwayTeam = testTeamController.team();
         testLocation = null;
@@ -71,12 +86,8 @@ public class GameTest
 
     @Test
     public void ManualCreationOfGame() throws SQLException {
-        Calendar time;
-        time = Calendar.getInstance();
-        time.set(2022, Calendar.JUNE,10);
-        Date date = time.getTime();
 
-        Game testGame = testGameController.Game(testHometeam,testAwayTeam, time.getTime(),testLocation,masterTournament);
+        Game testGame = testGameController.Game(testHometeam,testAwayTeam, date,testLocation,masterTournament);
 
         assertNotNull(testGame);
         assertEquals(testHometeam,testGame.getHomeTeam());
@@ -85,7 +96,7 @@ public class GameTest
         assertEquals(date,testGame.getStartTime());
     }
 
-    private void assertInvalidGame(String expectedProperty, String expectedErrMsg, Object expectedValue){
+    private void assertInvalidGameMessage(String expectedProperty, String expectedErrMsg, Object expectedValue){
         //run validator on car object and store the resulting violations in a collection
         Set<ConstraintViolation<Game>> constraintViolations = validator.validate( masterTest );//use the private global car created in setUpValidCar
 
@@ -106,61 +117,87 @@ public class GameTest
     }
 
     @Test
-    public void UserCreatesNewGame()
-    {
-        GameView.setTournament(masterTournament);
-        masterTournament.getSchedule().clear();
-        GameView.submit();
-        assertFalse( masterTournament.getSchedule().isEmpty() );
+    public void UserCreatesNewGame() throws SQLException {
+        Team UnusedTeamOne = new Team();
+        Team UnusedTeamTwo = new Team();
+        Calendar time = Calendar.getInstance();
+        time.set(2022, Calendar.JUNE,10);
+        Date newDate = time.getTime();
+        Game SecondGame = testGameController.Game(UnusedTeamOne,UnusedTeamTwo, newDate,new Field(),masterTournament);
+
+        List<Game> schedule = testGameController.getSchedule(masterTournament);
+        assertTrue(schedule.contains(SecondGame));
     }
 
     @Test
-    public void GameDateMustBeInFuture()
-    {
-        Calendar past = Calendar.getInstance();
-        past.set(2002, Calendar.JUNE,10);
-        masterTest.setStartTime(past.getTime());
-        Long Time = past.getTime().getTime();
+    public void GameDateMustBeInFuture() throws SQLException {
 
-        assertInvalidGame("startTime","Message",Time);
+        Team UnusedTeamOne = new Team();
+        Team UnusedTeamTwo = new Team();
+        Calendar time = Calendar.getInstance();
+        time.set(2002, Calendar.JUNE,10);
+        Date newDate = time.getTime();
+        Game SecondGame = testGameController.Game(UnusedTeamOne,UnusedTeamTwo, newDate,new Field(),masterTournament);
 
+        List<Game> schedule = testGameController.getSchedule(masterTournament);
+        assertTrue(schedule.size()>0);
+        assertFalse(schedule.contains(SecondGame));
     }
 
     @Test
-    public void UserCancelsCreatingGame()
-    {
+    public void UserCancelsCreatingGame() throws SQLException {
         GameView.cancel();
-        assertTrue( masterTournament.getSchedule().isEmpty() );
+        assertEquals(0,testGameController.repo.countOf());
     }
 
     @Test
-    public void CreateGameSetInPast() throws SQLException {
-        Calendar past = Calendar.getInstance();
-        past.set(2002, Calendar.JUNE,10);
-        past.getTime();
-        masterTest = testGameController.Game(testHometeam,testAwayTeam,past.getTime(),testLocation,masterTournament);
-        // Make Validator that checks Time is in future
-        assertTrue(testGameController.spaceTimeValidator());
-        fail();
+    public void CreateGameWithTeam1AlreadyInGame() throws SQLException {
+        Team UnusedTeam = new Team();
+        Game SecondGame = testGameController.Game(testHometeam,UnusedTeam, date,new Field(),masterTournament);
+
+        List<Game> schedule = testGameController.getSchedule(masterTournament);
+        assertTrue(schedule.size()>0);
+        assertFalse(schedule.contains(SecondGame));
     }
 
     @Test
-    public void CreateGameWithTeamAlreadyInGame()
-    {
-        Game ContainsTeamUsed = new Game();
-        Team UsedTeam = new Team();
-        ContainsTeamUsed.setHomeTeam(UsedTeam);
+    public void CreateGameWithTeam2AlreadyInGame() throws SQLException {
+        Team UnusedTeam = new Team();
+        Game SecondGame = testGameController.Game(UnusedTeam,testAwayTeam, date,new Field(),masterTournament);
 
-        Game NewGame = new Game();
-        NewGame.setHomeTeam(UsedTeam);
-        NewGame.setAwayTeam(new Team());
-        fail(); // Needs an exception checker
+        List<Game> schedule = testGameController.getSchedule(masterTournament);
+        assertTrue(schedule.size()>0);
+        assertFalse(schedule.contains(SecondGame));
+    }
+    @Test
+    public void CreateGameWithBothTeamAlreadyInGame() throws SQLException {
+        Team UnusedTeam = new Team();
+        Game SecondGame = testGameController.Game(testHometeam,testAwayTeam, date,new Field(),masterTournament);
+
+        List<Game> schedule = testGameController.getSchedule(masterTournament);
+        assertTrue(schedule.size()>0);
+        assertFalse(schedule.contains(SecondGame));
     }
 
     @Test
-    public void CreateGameOnUsedField()
-    {
-        fail();
+    public void CreateGameWithSameTeam() throws SQLException {
+        Team UnusedTeam = new Team();
+        Game SecondGame = testGameController.Game(UnusedTeam,UnusedTeam, date,new Field(),masterTournament);
+
+        List<Game> schedule = testGameController.getSchedule(masterTournament);
+        assertTrue(schedule.size()>0);
+        assertFalse(schedule.contains(SecondGame));
+    }
+
+    @Test
+    public void CreateGameOnUsedField() throws SQLException {
+        Team UnusedTeamOne = new Team();
+        Team UnusedTeamTwo = new Team();
+        Game SecondGame = testGameController.Game(UnusedTeamOne,UnusedTeamTwo, date,testLocation,masterTournament);
+
+        List<Game> schedule = testGameController.getSchedule(masterTournament);
+        assertTrue(schedule.size()>0);
+        assertFalse(schedule.contains(SecondGame));
     }
     //@Test
     public void CreateGameRoundRobinRescheduled()

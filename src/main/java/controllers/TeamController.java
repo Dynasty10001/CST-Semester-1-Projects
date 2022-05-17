@@ -28,8 +28,8 @@ public class TeamController {
     }
 
     public Team team() throws SQLException {
-        Team team = new Team();
-        repo.create(team);
-        return team;
+        Team myTeam = new Team();
+        repo.create(myTeam);
+        return myTeam;
     }
 }

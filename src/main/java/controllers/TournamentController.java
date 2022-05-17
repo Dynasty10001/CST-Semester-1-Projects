@@ -23,6 +23,7 @@ public class TournamentController {
         repo.setAutoCommit(dbConn.getReadWriteConnection("Game"), true);
         //ensure table exist
         TableUtils.createTableIfNotExists(dbConn, Tournament.class);
+
     }
 
     public Tournament Tournament(String name) throws SQLException {
@@ -36,6 +37,10 @@ public class TournamentController {
 
     public Tournament getTournament(){
         return CurrentTournament;
+    }
+
+    public void setSchedule(ArrayList<Game> newSchedule) throws SQLException {
+        //TableUtils.clearTable(repo.getConnectionSource(),Tournament.class); deletes Tournament Table
     }
 
     public ArrayList<Game> getSchedule(){

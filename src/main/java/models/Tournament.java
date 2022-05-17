@@ -14,6 +14,9 @@ import java.util.List;
 public class Tournament
 {
     @DatabaseField(id = true)
+    private int tournamentID;
+
+    @DatabaseField(canBeNull = false)
     private String tournamentName;
 
     @ForeignCollectionField(eager = true)
@@ -24,6 +27,10 @@ public class Tournament
 
     public Tournament()
     {
+    }
+
+    public int getTournamentID() {
+        return tournamentID;
     }
 
     public String getTournamentName() {

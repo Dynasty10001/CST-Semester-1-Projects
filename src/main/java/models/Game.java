@@ -2,9 +2,11 @@ package models;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import controllers.GameController;
 import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
@@ -20,12 +22,12 @@ public class Game {
     private long gameID;
 
     //@Column(nullable = false)
-    @DatabaseField(foreign = true,canBeNull = false,foreignAutoCreate = true,foreignAutoRefresh = true )
+    @DatabaseField(foreign = true,canBeNull = false,foreignAutoCreate = false,foreignAutoRefresh = true )
     @NotEmpty(message = "Game must have a Home Team" )
     private Team homeTeam;
 
     //@Column(nullable = false)
-    @DatabaseField(foreign = true,canBeNull = false,foreignAutoCreate = true,foreignAutoRefresh = true )
+    @DatabaseField(foreign = true,canBeNull = false,foreignAutoCreate = false,foreignAutoRefresh = true )
     @NotEmpty(message = "Game must have an Away Team" )
     private Team awayTeam;
 
@@ -37,8 +39,8 @@ public class Game {
 
     //@Column(nullable = false)
     @DatabaseField(unique = true,canBeNull = false)
+    @Future
     @NotEmpty(message = "A date must be selected for the game")
-    @Valid
     @UniqueElements()
     private Date startTime;
 
