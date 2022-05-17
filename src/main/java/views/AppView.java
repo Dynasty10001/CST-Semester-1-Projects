@@ -11,19 +11,22 @@ import java.io.IOException;
 public class AppView
 {
     @FXML BorderPane borderPane;
-    
-    protected void initialize(){
+    static BorderPane staticBorderPane;
+
+    @FXML
+    protected void initialize()
+    {
+        staticBorderPane = borderPane;
     }
     
 
 	private void changePaneHandler(String fxmlPath) throws IOException
 	{
-        changePaneHandler(fxmlPath, borderPane);
+        changePaneHandler(fxmlPath, staticBorderPane);
 	}
     
-    protected static void changePaneHandler(String fxmlPath, BorderPane bP) throws  IOException
+    protected static void changePaneHandler(String fxmlPath, BorderPane bP) throws IOException
     {
-        // Fixme App might be broken. A little unsure check this later if broken.
 //		FXMLLoader loader = new FXMLLoader(AppView.class.getResource(fxmlPath));
         FXMLLoader loader = new FXMLLoader(App.class.getResource(fxmlPath));
         Pane pane = new Pane();

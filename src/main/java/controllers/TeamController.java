@@ -40,7 +40,7 @@ public class TeamController
 	 * @param coachNum
 	 * @return
 	 */
-	public Team createTeam(String teamName, String city, String area, String coachName, String coachNum)
+	public static Team createTeam(String teamName, String city, String area, String coachName, String coachNum)
 	{
 		Team team = new Team();
 		team.setTeamName(teamName);

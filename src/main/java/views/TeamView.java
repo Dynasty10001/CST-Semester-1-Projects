@@ -16,8 +16,8 @@ public class TeamView
 	
 	
 	@FXML protected TableView<Team> teamList;
-	@FXML
-	BorderPane borderPane;
+
+	@FXML BorderPane borderPane;
 	
 	
 	/**
@@ -69,7 +69,7 @@ public class TeamView
 	@FXML
 	protected void teamViewAddTeamHandler() throws IOException
 	{
-		AppView.changePaneHandler("add-team-view.fxml",borderPane);
+		AppView.changePaneHandler("add-team-view.fxml",AppView.staticBorderPane);
 	}
 	
 	

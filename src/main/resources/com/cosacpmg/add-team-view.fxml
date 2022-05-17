@@ -5,12 +5,13 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.AddTeamView">
+<AnchorPane prefHeight="562.0" prefWidth="981.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.AddTeamView">
    <children>
-      <GridPane hgap="10.0" layoutX="236.0" layoutY="123.0" prefHeight="155.0" prefWidth="303.0" vgap="10.0" AnchorPane.bottomAnchor="122.0" AnchorPane.leftAnchor="236.0" AnchorPane.rightAnchor="61.0" AnchorPane.topAnchor="123.0">
+      <GridPane hgap="30.0" layoutX="80.0" layoutY="138.0" minHeight="45.0" prefHeight="265.0" prefWidth="840.0" vgap="30.0" AnchorPane.bottomAnchor="159.0" AnchorPane.rightAnchor="61.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="198.0" minWidth="10.0" prefWidth="126.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="188.0" minWidth="10.0" prefWidth="177.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="198.0" minWidth="10.0" prefWidth="140.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="293.0" minWidth="10.0" prefWidth="197.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="420.0" minWidth="10.0" prefWidth="420.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -20,24 +21,49 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Team Name" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
-            <TextField fx:id="teamField" prefHeight="100.0" GridPane.columnIndex="1">
+            <Label minHeight="45.0" text="Team Name" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
+            <TextField fx:id="teamField" GridPane.columnIndex="1">
                <padding>
                   <Insets top="10.0" />
                </padding></TextField>
-            <Label layoutX="82.0" layoutY="13.0" text="City" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS" />
-            <Label text="Area" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS" />
-            <Label text="Coach Name" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS" />
-            <Label prefHeight="37.0" prefWidth="134.0" text="Coach Phone Number" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.vgrow="ALWAYS" />
-            <TextField fx:id="cityField" prefHeight="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="areaField" prefHeight="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="coachField" prefHeight="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="coachNumField" prefHeight="100.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label layoutX="82.0" layoutY="13.0" minHeight="45.0" text="City" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS" />
+            <Label minHeight="45.0" text="Area" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS" />
+            <Label minHeight="45.0" text="Coach Name" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS" />
+            <Label minHeight="45.0" prefHeight="37.0" prefWidth="134.0" text="Coach Phone Number" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.vgrow="ALWAYS" />
+            <TextField fx:id="cityField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="areaField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="coachField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="coachNumField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label fx:id="teamFieldError" minHeight="45.0" textFill="#bf0000" GridPane.columnIndex="2">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="cityFieldError" minHeight="45.0" textFill="#bf0000" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="areaFieldError" minHeight="45.0" textFill="#bf0000" GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="coachFieldError" minHeight="45.0" textFill="#bf0000" GridPane.columnIndex="2" GridPane.rowIndex="3">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="coachNumFieldError" minHeight="45.0" textFill="#bf0000" textOverrun="CLIP" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="4">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
          </children>
       </GridPane>
-      <Button layoutX="362.0" layoutY="316.0" mnemonicParsing="false" text="Cancel" />
-      <Button layoutX="459.0" layoutY="316.0" mnemonicParsing="false" text="CreateTeam" />
-      <Label layoutX="80.0" layoutY="42.0" text="Team Creator">
+      <Button layoutX="503.0" layoutY="304.0" mnemonicParsing="false" onAction="#addTeamCancelHandler" text="Cancel" AnchorPane.bottomAnchor="71.0" AnchorPane.rightAnchor="199.0" />
+      <Button layoutX="600.0" layoutY="304.0" mnemonicParsing="false" onAction="#addTeamSubmitHandler" text="CreateTeam" AnchorPane.bottomAnchor="71.0" AnchorPane.rightAnchor="74.0" />
+      <Label layoutX="80.0" layoutY="42.0" text="Team Creator" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="42.0">
          <font>
             <Font name="System Italic" size="27.0" />
          </font>
