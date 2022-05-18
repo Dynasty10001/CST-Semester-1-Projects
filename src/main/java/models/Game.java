@@ -58,6 +58,10 @@ public class Game {
     {
     }
 
+    public long getGameID(){
+        return this.gameID;
+    }
+
     public Team getHomeTeam()
     {
         return homeTeam;

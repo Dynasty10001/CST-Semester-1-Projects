@@ -31,7 +31,7 @@ public class GameController
     }
 
 
-    public Game Game(Team homeTeam,Team awayTeam, Date startTime, Field location,Tournament tournament) throws SQLException {
+    public Game createGame(Team homeTeam, Team awayTeam, Date startTime, Field location, Tournament tournament) throws SQLException {
 
         Game game = new Game();
         game.setHomeTeam(homeTeam);

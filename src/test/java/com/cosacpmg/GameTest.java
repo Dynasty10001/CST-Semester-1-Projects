@@ -8,13 +8,14 @@ import controllers.TeamController;
 import controllers.TournamentController;
 import models.*;
 import org.junit.*;
+import views.AddGameView;
 import views.GameView;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
-import javax.xml.stream.Location;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
@@ -79,14 +80,14 @@ public class GameTest
         testHometeam = testTeamController.team();
         testAwayTeam = testTeamController.team();
         testLocation = null;
-        masterTest = testGameController.Game(testHometeam, testAwayTeam, date, testLocation, masterTournament);
+        masterTest = testGameController.createGame(testHometeam, testAwayTeam, date, testLocation, masterTournament);
 
     }
 
     @Test
     public void ManualCreationOfGame() throws SQLException {
 
-        Game testGame = testGameController.Game(testHometeam,testAwayTeam, date,testLocation,masterTournament);
+        Game testGame = testGameController.createGame(testHometeam,testAwayTeam, date,testLocation,masterTournament);
 
         assertNotNull(testGame);
         assertEquals(testHometeam,testGame.getHomeTeam());
@@ -122,7 +123,7 @@ public class GameTest
         Calendar time = Calendar.getInstance();
         time.set(2022, Calendar.JUNE,10);
         Date newDate = time.getTime();
-        Game SecondGame = testGameController.Game(UnusedTeamOne,UnusedTeamTwo, newDate,new Field(),masterTournament);
+        Game SecondGame = testGameController.createGame(UnusedTeamOne,UnusedTeamTwo, newDate,new Field(),masterTournament);
 
         List<Game> schedule = testGameController.getSchedule(masterTournament);
 
@@ -144,7 +145,7 @@ public class GameTest
         Calendar time = Calendar.getInstance();
         time.set(2002, Calendar.JUNE,10);
         Date newDate = time.getTime();
-        Game SecondGame = testGameController.Game(UnusedTeamOne,UnusedTeamTwo, newDate,new Field(),masterTournament);
+        Game SecondGame = testGameController.createGame(UnusedTeamOne,UnusedTeamTwo, newDate,new Field(),masterTournament);
 
         List<Game> schedule = testGameController.getSchedule(masterTournament);
         assertTrue(schedule.size()>0);
@@ -152,15 +153,16 @@ public class GameTest
     }
 
     @Test
-    public void UserCancelsCreatingGame() throws SQLException {
-        GameView.cancel();
+    public void UserCancelsCreatingGame() throws SQLException, IOException {
+        AddGameView addgame = new AddGameView();
+        addgame.addGameCancelHandler();
         assertEquals(1,testGameController.repo.countOf());
     }
 
     @Test
     public void CreateGameWithTeam1AlreadyInGame() throws SQLException {
         Team UnusedTeam = new Team();
-        Game SecondGame = testGameController.Game(testHometeam,UnusedTeam, date,new Field(),masterTournament);
+        Game SecondGame = testGameController.createGame(testHometeam,UnusedTeam, date,new Field(),masterTournament);
 
         List<Game> schedule = testGameController.getSchedule(masterTournament);
         assertTrue(schedule.size()>0);
@@ -171,7 +173,7 @@ public class GameTest
     @Test
     public void CreateGameWithTeam2AlreadyInGame() throws SQLException {
         Team UnusedTeam = new Team();
-        Game SecondGame = testGameController.Game(UnusedTeam,testAwayTeam, date,new Field(),masterTournament);
+        Game SecondGame = testGameController.createGame(UnusedTeam,testAwayTeam, date,new Field(),masterTournament);
 
         List<Game> schedule = testGameController.getSchedule(masterTournament);
         assertTrue(schedule.size()>0);
@@ -181,7 +183,7 @@ public class GameTest
     @Test
     public void CreateGameWithBothTeamAlreadyInGame() throws SQLException {
         Team UnusedTeam = new Team();
-        Game SecondGame = testGameController.Game(testHometeam,testAwayTeam, date,new Field(),masterTournament);
+        Game SecondGame = testGameController.createGame(testHometeam,testAwayTeam, date,new Field(),masterTournament);
 
         List<Game> schedule = testGameController.getSchedule(masterTournament);
         assertTrue(schedule.size()>0);
@@ -192,7 +194,7 @@ public class GameTest
     @Test
     public void CreateGameWithSameTeam() throws SQLException {
         Team UnusedTeam = new Team();
-        Game SecondGame = testGameController.Game(UnusedTeam,UnusedTeam, date,new Field(),masterTournament);
+        Game SecondGame = testGameController.createGame(UnusedTeam,UnusedTeam, date,new Field(),masterTournament);
 
         List<Game> schedule = testGameController.getSchedule(masterTournament);
         assertTrue(schedule.size()>0);
@@ -204,7 +206,7 @@ public class GameTest
     public void CreateGameOnUsedField() throws SQLException {
         Team UnusedTeamOne = new Team();
         Team UnusedTeamTwo = new Team();
-        Game SecondGame = testGameController.Game(UnusedTeamOne,UnusedTeamTwo, date,testLocation,masterTournament);
+        Game SecondGame = testGameController.createGame(UnusedTeamOne,UnusedTeamTwo, date,testLocation,masterTournament);
 
         List<Game> schedule = testGameController.getSchedule(masterTournament);
         assertTrue(schedule.size()>0);

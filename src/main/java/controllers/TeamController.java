@@ -32,4 +32,8 @@ public class TeamController {
         repo.create(myTeam);
         return myTeam;
     }
+
+    public Team createTeam(String saskatoon, String sparks, String brighton, String jack, String s) {
+        return new Team();
+    }
 }

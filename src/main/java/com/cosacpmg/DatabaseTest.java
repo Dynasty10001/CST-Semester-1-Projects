@@ -7,7 +7,6 @@ import controllers.TeamController;
 import controllers.TournamentController;
 import models.Field;
 import models.Team;
-import models.Tournament;
 
 import java.sql.SQLException;
 import java.util.Calendar;
@@ -30,7 +29,7 @@ public class DatabaseTest {
             time = Calendar.getInstance();
             time.set(2022, Calendar.JUNE,10);
             Date date = time.getTime();
-            GC.Game(one,two,date,new Field(),TUC.getTournament());
+            GC.createGame(one,two,date,new Field(),TUC.getTournament());
 
 
 
