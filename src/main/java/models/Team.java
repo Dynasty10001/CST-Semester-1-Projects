@@ -7,5 +7,10 @@ import com.j256.ormlite.table.DatabaseTable;
 public class Team
 {
     @DatabaseField(generatedId = true)
-    private long TeamID;
+    public int teamID;
+
+    @Override
+    public String toString(){
+        return "" + teamID;
+    }
 }

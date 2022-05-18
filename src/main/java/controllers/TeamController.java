@@ -2,13 +2,16 @@ package controllers;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
+import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import models.Game;
 import models.Team;
+import models.Tournament;
 import models.ValidationHelper;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class TeamController {
 
@@ -33,7 +36,15 @@ public class TeamController {
         return myTeam;
     }
 
-    public Team createTeam(String saskatoon, String sparks, String brighton, String jack, String s) {
-        return new Team();
+    public Team createTeam(String saskatoon, String sparks, String brighton, String jack, String s) throws SQLException {
+        Team myTeam = new Team();
+        repo.create(myTeam);
+        return myTeam;
+    }
+
+    public List<Team> getRoster() throws SQLException {
+        QueryBuilder<Team, Long> scheduleQuery = repo.queryBuilder();
+        List<Team> roster = repo.query(scheduleQuery.prepare());
+        return roster;
     }
 }

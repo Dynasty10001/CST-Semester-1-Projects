@@ -3,6 +3,7 @@ package views;
 import com.cosacpmg.App;
 import controllers.GameController;
 import controllers.TeamController;
+import controllers.TournamentController;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -27,6 +28,7 @@ public class GameView
     @FXML BorderPane borderPane;
 
 
+
     /**
      * This method creates columns to be used in a table view, using a label as the name of the column and the
      * property name being the text name of the attribute.
@@ -40,42 +42,46 @@ public class GameView
         return returnCol;
     }
 
-    @FXML
-    protected void initialize()
-    {
-        //TODO implement database call here to load in all games that are in this tournament add all of them to the
-        // GameList
-        System.out.println("UI: GameView Initialization");
-
-
-        //This adds colomns to the table view, a method called create column is used to make this easier
-        gameList.getColumns().setAll(
-                createColumn("HomeTeam", "home"),
-                createColumn("Away Team", "away")
-        );
-        try {
-            gameList.getItems().addAll(getDummyGame());//Query call goes in here
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-
     /**
      * Just loads in dummy data.
      * @return
      */
-    protected ArrayList<Game> getDummyGame() throws SQLException {
+    public static ArrayList<Game> getDummyGame(TeamController tc, GameController gc, TournamentController TUC) throws SQLException {
         ArrayList<Game> gameList = new ArrayList<>();
-        TeamController tc = new TeamController(App.connection);
-        GameController gc = new GameController(App.connection);
+        TUC.Tournament("Dummy");
         Team one = tc.createTeam("Saskatoon","Sparks" , "Brighton","Jack" ,"111 111 1111" );
         Team two = tc.createTeam("Royals", "Regina", "redArbour", "Jack", "111 111 1111");
-        gameList.add(gc.createGame(one,two, new Date(),new Field(),new Tournament()));
-        gameList.add(gc.createGame(one,two, new Date(),new Field(),new Tournament()));
+        Date first = new Date();
+        Date second = new Date();
+        second.setTime(second.getTime()+3600000);
+        gameList.add(gc.createGame(one,two, first,new Field(),TUC.getTournament()));
+        gameList.add(gc.createGame(one,two, second,new Field(),TUC.getTournament()));
 
 
         return gameList;
+    }
+
+    @FXML
+    protected void initialize(){
+        //TODO implement database call here to load in all teams that are in this tournament add all of them to the
+        // TeamList
+        System.out.println("UI: TeamView Initialization");
+
+
+        //This adds colomns to the table view, a method called create column is used to make this easier
+        gameList.getColumns().setAll(
+                ViewUtilities.getColumn("HomeTeam", "homeTeam"),
+                ViewUtilities.getColumn("AwayTeam", "awayTeam"),
+                ViewUtilities.getColumn("Date", "startTime")
+        );
+
+
+        try {
+            //getDummyGame();
+            gameList.getItems().addAll(new GameController(App.connection).getSchedule(App.TUC.getTournament())); //Query call goes in here
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 

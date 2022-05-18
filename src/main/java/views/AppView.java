@@ -60,15 +60,9 @@ public class AppView
     }
 
     @FXML
-    protected void onGamesNavHandler() throws IOException
-    {
-        changePaneHandler("game-view.fxml");
-    }
-
-    @FXML
     protected void onSchedulesNavHandler() throws IOException
     {
-        changePaneHandler("schedules-view-pane.fxml");
+        changePaneHandler("schedules-view.fxml");
     }
 
     @FXML

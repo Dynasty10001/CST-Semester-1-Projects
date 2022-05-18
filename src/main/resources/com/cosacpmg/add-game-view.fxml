@@ -6,7 +6,8 @@
 
 <?import java.lang.Integer?>
 <?import java.lang.String?>
-<AnchorPane prefHeight="562.0" prefWidth="981.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.AddTeamView">
+<?import javafx.collections.FXCollections?>
+<AnchorPane prefHeight="562.0" prefWidth="981.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.AddGameView">
    <children>
       <GridPane hgap="30.0" layoutX="80.0" layoutY="138.0" minHeight="45.0" prefHeight="265.0" prefWidth="840.0" vgap="30.0" AnchorPane.bottomAnchor="159.0" AnchorPane.rightAnchor="61.0">
         <columnConstraints>
@@ -58,46 +59,64 @@
                <children>
                   <ComboBox id="gameHourBox" fx:id="hourBox" prefHeight="25.0" prefWidth="141.0" promptText="Hour">
                        <items>
-                           <Integer fx:value="1" />
-                           <Integer fx:value="2" />
-                           <Integer fx:value="3" />
-                           <Integer fx:value="4" />
-                           <Integer fx:value="5" />
-                           <Integer fx:value="6" />
-                           <Integer fx:value="7" />
-                           <Integer fx:value="8" />
-                           <Integer fx:value="9" />
-                           <Integer fx:value="10" />
-                           <Integer fx:value="11" />
-                           <Integer fx:value="12" />
+                           <FXCollections fx:factory="observableArrayList">
+                               <Integer fx:value="1" />
+                               <Integer fx:value="2" />
+                               <Integer fx:value="3" />
+                               <Integer fx:value="4" />
+                               <Integer fx:value="5" />
+                               <Integer fx:value="6" />
+                               <Integer fx:value="7" />
+                               <Integer fx:value="8" />
+                               <Integer fx:value="9" />
+                               <Integer fx:value="10" />
+                               <Integer fx:value="11" />
+                               <Integer fx:value="12" />
+                           </FXCollections>
                        </items>
                   </ComboBox>
                   <ComboBox id="gameMinuteBox" fx:id="minuteBox" prefWidth="150.0" promptText="Minute">
-                   <items>
-                       <Integer fx:value="00" />
-                       <Integer fx:value="05" />
-                       <Integer fx:value="10" />
-                       <Integer fx:value="15" />
-                       <Integer fx:value="20" />
-                       <Integer fx:value="25" />
-                       <Integer fx:value="30" />
-                       <Integer fx:value="35" />
-                       <Integer fx:value="40" />
-                       <Integer fx:value="45" />
-                       <Integer fx:value="50" />
-                       <Integer fx:value="55" />
+                      <items>
+                          <FXCollections fx:factory="observableArrayList">
+                              <Integer fx:value="00" />
+                              <Integer fx:value="05" />
+                              <Integer fx:value="10" />
+                              <Integer fx:value="15" />
+                              <Integer fx:value="20" />
+                              <Integer fx:value="25" />
+                              <Integer fx:value="30" />
+                              <Integer fx:value="35" />
+                              <Integer fx:value="40" />
+                              <Integer fx:value="45" />
+                              <Integer fx:value="50" />
+                              <Integer fx:value="55" />
+                          </FXCollections>
                    </items>
                </ComboBox>
                   <ComboBox id="gameAMPMBox" fx:id="ampmBox" prefHeight="25.0" prefWidth="131.0" promptText="AM">
                           <items>
-                              <String fx:value="AM" />
-                              <String fx:value="PM" />
+                              <FXCollections fx:factory="observableArrayList">
+                                  <String fx:value="AM" />
+                                  <String fx:value="PM" />
+                              </FXCollections>
                           </items>
                   </ComboBox>
                </children>
             </HBox>
-            <ComboBox id="gameHomeTeamBox" fx:id="homeTeamBox" minHeight="-Infinity" prefHeight="25.0" prefWidth="332.0" GridPane.columnIndex="1" />
-            <ComboBox id="gameAwayTeamBox" fx:id="awayTeamBox" prefHeight="25.0" prefWidth="246.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ComboBox id="gameHomeTeamBox" fx:id="homeTeamBox" minHeight="-Infinity" prefHeight="25.0" prefWidth="332.0" GridPane.columnIndex="1" >
+             <items>
+                 <FXCollections fx:factory="observableArrayList">
+
+                 </FXCollections>
+             </items>
+         </ComboBox>
+            <ComboBox id="gameAwayTeamBox" fx:id="awayTeamBox" prefHeight="25.0" prefWidth="246.0" GridPane.columnIndex="1" GridPane.rowIndex="1" >
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+
+                    </FXCollections>
+                </items>
+            </ComboBox>
          </children>
       </GridPane>
       <Button id="addGameCancelHandler" layoutX="503.0" layoutY="304.0" mnemonicParsing="false" onAction="#addGameCancelHandler" text="Cancel" AnchorPane.bottomAnchor="71.0" AnchorPane.rightAnchor="199.0" />

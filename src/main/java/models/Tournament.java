@@ -13,7 +13,7 @@ import java.util.List;
 @DatabaseTable(tableName = "Tournaments")
 public class Tournament
 {
-    @DatabaseField(id = true)
+    @DatabaseField(generatedId = true)
     private int tournamentID;
 
     @DatabaseField(canBeNull = false)

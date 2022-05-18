@@ -10,6 +10,8 @@ import javax.validation.constraints.Future;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import java.time.temporal.Temporal;
+import java.time.temporal.UnsupportedTemporalTypeException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -22,12 +24,12 @@ public class Game {
     private long gameID;
 
     //@Column(nullable = false)
-    @DatabaseField(foreign = true,canBeNull = false,foreignAutoCreate = false,foreignAutoRefresh = true )
+    @DatabaseField(foreign = true,canBeNull = false)
     @NotEmpty(message = "Game must have a Home Team" )
     private Team homeTeam;
 
     //@Column(nullable = false)
-    @DatabaseField(foreign = true,canBeNull = false,foreignAutoCreate = false,foreignAutoRefresh = true )
+    @DatabaseField(foreign = true,canBeNull = false)
     @NotEmpty(message = "Game must have an Away Team" )
     private Team awayTeam;
 
@@ -39,8 +41,8 @@ public class Game {
 
     //@Column(nullable = false)
     @DatabaseField(canBeNull = false)
-    @Future
     @NotEmpty(message = "A date must be selected for the game")
+    @Future
     private Date startTime;
 
     @DatabaseField(foreign = true)

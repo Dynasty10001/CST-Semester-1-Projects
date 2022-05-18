@@ -15,7 +15,6 @@ public class TournamentController {
 
     public Dao<Tournament, Long> repo;
     private Tournament CurrentTournament;
-    ConnectionSource connection;
 
     public TournamentController(ConnectionSource dbConn) throws SQLException {
 
@@ -23,6 +22,7 @@ public class TournamentController {
         repo.setAutoCommit(dbConn.getReadWriteConnection("Game"), true);
         //ensure table exist
         TableUtils.createTableIfNotExists(dbConn, Tournament.class);
+        CurrentTournament = repo.queryForFirst(repo.queryBuilder().prepare());
 
     }
 

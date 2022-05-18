@@ -80,7 +80,7 @@
                                 </VBox>
                             </graphic>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="101.0" prefWidth="91.0" style="-fx-background-color: transparent;" GridPane.columnIndex="4">
+                        <Button mnemonicParsing="false" onAction="#onSchedulesNavHandler" prefHeight="101.0" prefWidth="91.0" style="-fx-background-color: transparent;" GridPane.columnIndex="4">
                             <graphic>
                                 <VBox prefHeight="64.0" prefWidth="64.0">
                                     <children>
