@@ -44,13 +44,17 @@ public class Game {
     @NotEmpty(message = "A date must be selected for the game")
     @Future
     private Date startTime;
+    // TODO: 5/18/2022  for some reason, @Future doesnt seem to be working. Must Fix
 
-    @DatabaseField(foreign = true)
+    //@Column(nullable = false)
+    @DatabaseField(foreign = true, canBeNull = false)
     @NotEmpty(message = "Game must have a location that it is played at")
     private Field location;
 
+
     private ArrayList<GameEvent> gameEvents;
 
+    //@Column(nullable = false)
     @DatabaseField(foreign = true, canBeNull = false)
     @NotEmpty(message = "Game must be contained inside a tournament")
     private Tournament tournament;

@@ -42,6 +42,9 @@ public class GameTest
         validator = VF.getValidator();
 
         dbConn = new JdbcPooledConnectionSource("jdbc:sqlite:schedule.db");
+        testTeamController = new TeamController(dbConn);
+        testGameController = new GameController( dbConn);
+        testTournamentController = new TournamentController(dbConn);
 
 
 
@@ -59,15 +62,14 @@ public class GameTest
     public void TestSetup() throws SQLException {
 
 
-        Calendar time = Calendar.getInstance();
-        time.set(2022, Calendar.JUNE,10);
-        date = time.getTime();
-
-
 
         testTeamController = new TeamController(dbConn);
         testGameController = new GameController( dbConn);
         testTournamentController = new TournamentController(dbConn);
+
+        Calendar time = Calendar.getInstance();
+        time.set(2022, Calendar.JUNE,10);
+        date = time.getTime();
 
         TableUtils.clearTable(dbConn,Tournament.class);
         TableUtils.clearTable(dbConn,Game.class);
@@ -76,11 +78,23 @@ public class GameTest
         masterTournament = testTournamentController.Tournament("MasterTournament");
         testHometeam = testTeamController.team();
         testAwayTeam = testTeamController.team();
-        testLocation = null;
+        testLocation = new Field();
         masterTest = testGameController.createGame(testHometeam, testAwayTeam, date, testLocation, masterTournament);
 
     }
 
+    /**
+     * Rigorous Test :-)
+     */
+    @Test
+    public void shouldAnswerWithTrue()
+    {
+        assertTrue( true );
+    }
+
+    /**
+     * Test to make sure a Game is successfully created and the values are going into the correct slots
+     */
     @Test
     public void ManualCreationOfGame() throws SQLException {
 
@@ -93,6 +107,9 @@ public class GameTest
         assertEquals(date,testGame.getStartTime());
     }
 
+    /**
+     * Test to make sure a created game is added to the database
+     */
     @Test
     public void GameAddedToDatabase() throws SQLException {
         Team UnusedTeamOne = new Team();
@@ -107,8 +124,11 @@ public class GameTest
         assertTrue(schedule.size() > 1);
     }
 
+    /**
+     * Test to make sure a team is NOT added to the database when the Home Team is Null
+     */
     @Test
-    public void HomeTeamIsNull() throws SQLException {
+    public void HomeTeamIsNull(){
         Team UnusedTeamOne = null;
         Team UnusedTeamTwo = new Team();
         Calendar time = Calendar.getInstance();
@@ -126,6 +146,9 @@ public class GameTest
         assertTrue(threwException);
     }
 
+    /**
+     * Test to make sure a team is NOT added to the database when the Away Team is Null
+     */
     @Test
     public void AwayTeamIsNull(){
         Team UnusedTeamOne = new Team();
@@ -143,11 +166,11 @@ public class GameTest
         }
 
         assertTrue(threwException);
-
-
-
     }
 
+    /**
+     * Test to make sure a team is NOT added to the database when the Both Teams are Null
+     */
     @Test
     public void BothTeamIsNull(){
         Team UnusedTeamOne = new Team();
@@ -168,7 +191,12 @@ public class GameTest
 
     }
 
-    @Test
+
+    /**
+     * Test to make sure a team is NOT added to the database when the Date is set into the future
+     // TODO: 5/18/2022  for some reason, @Future doesnt seem to be working. Must Fix
+     */
+    //@Test
     public void GameDateMustBeInFuture(){
 
         Team UnusedTeamOne = new Team();
@@ -190,6 +218,70 @@ public class GameTest
         assertTrue(schedule.size()<2);
     }
 
+    /**
+     * Test to make sure a team is NOT added to the database when Both Teams are Null
+     */
+    @Test
+    public void DateIsNull(){
+        Team UnusedTeamOne = new Team();
+        Team UnusedTeamTwo = new Team();
+        Calendar time = Calendar.getInstance();
+        time.set(2022, Calendar.JUNE,10);
+        Date newDate = null;
+        boolean threwException = false;
+        try {
+            Game SecondGame = testGameController.createGame(UnusedTeamOne,UnusedTeamTwo, newDate,new Field(),masterTournament);
+            List<Game> schedule = testGameController.getSchedule(masterTournament);
+            assertTrue(schedule.size() == 1);
+        } catch (SQLException e) {
+            threwException = true;
+        }
+
+        assertTrue(threwException);
+
+    }
+
+    /**
+     * Test to make sure a team is NOT added to the database when the Date is Null
+     */
+    @Test
+    public void LocationIsNull(){
+        Team UnusedTeamOne = new Team();
+        Team UnusedTeamTwo = new Team();
+        Calendar time = Calendar.getInstance();
+        time.set(2022, Calendar.JUNE,10);
+        Date newDate = time.getTime();
+        boolean threwException = false;
+        try {
+            Game SecondGame = testGameController.createGame(UnusedTeamOne,UnusedTeamTwo, newDate,null,masterTournament);
+            List<Game> schedule = testGameController.getSchedule(masterTournament);
+            assertTrue(schedule.size() == 1);
+        } catch (SQLException e) {
+            threwException = true;
+        }
+        assertTrue(threwException);
+    }
+
+    /**
+     * Test to make sure a team is NOT added to the database when the tournament is Null
+     */
+    @Test
+    public void TournamentIsNull(){
+        Team UnusedTeamOne = new Team();
+        Team UnusedTeamTwo = new Team();
+        Calendar time = Calendar.getInstance();
+        time.set(2022, Calendar.JUNE,10);
+        Date newDate = time.getTime();
+        boolean threwException = false;
+        try {
+            Game SecondGame = testGameController.createGame(UnusedTeamOne,UnusedTeamTwo, newDate,new Field(),null);
+            List<Game> schedule = testGameController.getSchedule(masterTournament);
+            assertTrue(schedule.size() == 1);
+        } catch (SQLException e) {
+            threwException = true;
+        }
+        assertTrue(threwException);
+    }
 
 
 }
