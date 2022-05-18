@@ -8,14 +8,11 @@ import controllers.TeamController;
 import controllers.TournamentController;
 import models.*;
 import org.junit.*;
-import views.AddGameView;
-import views.GameView;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
 
@@ -35,6 +32,26 @@ public class GameTest
     Team testHometeam, testAwayTeam;
     Field testLocation;
     Date date;
+
+    private void assertInvalidGameMessage(String expectedProperty, String expectedErrMsg, Object expectedValue){
+        //run validator on car object and store the resulting violations in a collection
+        Set<ConstraintViolation<Game>> constraintViolations = validator.validate( masterTest );//use the private global car created in setUpValidCar
+
+        //count how many violations - SHOULD ONLY BE 1
+        assertEquals( 1, constraintViolations.size() );
+
+        //get first violation from constraintViolations collection
+        ConstraintViolation<Game> violation = constraintViolations.iterator().next();
+
+        //ensure that expected property has the violation
+        assertEquals( expectedProperty, violation.getPropertyPath().toString() );
+
+        //ensure error message matches what is expected
+        assertEquals( expectedErrMsg, violation.getMessage() );
+
+        //ensure the invalid value is what was set
+        assertEquals( expectedValue, violation.getInvalidValue() );
+    }
 
     @BeforeClass
     public static void SetupValidator() throws SQLException {
@@ -61,8 +78,6 @@ public class GameTest
     @Before
     public void TestSetup() throws SQLException {
 
-
-
         testTeamController = new TeamController(dbConn);
         testGameController = new GameController( dbConn);
         testTournamentController = new TournamentController(dbConn);
@@ -75,9 +90,9 @@ public class GameTest
         TableUtils.clearTable(dbConn,Game.class);
         TableUtils.clearTable(dbConn,Team.class);
 
-        masterTournament = testTournamentController.Tournament("MasterTournament");
-        testHometeam = testTeamController.team();
-        testAwayTeam = testTeamController.team();
+        masterTournament = testTournamentController.createTournament("MasterTournament");
+        testHometeam = new Team();
+        testAwayTeam = new Team();
         testLocation = new Field();
         masterTest = testGameController.createGame(testHometeam, testAwayTeam, date, testLocation, masterTournament);
 

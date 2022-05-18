@@ -1,17 +1,15 @@
 package com.cosacpmg;
 
+import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
-import controllers.GameController;
-import controllers.TeamController;
-import controllers.TournamentController;
+import controllers.*;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import views.GameView;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -20,22 +18,22 @@ public class App extends Application
 {
     public static final String CONNECTION_STRING = "jdbc:sqlite:schedule.db";
     public static ConnectionSource connection;
+    private static Stage mainStage;
     public static TournamentController TUC;
     public static TeamController TC;
     public static GameController GC;
-    private static Stage mainStage;
+//    private static TeamController teamController;
 
+    // AppView.class.getResource("/com.cosacpmg/app-view.fxml")
     @Override
-    public void start(Stage stage) throws IOException, SQLException {
+    public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(App.class.getResource("app-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Hello!");
         stage.setScene(scene);
-        startDB();
         stage.show();
-
-        GameView.getDummyGame(TC,GC,TUC);
+        startDB();
     }
 
     public static void main(String[] args) {
@@ -59,6 +57,9 @@ public class App extends Application
             e.printStackTrace();
         }
     }
+
+
+
 
     @FXML
     private Label welcomeText;

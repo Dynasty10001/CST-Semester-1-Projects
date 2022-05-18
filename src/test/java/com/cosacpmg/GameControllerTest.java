@@ -44,26 +44,6 @@ public class GameControllerTest {
     Field testLocation;
     Date date;
 
-    private void assertInvalidGameMessage(String expectedProperty, String expectedErrMsg, Object expectedValue){
-        //run validator on car object and store the resulting violations in a collection
-        Set<ConstraintViolation<Game>> constraintViolations = validator.validate( masterTest );//use the private global car created in setUpValidCar
-
-        //count how many violations - SHOULD ONLY BE 1
-        assertEquals( 1, constraintViolations.size() );
-
-        //get first violation from constraintViolations collection
-        ConstraintViolation<Game> violation = constraintViolations.iterator().next();
-
-        //ensure that expected property has the violation
-        assertEquals( expectedProperty, violation.getPropertyPath().toString() );
-
-        //ensure error message matches what is expected
-        assertEquals( expectedErrMsg, violation.getMessage() );
-
-        //ensure the invalid value is what was set
-        assertEquals( expectedValue, violation.getInvalidValue() );
-    }
-
     @BeforeClass
     public static void SetupValidator() throws SQLException {
         VF = Validation.buildDefaultValidatorFactory();
@@ -97,9 +77,9 @@ public class GameControllerTest {
         TableUtils.clearTable(dbConn,Game.class);
         TableUtils.clearTable(dbConn,Team.class);
 
-        masterTournament = testTournamentController.Tournament("MasterTournament");
-        testHometeam = testTeamController.team();
-        testAwayTeam = testTeamController.team();
+        masterTournament = testTournamentController.createTournament("MasterTournament");
+        testHometeam = new Team();
+        testAwayTeam = new Team();
         testLocation = null;
         masterTest = testGameController.createGame(testHometeam, testAwayTeam, date, testLocation, masterTournament);
 

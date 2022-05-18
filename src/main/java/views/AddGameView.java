@@ -18,8 +18,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Locale;
 
 
 public class AddGameView
@@ -54,8 +52,8 @@ public class AddGameView
             GC = App.GC;
             TC = App.TC;
 
-            homeTeamBox.getItems().addAll(TC.getRoster());
-            awayTeamBox.getItems().addAll(TC.getRoster());
+            homeTeamBox.getItems().addAll(TC.getAllTeams());
+            awayTeamBox.getItems().addAll(TC.getAllTeams());
         }
 
 
@@ -64,7 +62,7 @@ public class AddGameView
 
         if (TUC.getTournament() == null)
         {
-            TUC.Tournament("TestTournament");
+            TUC.createTournament("TestTournament");
         }
         //System.out.println("Team Added");
 

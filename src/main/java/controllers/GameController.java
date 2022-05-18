@@ -30,9 +30,8 @@ public class GameController
         }
     }
 
-
     public Game createGame(Team homeTeam, Team awayTeam, Date startTime, Field location, Tournament tournament) throws SQLException {
-
+ //todo pass in entire game, rename this to add game, put game constructor into AddGameView
         Game game = new Game();
         game.setHomeTeam(homeTeam);
         game.setAwayTeam(awayTeam);
