@@ -10,6 +10,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import models.Game;
+import views.GameView;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -51,6 +53,7 @@ public class App extends Application
             TUC = new TournamentController(connection);
             GC = new GameController(connection);
             TC = new TeamController(connection);
+            GameView.getDummyGame(TC,GC,TUC);
         }
         catch (SQLException e)
         {

@@ -4,7 +4,8 @@ import com.cosacpmg.App;
 import controllers.GameController;
 import controllers.TeamController;
 import controllers.TournamentController;
-import javafx.fxml.FXML;
+import javafx.fxml.*;
+import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -15,11 +16,13 @@ import models.Team;
 import models.Tournament;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.ResourceBundle;
 
-public class GameView
+public class GameView implements Initializable
 {
 
 
@@ -62,9 +65,14 @@ public class GameView
     }
 
     @FXML
-    protected void initialize(){
-        //TODO implement database call here to load in all teams that are in this tournament add all of them to the
-        // TeamList
+    protected void gameViewAddGameHandler() throws IOException
+    {
+        AppView.changePaneHandler("add-game-view.fxml",AppView.staticBorderPane);
+    }
+
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
         System.out.println("UI: TeamView Initialization");
 
 
@@ -78,18 +86,10 @@ public class GameView
 
         try {
             //getDummyGame();
-            gameList.getItems().addAll(new GameController(App.connection).getSchedule(App.TUC.getTournament())); //Query call goes in here
+            gameList.getItems().addAll(new GameController(App.connection)
+                    .getSchedule(App.TUC.getTournament())); //Query call goes in here
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-
-
-    @FXML
-    protected void gameViewAddGameHandler() throws IOException
-    {
-        AppView.changePaneHandler("add-game-view.fxml",AppView.staticBorderPane);
-    }
-
-
 }

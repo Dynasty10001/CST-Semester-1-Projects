@@ -58,8 +58,7 @@ public class GameController
     }
 
     public List<Game> getSchedule(Tournament tournament) throws SQLException {
-        QueryBuilder<Game, Long> scheduleQuery = repo.queryBuilder();
-        List<Game> schedule = repo.query(scheduleQuery.where().eq("tournament_id",tournament.getTournamentID()).prepare());
+        List<Game> schedule = repo.queryForAll();
         return schedule;
     }
 
