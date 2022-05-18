@@ -31,7 +31,10 @@ public class TeamControllerTest
         compareTeam.setCoachNumber(coachNum);
     }
 
-
+    /**
+     * Purpose:
+     * Test if a team was added to the database
+     */
     @Test
     public void testThatTeamIsAddedToDB()
     {
@@ -43,6 +46,10 @@ public class TeamControllerTest
     }
 
 
+    /**
+     * Purpose:
+     * Test that a team will not be added to the database that contains a null entry
+     */
     @Test
     public void testThatTeamIsNotAddedWillNull()
     {
