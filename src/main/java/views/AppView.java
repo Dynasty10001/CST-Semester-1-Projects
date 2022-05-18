@@ -50,7 +50,7 @@ public class AppView
     @FXML
     protected void onPlayerNavHandler() throws IOException
     {
-        changePaneHandler("player-view-pane.fxml");
+        changePaneHandler("player-view.fxml");
     }
 
     @FXML

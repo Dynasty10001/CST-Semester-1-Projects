@@ -34,9 +34,6 @@ public class PlayerView {
     @FXML private ComboBox cbTeam;
     @FXML private ComboBox cbPosition;
 
-    @FXML private Button cmdCancel;
-    @FXML private Button cmdSubmit;
-
     @FXML private Label lblERRFirstName;
     @FXML private Label lblERRLastName;
     @FXML private Label lblERREmail;
@@ -57,7 +54,7 @@ public class PlayerView {
     protected void addPlayerSubmitHandler()
     {
         ValidationHelper vh = new ValidationHelper();
-        player = PlayerController.CreatePlayer(tfFirstName.getText(), tfLastName.getText(), Integer.parseInt(tfJersey.getText()),
+        player = PlayerController.createPlayer(tfFirstName.getText(), tfLastName.getText(), Integer.parseInt(tfJersey.getText()),
                 cbPosition.getValue().toString(), tfEmail.getText(), tfPhone.getText(), tfEName.getText(), tfEPhone.getText(), tfEEmail.getText(),
                 tfStreet.getText(), tfCity.getText(), cbProvince.getValue().toString(), tfPostalCode.getText());
 

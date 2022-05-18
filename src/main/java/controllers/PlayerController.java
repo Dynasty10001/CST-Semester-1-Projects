@@ -36,7 +36,7 @@ public class PlayerController {
         return returnedPlayer;
     }
 
-    public static Player CreatePlayer(String First, String Last, int Jersey, String Pos, String Email, String Phone, String EName, String EPhone, String EEmail, String Street, String City, String Prov, String Postal)
+    public static Player createPlayer(String First, String Last, int Jersey, String Pos, String Email, String Phone, String EName, String EPhone, String EEmail, String Street, String City, String Prov, String Postal)
     {
         Player player = new Player();
         player.setFirstName (First);
