@@ -21,11 +21,6 @@ public class AppTest
     }
     
     
-    @Test
-    public void testDBConnection()
-    {
-        TeamController teamController = new TeamController(App.connection);
-        assertNotNull(teamController.repo);
-    }
+
 
 }
