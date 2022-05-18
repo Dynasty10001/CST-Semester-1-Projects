@@ -4,6 +4,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.PlayerView">
    <children>
       <GridPane layoutY="-1.0" maxHeight="1.7976931348623157E308" prefHeight="400.0" prefWidth="600.0">
@@ -65,14 +67,35 @@
             <Label id="lblPosition" text="Position" GridPane.rowIndex="17" />
             <ComboBox id="cbTeam" prefWidth="150.0" promptText="Select Team" GridPane.columnIndex="1" GridPane.rowIndex="16" />
             <Label id="lblERRLastName" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <ComboBox id="cbPosition" prefWidth="150.0" promptText="Select Position" GridPane.columnIndex="1" GridPane.rowIndex="17" />
-            <ComboBox id="cbProvince" prefWidth="150.0" promptText="Select Province" GridPane.columnIndex="3" GridPane.rowIndex="9" />
+            <ComboBox id="cbPosition" prefWidth="150.0" promptText="Select Position" GridPane.columnIndex="1" GridPane.rowIndex="17">
+             <items>
+                 <FXCollections fx:factory="observableArrayList">
+                     <String fx:value="Defence"/>
+                     <String fx:value="Forward"/>
+                     <String fx:value="Goalkeeper"/>
+                     <String fx:value="Mid-Field"/>
+                 </FXCollections>
+             </items>
+
+             </ComboBox>
+
+            <ComboBox id="cbProvince" prefWidth="150.0" promptText="Select Province" GridPane.columnIndex="3" GridPane.rowIndex="9" >
+             <items>
+                 <FXCollections fx:factory="observableArrayList">
+                     <String fx:value="Alberta"/>
+                     <String fx:value="British Columbia"/>
+                     <String fx:value="Manitoba"/>
+                     <String fx:value="Saskatchewan"/>
+                 </FXCollections>
+             </items>
+
+         </ComboBox>
             <TextField id="tfCity" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <TextField id="lfStrret" GridPane.columnIndex="3" GridPane.rowIndex="7" />
             <TextField id="lfPostalCode" GridPane.columnIndex="1" GridPane.rowIndex="9" />
             <Label id="lblERRPhone" GridPane.rowIndex="6" />
             <Button id="cmdCancel" mnemonicParsing="false" onAction="#addPlayerCancelHandler" text="Cancel" GridPane.columnIndex="2" GridPane.rowIndex="19" />
-            <Button id="cmdSubmit" mnemonicParsing="false" onAction="#onPlayerSubmitHandler" text="Submit" GridPane.columnIndex="3" GridPane.rowIndex="19" />
+            <Button id="cmdSubmit" mnemonicParsing="false" onAction="#addPlayerSubmitHandler" text="Submit" GridPane.columnIndex="3" GridPane.rowIndex="19" />
             <Label id="blERRJersey" GridPane.columnIndex="2" GridPane.rowIndex="6" />
             <Label id="lblERREmail" GridPane.rowIndex="4" />
             <Label id="lblERRCity" GridPane.rowIndex="8" />

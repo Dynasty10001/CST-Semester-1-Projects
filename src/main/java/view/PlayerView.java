@@ -17,6 +17,7 @@ public class PlayerView {
 
     private Player player;
 
+
     @FXML private TextField tfFirstName;
     @FXML private TextField tfLastName;
     @FXML private TextField tfEmail;
@@ -50,6 +51,9 @@ public class PlayerView {
     @FXML private Label lblERRProvince;
     @FXML private Label lblERRTeam;
     @FXML private Label lblERRPosition;
+
+
+
 
     @FXML
     protected void addPlayerSubmitHandler()
