@@ -1,27 +1,33 @@
 package models;
 
-import javax.validation.*;
-import java.util.*;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+import java.util.HashMap;
+import java.util.Set;
 
 
-public class ValidationHelper {
-    private ValidatorFactory vf;
+public class ValidationHelper
+{
+    private ValidatorFactory validatorFactory;
     private Validator validator;
 
     /***
      * initailize the external validation objects
      */
     public ValidationHelper() {
-        vf = Validation.buildDefaultValidatorFactory();
-        validator = vf.getValidator();
+        validatorFactory = Validation.buildDefaultValidatorFactory();
+        validator = validatorFactory.getValidator();
     }
 
-     /***
+    /***
      *
      * @param obj - object to validate
      * @return true if nr violations exist and false if any violations exist
      */
-    public boolean isValid(Object obj){
+    public boolean isValid(Object obj)
+    {
         return validator.validate( obj ).isEmpty();
     }
 
