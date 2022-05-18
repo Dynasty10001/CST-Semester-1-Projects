@@ -110,11 +110,11 @@ public class TeamController
 		team.setCoachNumber(coachNum);
 		
 		
-//		if(vh.getErrors(team).isEmpty()){
+		if(vh.getErrors(team).isEmpty()){
 			return team;
-//		}
-//		else
-//			return null;
+		}
+		else
+			return null;
 	}
 	
 	

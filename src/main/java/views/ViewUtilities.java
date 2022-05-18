@@ -25,8 +25,6 @@ public class ViewUtilities
 		returnCol.setCellValueFactory(new PropertyValueFactory<T, String>(attributeString));
 		return  returnCol;
 	}
-	
-	
 
 	public static void test(){
 	

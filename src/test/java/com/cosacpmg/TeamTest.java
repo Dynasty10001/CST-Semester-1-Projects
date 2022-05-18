@@ -39,35 +39,6 @@ public class TeamTest
         validationFactory = Validation.buildDefaultValidatorFactory();
         validator = validationFactory.getValidator();
     }
-    
-    
-    
-    
-    @Test
-    public void testThatTeamIsAddedToDB()
-    {
-        App.startDB();
-        TeamController tc = new TeamController(App.connection);
-        tc.addTeam(compareTeam);
-       assertTrue(compareTeam.getId() > 0);
-       
-       
-    }
-    
-    @Test
-    public void testThatTeamIsNotAddedWillNull()
-    {
-        App.startDB();
-        TeamController tc= new TeamController(App.connection);
-        try{
-        
-        compareTeam.setCoachName(null);
-        teamController.addTeam(compareTeam);
-        } catch(NullPointerException e)
-        {
-            assertTrue(true);
-        }
-    }
 
     /**
      * This method will close the validator factory after all tests have been run
@@ -87,76 +58,6 @@ public class TeamTest
         teamController = new TeamController();
         compareTeam = teamController.createTeam(teamName, city, area, coachName, coachNum);
     }
-
-    /**
-     * Purpose:
-     * Test if a valid team is created successfully.
-     */
-    @Test
-    public void testThatTeamIsCreated()
-    {
-        assertEquals(teamController.createTeam(teamName, city, area, coachName, coachNum), compareTeam);
-    }
-
-    /**
-     * Purpose:
-     * Test if a team was created with an invalid Team name.
-     */
-    @Test
-    public void testThatInvalidTeamWasNotCreated()
-    {
-        assertNull(teamController.createTeam("", city, area, coachName, coachNum));
-        assertNull(teamController.createTeam(repeatM(65),
-                city, area, coachName, coachNum));//x x 65
-
-    }
-
-    /**
-     * Purpose:
-     * Test if a team was created with an invalid City name.
-     */
-    @Test
-    public void testThatInvalidCityTeamNotCreated()
-    {
-        assertNull(teamController.createTeam(teamName, "", area, coachName, coachNum));
-        assertNull(teamController.createTeam(teamName, repeatM(65),
-                area, coachName, coachNum));
-    }
-
-    /**
-     * Purpose:
-     * Test if a team was created with an invalid Area name.
-     */
-    @Test
-    public void testThatInvalidAreaTeamNotCreated()
-    {
-        assertNull(teamController.createTeam(teamName, city, "", coachName, coachNum));
-        assertNull(teamController.createTeam(teamName, city,
-                repeatM(65), coachName, coachNum));
-    }
-
-    /**
-     * Purpose:
-     * Test if a team was created with an invalid Coach name.
-     */
-    @Test
-    public void testThatInvalidCoachNameTeamNotCreated()
-    {
-        assertNull(teamController.createTeam(teamName, city, area, "", coachNum));
-        assertNull(teamController.createTeam(teamName, city, area,
-                repeatM(65), coachNum));
-    }
-
-    /**
-     * Purpose:
-     * Test if a team was created with an invalid Coach number.
-     */
-    @Test
-    public void testThatInvalidCoachNumTeamNotCreated()
-    {
-        assertNull(teamController.createTeam(teamName, city, area, coachName, ""));
-//        assertNull(teamController.createTeam(teamName, city, area, coachName, ));
-    }
     
     /**
      * Purpose:
@@ -167,7 +68,7 @@ public class TeamTest
     {
         compareTeam.setCoachNumber("123-123-2134");
         
-        assertInvalidTeam("team",
+        assertInvalidTeam("coachNumber",
                           "Validation Error: Coach phone number must in the following format: xxx xxx xxxx",
                           "123-123-2134");
     }
@@ -308,7 +209,7 @@ public class TeamTest
      * @param count
      * @return
      */
-    private String repeatM(int count){
+    public static String repeatM(int count){
         return new String(new char[count]).replace('\0','M');
     }
     
@@ -340,7 +241,4 @@ public class TeamTest
         //ensure the invalid value is what was set
         assertEquals( expectedValue, violation.getInvalidValue() );
     }
-    
-    
-
 }

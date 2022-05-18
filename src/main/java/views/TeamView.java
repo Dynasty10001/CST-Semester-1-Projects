@@ -49,7 +49,7 @@ public class TeamView
 				ViewUtilities.getColumn("Area", "area")
 		                            );
 		
-		teamList.getItems().addAll(new TeamController(App.connection).getAllTeams());//Query call goes in here
+		teamList.getItems().addAll(new TeamController(App.connection).getAllTeams()); //Query call goes in here
 	}
 	
 	

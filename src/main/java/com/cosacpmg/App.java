@@ -42,7 +42,7 @@ public class App extends Application
     /**
      * This method will be used to start the database.
      */
-    public static void startDB()
+    public void startDB()
     {
         try
         {

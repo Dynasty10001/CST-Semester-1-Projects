@@ -36,8 +36,15 @@ public class AddTeamView
 		//System.out.println("Team Added");
 
 		ValidationHelper vh = new ValidationHelper();
-		Team team = TeamController.createTeam(teamField.getText(), cityField.getText(), areaField.getText(),
-											  coachField.getText(), coachNumField.getText());
+//		Team team = TeamController.createTeam(teamField.getText(), cityField.getText(), areaField.getText(),
+//											  coachField.getText(), coachNumField.getText());
+
+		Team team = new Team();
+		team.setTeamName(teamField.getText());
+		team.setCity(cityField.getText());
+		team.setArea(areaField.getText());
+		team.setCoachName(coachField.getText());
+		team.setCoachNumber(coachNumField.getText());
 
 		HashMap<String, String> error = vh.getErrors(team);
 
