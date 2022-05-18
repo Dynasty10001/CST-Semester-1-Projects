@@ -1,6 +1,7 @@
 package com.cosacpmg;
 
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
+import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
 import controllers.TeamController;
 import controllers.TournamentController;
@@ -31,7 +32,7 @@ public class App extends Application
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
-        //startDB();
+        startDB();
     }
 
     public static void main(String[] args) {
@@ -41,15 +42,11 @@ public class App extends Application
     /**
      * This method will be used to start the database.
      */
-    public void startDB()
+    public static void startDB()
     {
         try
         {
-            connection = new JdbcConnectionSource(CONNECTION_STRING);
-    
-            TournamentController tournamentController = new TournamentController(connection);
-            
-           tournamentController.addTeam(new TeamController().createTeam("asd", "asd" , "asd" , "asd" , "asd"));
+            connection = new JdbcPooledConnectionSource(CONNECTION_STRING);
         }
         catch (SQLException e)
         {

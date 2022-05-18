@@ -1,5 +1,6 @@
 package views;
 
+import com.cosacpmg.App;
 import controllers.TeamController;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
@@ -43,10 +44,12 @@ public class TeamView
 		
 		//This adds colomns to the table view, a method called create column is used to make this easier
 		teamList.getColumns().setAll(
-							 createColumn("Team Name", "teamName"),
-				             createColumn("City Name", "city")
-				                                       );
-		teamList.getItems().addAll(getDummyTeam());//Query call goes in here
+				ViewUtilities.getColumn("Team Name", "teamName"),
+				ViewUtilities.getColumn("City Name", "city"),
+				ViewUtilities.getColumn("Area", "area")
+		                            );
+		
+		teamList.getItems().addAll(new TeamController(App.connection).getAllTeams());//Query call goes in here
 	}
 	
 	

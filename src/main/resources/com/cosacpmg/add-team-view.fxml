@@ -34,22 +34,22 @@
             <TextField fx:id="areaField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="coachField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="coachNumField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Label fx:id="teamFieldError" minHeight="45.0" textFill="#bf0000" GridPane.columnIndex="2">
+            <Label fx:id="teamFieldError" minHeight="45.0" textFill="#bf0000" textOverrun="CLIP" wrapText="true" GridPane.columnIndex="2">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <Label fx:id="cityFieldError" minHeight="45.0" textFill="#bf0000" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <Label fx:id="cityFieldError" minHeight="45.0" textFill="#bf0000" textOverrun="CLIP" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <Label fx:id="areaFieldError" minHeight="45.0" textFill="#bf0000" GridPane.columnIndex="2" GridPane.rowIndex="2">
+            <Label fx:id="areaFieldError" minHeight="45.0" textFill="#bf0000" textOverrun="CLIP" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <Label fx:id="coachFieldError" minHeight="45.0" textFill="#bf0000" GridPane.columnIndex="2" GridPane.rowIndex="3">
+            <Label fx:id="coachFieldError" minHeight="45.0" textFill="#bf0000" textOverrun="CLIP" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="3">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>

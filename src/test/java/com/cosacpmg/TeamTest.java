@@ -39,6 +39,35 @@ public class TeamTest
         validationFactory = Validation.buildDefaultValidatorFactory();
         validator = validationFactory.getValidator();
     }
+    
+    
+    
+    
+    @Test
+    public void testThatTeamIsAddedToDB()
+    {
+        App.startDB();
+        TeamController tc = new TeamController(App.connection);
+        tc.addTeam(compareTeam);
+       assertTrue(compareTeam.getId() > 0);
+       
+       
+    }
+    
+    @Test
+    public void testThatTeamIsNotAddedWillNull()
+    {
+        App.startDB();
+        TeamController tc= new TeamController(App.connection);
+        try{
+        
+        compareTeam.setCoachName(null);
+        teamController.addTeam(compareTeam);
+        } catch(NullPointerException e)
+        {
+            assertTrue(true);
+        }
+    }
 
     /**
      * This method will close the validator factory after all tests have been run

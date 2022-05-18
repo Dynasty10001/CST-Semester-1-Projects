@@ -24,7 +24,7 @@ public class AddTeamView
 	
 	
 	@FXML
-	protected void addTeamSubmitHandler()
+	protected void addTeamSubmitHandler() throws IOException
 	{
 
 		teamFieldError.setText("");
@@ -48,12 +48,20 @@ public class AddTeamView
 		areaFieldError.setText(error.get("area"));
 		coachFieldError.setText((error.get("coachName")));
 		coachNumFieldError.setText(error.get("coachNumber"));
+		
+		if (error.isEmpty())
+		{
+			TeamController tc = new TeamController(App.connection);
+			tc.addTeam(team);
+			AppView.changePaneHandler("team-view.fxml", AppView.staticBorderPane);
+		}
 
 	}
 
 	@FXML
 	protected void addTeamCancelHandler() throws IOException
 	{
+		
 		AppView.changePaneHandler("team-view.fxml", AppView.staticBorderPane);
 	}
 	

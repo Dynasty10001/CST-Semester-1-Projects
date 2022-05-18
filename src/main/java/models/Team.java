@@ -3,39 +3,44 @@ package models;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import com.sun.istack.internal.Nullable;
 
 import javax.validation.constraints.*;
 import java.io.Serializable;
 
-@DatabaseTable(tableName = "teams")
+@DatabaseTable()
 public class Team implements Serializable
 {
 	
 	
-	@DatabaseField
-	@Max(value = 64, message = "Validation Error: Team name has to be 64 characters or less")
+	@DatabaseField(generatedId = true)
+	private long Id;
+	
+	
+	@DatabaseField(canBeNull = false)
+	@Size(max = 64, message = "Validation Error: Team name has to be 64 characters or less")
 	@NotEmpty(message = "Validation Error: Team name field is empty, please enter valid entry")
 	@Pattern(regexp = "^[\\w!'-]*[\\w\\s'-]*[\\w!'-]*$",
 			message = "Validation Error: Team name must not contain special characters (except ! and _) and must" +
 					" start and end with a letter")
 	private String teamName;
 
-	@DatabaseField
-	@Max(value = 64, message = "Validation Error: City has to be 64 characters or less")
+	@DatabaseField(canBeNull = false)
+	@Size(max = 64, message = "Validation Error: City has to be 64 characters or less")
 	@NotEmpty(message = "Validation Error: City field is empty, please enter valid entry")
 	private String city;
 
-	@DatabaseField
-	@Max(value = 64, message = "Validation Error: Area has to be 64 characters or less")
+	@DatabaseField(canBeNull = false)
+	@Size(max = 64, message = "Validation Error: Area has to be 64 characters or less")
 	@NotEmpty(message = "Validation Error: Area field is empty, please enter valid entry")
 	private String area;
 
-	@DatabaseField
-	@Max(value = 64, message = "Validation Error: Coach name has to be 64 characters or less")
+	@DatabaseField(canBeNull = false)
+	@Size(max = 64, message = "Validation Error: Coach name has to be 64 characters or less")
 	@NotEmpty(message = "Validation Error: Coach name field is empty, please enter valid entry")
 	private String coachName;
 
-	@DatabaseField
+	@DatabaseField(canBeNull = false)
 	@NotEmpty(message = "Validation Error: Coach phone number field is empty, please enter valid entry")
 	@Pattern(regexp = "^\\d{3}\\s\\d{3}\\s\\d{4}$",
 			message = "Validation Error: Coach phone number must in the following format: xxx xxx xxxx")
@@ -92,6 +97,10 @@ public class Team implements Serializable
 		return coachNumber;
 	}
 	
-
-
+	
+	public long getId()
+	{
+		return Id;
+	}
+	
 }
