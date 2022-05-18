@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cosacpmg.PlayerView">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.PlayerView">
    <children>
       <GridPane layoutY="-1.0" maxHeight="1.7976931348623157E308" prefHeight="400.0" prefWidth="600.0">
         <columnConstraints>
@@ -71,8 +71,8 @@
             <TextField id="lfStrret" GridPane.columnIndex="3" GridPane.rowIndex="7" />
             <TextField id="lfPostalCode" GridPane.columnIndex="1" GridPane.rowIndex="9" />
             <Label id="lblERRPhone" GridPane.rowIndex="6" />
-            <Button id="cmdCancel" mnemonicParsing="false" text="Cancel" GridPane.columnIndex="2" GridPane.rowIndex="19" />
-            <Button id="cmdSubmit" mnemonicParsing="false" text="Submit" GridPane.columnIndex="3" GridPane.rowIndex="19" />
+            <Button id="cmdCancel" mnemonicParsing="false" onAction="#addPlayerCancelHandler" text="Cancel" GridPane.columnIndex="2" GridPane.rowIndex="19" />
+            <Button id="cmdSubmit" mnemonicParsing="false" onAction="#onPlayerSubmitHandler" text="Submit" GridPane.columnIndex="3" GridPane.rowIndex="19" />
             <Label id="blERRJersey" GridPane.columnIndex="2" GridPane.rowIndex="6" />
             <Label id="lblERREmail" GridPane.rowIndex="4" />
             <Label id="lblERRCity" GridPane.rowIndex="8" />

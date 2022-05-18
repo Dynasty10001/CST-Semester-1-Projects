@@ -1,4 +1,4 @@
-package com.cosacpmg;
+package models;
 
 import javax.validation.*;
 import java.util.*;

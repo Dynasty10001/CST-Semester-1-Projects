@@ -1,14 +1,10 @@
 package com.cosacpmg;
 
-import com.j256.ormlite.dao.*;
 import com.j256.ormlite.jdbc.*;
-import com.j256.ormlite.support.*;
+import controller.PlayerController;
 import org.junit.*;
-import org.junit.runner.*;
 
 import java.sql.SQLException;
-
-import static org.junit.Assert.*;
 
 public class PlayerControllerTest {
 

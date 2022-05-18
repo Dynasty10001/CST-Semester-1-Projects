@@ -1,6 +1,7 @@
 package com.cosacpmg;
 
 
+import models.Player;
 import org.junit.*;
 
 import javax.validation.*;
