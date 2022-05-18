@@ -13,7 +13,12 @@ public class Field
         address = address;
     }
 
-    public Field(){
+    public Field(String here){
+        this.address = here;
+    }
+
+    public Field()
+    {
 
     }
 }

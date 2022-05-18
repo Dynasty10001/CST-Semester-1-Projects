@@ -4,14 +4,21 @@ import com.cosacpmg.App;
 import controllers.GameController;
 import controllers.TournamentController;
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import models.Field;
 import models.Game;
+import models.Team;
 import models.ValidationHelper;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 
 
 public class AddGameView
@@ -19,7 +26,19 @@ public class AddGameView
 
 
         @FXML
-        TextField homeTeamBox, awayTeamBox, DateBox, locationBox;
+        TextField locationBox;
+
+        @FXML
+        DatePicker datePicker;
+
+        @FXML
+        ComboBox<Team> homeTeamBox, awayTeamBox;
+
+        @FXML
+        ComboBox<Integer> hourBox, minuteBox;
+
+        @FXML
+        ComboBox<String> ampmBox;
 
         @FXML
         Label teamFieldError, cityFieldError, areaFieldError, coachFieldError, coachNumFieldError;
@@ -32,8 +51,24 @@ public class AddGameView
         //System.out.println("Team Added");
 
         ValidationHelper vh = new ValidationHelper();
-        Game game = GC.createGame(homeTeamBox.getText(), awayTeamBox.getText(), DateBox.getText(),
-                locationBox.getText(), TUC.getTournament());
+        Calendar gameTime = Calendar.getInstance();
+        gameTime.clear();
+        LocalDate pickTime = datePicker.getValue();
+        if(ampmBox.getValue().equals("AM"))
+        {
+            gameTime.set(pickTime.getYear(), pickTime.getMonthValue()-1, pickTime.getDayOfMonth(), hourBox.getValue(),minuteBox.getValue());
+
+        }
+        else if(ampmBox.getValue().equals("PM"))
+        {
+            gameTime.set(pickTime.getYear(), pickTime.getMonthValue()-1, pickTime.getDayOfMonth(), hourBox.getValue()+12,minuteBox.getValue());
+
+        }
+
+
+
+        Game game = GC.createGame(homeTeamBox.getValue(), awayTeamBox.getValue(), gameTime.getTime(),
+                new Field(locationBox.getText()), TUC.getTournament());
 
         //HashMap<String, String> error = vh.getErrors(team);
 
