@@ -1,4 +1,4 @@
-package controller;
+package controllers;
 
 import com.j256.ormlite.dao.*;
 import com.j256.ormlite.support.*;

@@ -1,7 +1,7 @@
 package com.cosacpmg;
 import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
-import controller.PlayerController;
+import controllers.PlayerController;
 
 import java.sql.SQLException;
 

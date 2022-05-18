@@ -1,6 +1,6 @@
-package view;
+package views;
 
-import controller.PlayerController;
+import controllers.PlayerController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -51,8 +51,6 @@ public class PlayerView {
     @FXML private Label lblERRProvince;
     @FXML private Label lblERRTeam;
     @FXML private Label lblERRPosition;
-
-
 
 
     @FXML

@@ -1,7 +1,7 @@
 package com.cosacpmg;
 
 import com.j256.ormlite.jdbc.*;
-import controller.PlayerController;
+import controllers.PlayerController;
 import org.junit.*;
 
 import java.sql.SQLException;

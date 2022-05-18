@@ -139,7 +139,7 @@ public class PlayerTest {
     public void testPlayerJerseyNumberEmpty()
     {
         validPlayer.setJerseyNo(-1);
-        assertInvalidPlayer("jerseyNo", "All fields must be filled out with valid information", -1);
+        assertInvalidPlayer("jerseyNo", "Jersey Number Must have 2 digits", -1);
     }
 
     @Test
@@ -168,17 +168,6 @@ public class PlayerTest {
     {
         validPlayer.setEmail(repeatA(54) + "@gmail.com");
         assertEquals (0, validator.validate(validPlayer ).size());
-    }
-
-    @Test
-    public void testPlayerEmailInvalidPattern()
-    {
-        String[] invalids= {"A&gmail.com", "A@gmail" };
-        for ( String invalid: invalids)
-        {
-            validPlayer.setEmail(invalid);
-            assertInvalidPlayer("email", "Invalid Email Format", invalid);
-        }
     }
 
     @Test
@@ -272,17 +261,6 @@ public class PlayerTest {
     {
         validPlayer.setEmergencyEmail(repeatA(54) + "@gmail.com");
         assertEquals (0, validator.validate(validPlayer ).size());
-    }
-
-    @Test
-    public void testPlayerEmergencyEmailInvalidPattern()
-    {
-        String[] invalids= {"A&gmail.com", "A@gmail" };
-        for ( String invalid: invalids)
-        {
-            validPlayer.setEmergencyEmail(invalid);
-            assertInvalidPlayer("emergencyEmail", "Invalid Email Format", invalid);
-        }
     }
 
     @Test
