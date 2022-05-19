@@ -45,25 +45,6 @@ public class GameView implements Initializable
         return returnCol;
     }
 
-    /**
-     * Just loads in dummy data.
-     * @return
-     */
-    public static ArrayList<Game> getDummyGame(TeamController tc, GameController gc, TournamentController TUC) throws SQLException {
-        ArrayList<Game> gameList = new ArrayList<>();
-        TUC.createTournament("Dummy");
-        Team one = tc.createTeam("Saskatoon","Sparks" , "Brighton","Jack" ,"111 111 1111" );
-        Team two = tc.createTeam("Royals", "Regina", "redArbour", "Jack", "111 111 1111");
-        Date first = new Date();
-        Date second = new Date();
-        second.setTime(second.getTime()+3600000);
-        gameList.add(gc.createGame(one,two, first,new Field(),TUC.getTournament()));
-        gameList.add(gc.createGame(one,two, second,new Field(),TUC.getTournament()));
-
-
-        return gameList;
-    }
-
     @FXML
     protected void gameViewAddGameHandler() throws IOException
     {
@@ -85,7 +66,6 @@ public class GameView implements Initializable
 
 
         try {
-            //getDummyGame();
             gameList.getItems().addAll(new GameController(App.connection)
                     .getSchedule(App.TUC.getTournament())); //Query call goes in here
         } catch (SQLException e) {
