@@ -68,6 +68,18 @@ public class GameView implements Initializable
         try {
             gameList.getItems().addAll(new GameController(App.connection)
                     .getSchedule(App.TUC.getTournament())); //Query call goes in here
+//            gameList.stream().foreach(x->{
+//
+//            });
+//            loop i // For Every Game in the Game List
+//            int teamid = gameList.getColumns() //Get all columns in team list
+//                              .get(teamColumn) // get home/away team column
+//                              .get(i) // get the home/away team for that game
+//                              .getID // get its ID ( the only valid value)
+//            team correctTeam = querry TeamTable for teamid // get the ACTUAL team for that ID
+//            gameList.getColums.get(teamColumn).replace(i to correctTeam) // replace the blank team with the correct one
+
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
