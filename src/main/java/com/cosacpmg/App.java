@@ -9,7 +9,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import models.Field;
 import models.Game;
 import models.Team;
 
@@ -20,7 +19,7 @@ import java.util.Date;
 
 public class App extends Application
 {
-    public static final String CONNECTION_STRING = "jdbc:sqlite:schedule.db";
+    public static final java.lang.String CONNECTION_STRING = "jdbc:sqlite:schedule.db";
     public static ConnectionSource connection;
     private static Stage mainStage;
     public static TournamentController TUC;
@@ -40,7 +39,7 @@ public class App extends Application
         startDB();
     }
 
-    public static void main(String[] args) {
+    public static void main(java.lang.String[] args) {
         launch();
     }
 
@@ -77,8 +76,8 @@ public class App extends Application
         Date first = new Date();
         Date second = new Date();
         second.setTime(second.getTime()+3600000);
-        gameList.add(gc.createGame(one,two, first,new Field(),TUC.getTournament()));
-        gameList.add(gc.createGame(one,two, second,new Field(),TUC.getTournament()));
+        gameList.add(gc.createGame(one,two, first,new String(),TUC.getTournament()));
+        gameList.add(gc.createGame(one,two, second,new String(),TUC.getTournament()));
 
 
         return gameList;

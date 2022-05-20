@@ -6,7 +6,6 @@ import com.j256.ormlite.table.TableUtils;
 import controllers.GameController;
 import controllers.TeamController;
 import controllers.TournamentController;
-import models.Field;
 import models.Game;
 import models.Team;
 import models.Tournament;
@@ -15,7 +14,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
@@ -23,7 +21,6 @@ import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import static org.junit.Assert.*;
 import static org.junit.Assert.fail;
@@ -40,8 +37,8 @@ public class GameControllerTest {
     private static TournamentController testTournamentController;
     private static TeamController testTeamController;
     private static ConnectionSource dbConn;
-    Team testHometeam, testAwayTeam;
-    Field testLocation;
+    Team testHometeam, testAwayTeam, testUnusedTeam;
+    String testLocation;
     Date date;
 
     @BeforeClass
@@ -65,6 +62,7 @@ public class GameControllerTest {
 
         Calendar time = Calendar.getInstance();
         time.set(2022, Calendar.JUNE,10);
+        time.add(Calendar.HOUR_OF_DAY, 10);
         date = time.getTime();
 
 
@@ -78,10 +76,18 @@ public class GameControllerTest {
         TableUtils.clearTable(dbConn,Team.class);
 
         masterTournament = testTournamentController.createTournament("MasterTournament");
-        testHometeam = new Team();
-        testAwayTeam = new Team();
-        testLocation = null;
+        testHometeam = testTeamController.createTeam("team Home", "Berlin", "west germany", "Angela Merkel", "234 567 8910");
+        testAwayTeam = testTeamController.createTeam("team Away", "London", "Brixton", "Margret Thatcher", "234 567 5555");
+        testUnusedTeam = testTeamController.createTeam("unused", "nowhere", "space", "go", "666 666 6666");
+        testLocation = "field1";
         masterTest = testGameController.createGame(testHometeam, testAwayTeam, date, testLocation, masterTournament);
+
+        testTeamController.addTeam(testHometeam);
+        testTeamController.addTeam(testAwayTeam);
+        testTeamController.addTeam(testUnusedTeam);
+        testTournamentController.addTournament(masterTournament);
+        testGameController.addGame(masterTest);
+
 
     }
     /**
@@ -95,47 +101,69 @@ public class GameControllerTest {
 
 
     @Test
-    public void CreateGameWithTeam1AlreadyInGame() throws SQLException {
-        Team UnusedTeam = new Team();
-        Game SecondGame = testGameController.createGame(testHometeam,UnusedTeam, date,new Field(),masterTournament);
-
-        List<Game> schedule = testGameController.getSchedule(masterTournament);
-        assertTrue(schedule.size()>0);
-//        assertFalse(schedule.contains(SecondGame));
-        assertFalse(schedule.size()>1);
+    public void CreateGameWithHomeTeamAlreadyInGameAtSameTime() throws SQLException
+    {
+        Game secondGame = testGameController.createGame(testHometeam,testUnusedTeam, date,testLocation,masterTournament);
+        assertFalse(testGameController.spaceTimeValidator(secondGame));
     }
 
     @Test
-    public void CreateGameWithTeam2AlreadyInGame() throws SQLException {
-        Team UnusedTeam = new Team();
-        Game SecondGame = testGameController.createGame(UnusedTeam,testAwayTeam, date,new Field(),masterTournament);
-
-        List<Game> schedule = testGameController.getSchedule(masterTournament);
-        assertTrue(schedule.size()>0);
-//        assertFalse(schedule.contains(SecondGame));
-        assertFalse(schedule.size()>1);
-    }
-    @Test
-    public void CreateGameWithBothTeamAlreadyInGame() throws SQLException {
-        Team UnusedTeam = new Team();
-        Game SecondGame = testGameController.createGame(testHometeam,testAwayTeam, date,new Field(),masterTournament);
-
-        List<Game> schedule = testGameController.getSchedule(masterTournament);
-        assertTrue(schedule.size()>0);
-//        assertFalse(schedule.contains(SecondGame));
-        assertFalse(schedule.size()>1);
+    public void CreateGameWithAwayTeamAlreadyInGameAtSameTime() throws SQLException
+    {
+        Game secondGame = testGameController.createGame(testUnusedTeam,testAwayTeam, date,testLocation,masterTournament);
+        assertFalse(testGameController.spaceTimeValidator(secondGame));
     }
 
     @Test
-    public void CreateGameWithSameTeam() throws SQLException {
-        Team UnusedTeam = new Team();
-        Game SecondGame = testGameController.createGame(UnusedTeam,UnusedTeam, date,new Field(),masterTournament);
-
-        List<Game> schedule = testGameController.getSchedule(masterTournament);
-        assertTrue(schedule.size()>0);
-//        assertFalse(schedule.contains(SecondGame));
-        assertFalse(schedule.size()>1);
+    public void CreateGameWithSameTeam() throws SQLException
+    {
+        Game secondGame = testGameController.createGame(testUnusedTeam,testUnusedTeam, date,testLocation, masterTournament);
+        assertFalse( testGameController.roundRobinValidator(secondGame));
     }
+
+    @Test
+    public void CreateGameWithTeamsSwitched() throws SQLException
+    {
+        Game secondGame = testGameController.createGame(testAwayTeam,testHometeam, date,testLocation,masterTournament);
+        assertFalse(testGameController.roundRobinValidator(secondGame));
+    }
+    @Test
+    public void CreateGameWithTeamsAlreadyPlayed() throws SQLException
+    {
+        Game secondGame = testGameController.createGame(testHometeam,testAwayTeam, date,testLocation,masterTournament);
+        assertFalse(testGameController.roundRobinValidator(secondGame));
+    }
+////////////////////////////////
+
+
+    @Test
+    public void CreateGameWithHomeTeamNotInGameAtSameTime() throws SQLException
+    {
+        date.setTime(date.getTime() + 2*60*60*1000L);
+        Game secondGame = testGameController.createGame(testHometeam,testUnusedTeam, date,testLocation,masterTournament);
+        assertTrue(testGameController.spaceTimeValidator(secondGame));
+    }
+
+    @Test
+    public void CreateGameWithAwayTeamNotInGameAtSameTime() throws SQLException
+    {
+        date.setTime(date.getTime() - 2*60*60*1000L);
+        Game secondGame = testGameController.createGame(testUnusedTeam,testAwayTeam, date,testLocation,masterTournament);
+        assertTrue(testGameController.spaceTimeValidator(secondGame));
+    }
+
+    @Test
+    public void CreateGameValidGame() throws SQLException
+    {
+        date.setTime(date.getTime() - 2*60*60*1000L);
+        Game secondGame = testGameController.createGame(testUnusedTeam,testAwayTeam, date,testLocation,masterTournament);
+        assertTrue(testGameController.roundRobinValidator(secondGame));
+    }
+
+
+
+
+
 
     @Test
     public void CreateGameOnUsedField() throws SQLException {

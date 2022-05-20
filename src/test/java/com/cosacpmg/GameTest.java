@@ -7,6 +7,7 @@ import controllers.GameController;
 import controllers.TeamController;
 import controllers.TournamentController;
 import models.*;
+import models.String;
 import org.junit.*;
 
 import javax.validation.ConstraintViolation;
@@ -30,10 +31,10 @@ public class GameTest
     private static TeamController testTeamController;
     private static ConnectionSource dbConn;
     Team testHometeam, testAwayTeam;
-    Field testLocation;
+    String testLocation;
     Date date;
 
-    private void assertInvalidGameMessage(String expectedProperty, String expectedErrMsg, Object expectedValue){
+    private void assertInvalidGameMessage(java.lang.String expectedProperty, java.lang.String expectedErrMsg, Object expectedValue){
         //run validator on car object and store the resulting violations in a collection
         Set<ConstraintViolation<Game>> constraintViolations = validator.validate( masterTest );//use the private global car created in setUpValidCar
 
@@ -93,7 +94,7 @@ public class GameTest
         masterTournament = testTournamentController.createTournament("MasterTournament");
         testHometeam = new Team();
         testAwayTeam = new Team();
-        testLocation = new Field();
+        testLocation = new String();
         masterTest = testGameController.createGame(testHometeam, testAwayTeam, date, testLocation, masterTournament);
 
     }
@@ -132,7 +133,7 @@ public class GameTest
         Calendar time = Calendar.getInstance();
         time.set(2022, Calendar.JUNE,10);
         Date newDate = time.getTime();
-        Game SecondGame = testGameController.createGame(UnusedTeamOne,UnusedTeamTwo, newDate,new Field(),masterTournament);
+        Game SecondGame = testGameController.createGame(UnusedTeamOne,UnusedTeamTwo, newDate,new String(),masterTournament);
 
         List<Game> schedule = testGameController.getSchedule(masterTournament);
 
@@ -151,7 +152,7 @@ public class GameTest
         Date newDate = time.getTime();
         boolean threwException = false;
         try {
-            Game SecondGame = testGameController.createGame(UnusedTeamOne,UnusedTeamTwo, newDate,new Field(),masterTournament);
+            Game SecondGame = testGameController.createGame(UnusedTeamOne,UnusedTeamTwo, newDate,new String(),masterTournament);
             List<Game> schedule = testGameController.getSchedule(masterTournament);
             assertTrue(schedule.size() == 1);
         } catch (SQLException e) {
@@ -173,7 +174,7 @@ public class GameTest
         Date newDate = time.getTime();
         boolean threwException = false;
         try {
-            Game SecondGame = testGameController.createGame(UnusedTeamOne,UnusedTeamTwo, newDate,new Field(),masterTournament);
+            Game SecondGame = testGameController.createGame(UnusedTeamOne,UnusedTeamTwo, newDate,new String(),masterTournament);
             List<Game> schedule = testGameController.getSchedule(masterTournament);
             assertTrue(schedule.size() == 1);
         } catch (SQLException e) {
@@ -195,7 +196,7 @@ public class GameTest
         Date newDate = time.getTime();
         boolean threwException = false;
         try {
-            Game SecondGame = testGameController.createGame(UnusedTeamOne,UnusedTeamTwo, newDate,new Field(),masterTournament);
+            Game SecondGame = testGameController.createGame(UnusedTeamOne,UnusedTeamTwo, newDate,new String(),masterTournament);
             List<Game> schedule = testGameController.getSchedule(masterTournament);
             assertTrue(schedule.size() == 1);
         } catch (SQLException e) {
@@ -222,7 +223,7 @@ public class GameTest
         List<Game> schedule = new ArrayList<Game>();
         boolean threwException = false;
         try {
-            Game SecondGame = testGameController.createGame(UnusedTeamOne,UnusedTeamTwo, newDate,new Field(),masterTournament);
+            Game SecondGame = testGameController.createGame(UnusedTeamOne,UnusedTeamTwo, newDate,new String(),masterTournament);
             schedule = testGameController.getSchedule(masterTournament);
             assertTrue(schedule.size() == 1);
         } catch (SQLException e) {
@@ -245,7 +246,7 @@ public class GameTest
         Date newDate = null;
         boolean threwException = false;
         try {
-            Game SecondGame = testGameController.createGame(UnusedTeamOne,UnusedTeamTwo, newDate,new Field(),masterTournament);
+            Game SecondGame = testGameController.createGame(UnusedTeamOne,UnusedTeamTwo, newDate,new String(),masterTournament);
             List<Game> schedule = testGameController.getSchedule(masterTournament);
             assertTrue(schedule.size() == 1);
         } catch (SQLException e) {
@@ -289,7 +290,7 @@ public class GameTest
         Date newDate = time.getTime();
         boolean threwException = false;
         try {
-            Game SecondGame = testGameController.createGame(UnusedTeamOne,UnusedTeamTwo, newDate,new Field(),null);
+            Game SecondGame = testGameController.createGame(UnusedTeamOne,UnusedTeamTwo, newDate,new String(),null);
             List<Game> schedule = testGameController.getSchedule(masterTournament);
             assertTrue(schedule.size() == 1);
         } catch (SQLException e) {

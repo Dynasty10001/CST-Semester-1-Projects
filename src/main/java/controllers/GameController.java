@@ -2,7 +2,6 @@ package controllers;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
-import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import models.*;
@@ -30,8 +29,9 @@ public class GameController
         }
     }
 
-    public Game createGame(Team homeTeam, Team awayTeam, Date startTime, Field location, Tournament tournament) throws SQLException {
- //todo pass in entire game, rename this to add game, put game constructor into AddGameView
+    public Game createGame(Team homeTeam, Team awayTeam, Date startTime, String location, Tournament tournament) {
+
+
         Game game = new Game();
         game.setHomeTeam(homeTeam);
         game.setAwayTeam(awayTeam);
@@ -39,13 +39,19 @@ public class GameController
         game.setStartTime(startTime);
         game.setWinners(null);
         game.setTournament(tournament);
-        repo.create(game);
+
         return game;
     }
 
-    public boolean addGameToSchedule(TournamentController TC,Game game){
-        //game.setTournament(TC.getTournament());
-        return false;
+    public Game addGame(Game game){
+        try
+        {
+            repo.create(game);
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return game;
     }
 
     public void setGameEvents(Game game,ArrayList<GameEvent> gameEvents)
@@ -62,7 +68,7 @@ public class GameController
         return schedule;
     }
 
-    private boolean roundRobinValidator(Game game) throws SQLException
+    public boolean roundRobinValidator(Game game) throws SQLException
     {
         if(game.getAwayTeam().getId() == game.getHomeTeam().getId())
         {
@@ -70,10 +76,6 @@ public class GameController
         }
         List<Game> awayGames = repo.queryForEq("awayTeam_id", game.getAwayTeam().getId());
         List<Game> homeGames = repo.queryForEq("homeTeam_id", game.getAwayTeam().getId());
-
-
-
-
 
        if (awayGames.stream().filter(g->g.getHomeTeam().getId()==game.getHomeTeam().getId())
                .count()>0)
@@ -86,11 +88,6 @@ public class GameController
         {
             return false;
         }
-
-
-
-
-
 
         return true;
     }
@@ -111,9 +108,19 @@ public class GameController
            return false;
        }
 
-       
-
-
+        List<Game> homeGames = repo.query(repo.queryBuilder()
+                .where()
+                .eq("homeTeam_id",game.getHomeTeam().getId())
+                .or()
+                .eq("awayTeam_id",game.getHomeTeam().getId())
+                .prepare());
+        if ( homeGames.stream()
+                .filter(g->g.getStartTime().getTime()<(game.getStartTime().getTime()+2*60*60*1000)
+                        && (g.getStartTime().getTime()+2*60*60*1000)>game.getStartTime().getTime())
+                .count()>0)
+        {
+            return false;
+        }
         return true;
     }
 }

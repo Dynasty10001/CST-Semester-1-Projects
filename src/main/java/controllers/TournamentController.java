@@ -28,13 +28,26 @@ public class TournamentController
 
     }
 
-    public Tournament createTournament(String name) throws SQLException {
+    //Creates a new tournament
+    public Tournament createTournament(String name) throws SQLException
+    {
         Tournament myTournament = new Tournament();
         myTournament.setTournamentName(name);
         changeTournament(myTournament);
         myTournament.setTeamList(new ArrayList<Team>());
-        repo.create(myTournament);
         return myTournament;
+    }
+
+    public Tournament addTournament(Tournament tourney) throws SQLException
+    {
+        try
+        {
+            repo.create(tourney);
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return tourney;
     }
 
     public Tournament getTournament(){

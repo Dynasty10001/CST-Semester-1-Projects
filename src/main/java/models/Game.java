@@ -2,16 +2,11 @@ package models;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
-import controllers.GameController;
-import org.hibernate.validator.constraints.UniqueElements;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
-import java.time.temporal.Temporal;
-import java.time.temporal.UnsupportedTemporalTypeException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -47,9 +42,9 @@ public class Game {
     // TODO: 5/18/2022  for some reason, @Future doesnt seem to be working. Must Fix
 
     //@Column(nullable = false)
-    @DatabaseField(foreign = true, canBeNull = false)
+    @DatabaseField(canBeNull = false)
     @NotEmpty(message = "Game must have a location that it is played at")
-    private Field location;
+    private String location;
 
 
     private ArrayList<GameEvent> gameEvents;
@@ -109,12 +104,12 @@ public class Game {
         this.startTime = startTime;
     }
 
-    public Field getLocation()
+    public String getLocation()
     {
         return location;
     }
 
-    public void setLocation(Field location)
+    public void setLocation(String location)
     {
         this.location = location;
     }

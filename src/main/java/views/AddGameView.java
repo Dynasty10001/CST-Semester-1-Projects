@@ -9,7 +9,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import models.Field;
 import models.Game;
 import models.Team;
 import models.ValidationHelper;
@@ -18,6 +17,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Calendar;
+import java.util.HashMap;
 
 
 public class AddGameView
@@ -40,7 +40,7 @@ public class AddGameView
         ComboBox<Integer> hourBox, minuteBox;
 
         @FXML
-        ComboBox<String> ampmBox;
+        ComboBox<java.lang.String> ampmBox;
 
         @FXML
         Label teamFieldError, cityFieldError, areaFieldError, coachFieldError, coachNumFieldError;
@@ -91,19 +91,27 @@ public class AddGameView
         }
 
         Game game = GC.createGame(homeTeamBox.getValue(), awayTeamBox.getValue(), gameTime.getTime(),
-                new Field(locationField.getText()), TUC.getTournament());
+                locationField.getText(), TUC.getTournament());
 
-        //HashMap<String, String> error = vh.getErrors(team);
+        HashMap<java.lang.String, java.lang.String> error = vh.getErrors(game);
 
-        System.out.println(game.getGameID());
+        teamFieldError.setText(error.get("teamName"));
+        cityFieldError.setText(error.get("city"));
+        areaFieldError.setText(error.get("area"));
+        coachFieldError.setText((error.get("coachName")));
+        coachNumFieldError.setText(error.get("coachNumber"));
 
-        AppView.changePaneHandler("schedules-view.fxml",AppView.staticBorderPane);
+        if (error.isEmpty())
+        {
+            GameController gc = new GameController(App.connection);
+            gc.addGame(game);
+            if(game.getGameID()>0L)
+            {
+                AppView.changePaneHandler("schedules-view.fxml",AppView.staticBorderPane);
+            }
 
-//        teamFieldError.setText(error.get("teamName"));
-//        cityFieldError.setText(error.get("city"));
-//        areaFieldError.setText(error.get("area"));
-//        coachFieldError.setText((error.get("coachName")));
-//        coachNumFieldError.setText(error.get("coachNumber"));
+        }
+
 
     }
 

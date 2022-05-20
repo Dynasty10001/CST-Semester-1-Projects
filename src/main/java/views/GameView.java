@@ -2,24 +2,18 @@ package views;
 
 import com.cosacpmg.App;
 import controllers.GameController;
-import controllers.TeamController;
-import controllers.TournamentController;
 import javafx.fxml.*;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
-import models.Field;
+import models.String;
 import models.Game;
-import models.Team;
-import models.Tournament;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 public class GameView implements Initializable
