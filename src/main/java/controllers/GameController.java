@@ -62,11 +62,57 @@ public class GameController
         return schedule;
     }
 
-    private boolean roundRobinValidator() {
-        return false;
+    private boolean roundRobinValidator(Game game) throws SQLException
+    {
+        if(game.getAwayTeam().getId() == game.getHomeTeam().getId())
+        {
+            return false;
+        }
+        List<Game> awayGames = repo.queryForEq("awayTeam_id", game.getAwayTeam().getId());
+        List<Game> homeGames = repo.queryForEq("homeTeam_id", game.getAwayTeam().getId());
+//        awayGames.stream().forEach()
+//        List<Game> schedules = repo.queryForAll();
+//        for(int i = 0; i < schedules.size(); i++)
+//        {
+//            for(int j = i+1; j< schedules.size(); j++)
+//            {
+//                //Compare all 4 team combos
+//                //if any of the teams of 2 games are the same true
+//                if(schedules.get(i).getHomeTeam().equals(schedules.get(j).getHomeTeam()) ||
+//                        schedules.get(i).getAwayTeam().equals(schedules.get(j).getAwayTeam()) ||
+//                        schedules.get(i).getAwayTeam().equals(schedules.get(j).getHomeTeam()) ||
+//                        schedules.get(i).getHomeTeam().equals(schedules.get(j).getAwayTeam()))
+//                {
+//                    //if Home team is the same team
+//                    if(schedules.get(i).getHomeTeam().equals(schedules.get(j).getHomeTeam()) ||
+//                            schedules.get(i).getHomeTeam().equals(schedules.get(j).getAwayTeam()))
+//                    {
+//                        if(schedules.get(i).getAwayTeam().equals(schedules.get(j).getHomeTeam()))
+//                    }
+//
+//                }
+//
+//            }
+//        }
+        return true;
     }
 
-    public boolean spaceTimeValidator() {
-        return false;
+    public boolean spaceTimeValidator() throws SQLException
+    {
+        List<Game> schedules = repo.queryForAll();
+        for(int i = 0; i < schedules.size(); i++)
+        {
+            for(int j = i+1; j< schedules.size(); j++)
+            {
+                //Compare that each team is not playing a game at the same time in a different game
+                if(schedules.get(i).getStartTime().equals(schedules.get(j).getStartTime()))
+                {
+                    return false;
+                }
+
+            }
+        }
+
+        return true;
     }
 }

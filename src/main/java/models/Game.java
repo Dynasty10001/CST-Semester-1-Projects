@@ -24,12 +24,12 @@ public class Game {
     private long gameID;
 
     //@Column(nullable = false)
-    @DatabaseField(foreign = true,canBeNull = false)
+    @DatabaseField(foreign = true,canBeNull = false, foreignAutoRefresh = true)
     @NotEmpty(message = "Game must have a Home Team" )
     private Team homeTeam;
 
     //@Column(nullable = false)
-    @DatabaseField(foreign = true,canBeNull = false)
+    @DatabaseField(foreign = true,canBeNull = false, foreignAutoRefresh = true)
     @NotEmpty(message = "Game must have an Away Team" )
     private Team awayTeam;
 
