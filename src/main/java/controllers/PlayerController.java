@@ -70,4 +70,11 @@ public class PlayerController {
         return returnedPlayer;
     }
 
+    public void addPlayerToTeam(Player player, int teamID) {
+
+    }
+
+    public void removePlayerFromTeam(Player player) {
+
+    }
 }

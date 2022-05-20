@@ -30,7 +30,7 @@ public class Player implements Serializable {
     private int jerseyNo;
 
     @DatabaseField(canBeNull = true)
-    private String team;
+    private int team;
 
     @DatabaseField(canBeNull = false)
     @NotEmpty(message = "All fields must be filled out with valid information" )
@@ -119,11 +119,11 @@ public class Player implements Serializable {
         this.jerseyNo = jerseyNo;
     }
 
-    public String getTeam() {
+    public int getTeam() {
         return team;
     }
 
-    public void setTeam(String team) {
+    public void setTeam(int team) {
         this.team = team;
     }
 
