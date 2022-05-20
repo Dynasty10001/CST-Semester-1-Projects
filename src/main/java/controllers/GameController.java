@@ -70,48 +70,49 @@ public class GameController
         }
         List<Game> awayGames = repo.queryForEq("awayTeam_id", game.getAwayTeam().getId());
         List<Game> homeGames = repo.queryForEq("homeTeam_id", game.getAwayTeam().getId());
-//        awayGames.stream().forEach()
-//        List<Game> schedules = repo.queryForAll();
-//        for(int i = 0; i < schedules.size(); i++)
-//        {
-//            for(int j = i+1; j< schedules.size(); j++)
-//            {
-//                //Compare all 4 team combos
-//                //if any of the teams of 2 games are the same true
-//                if(schedules.get(i).getHomeTeam().equals(schedules.get(j).getHomeTeam()) ||
-//                        schedules.get(i).getAwayTeam().equals(schedules.get(j).getAwayTeam()) ||
-//                        schedules.get(i).getAwayTeam().equals(schedules.get(j).getHomeTeam()) ||
-//                        schedules.get(i).getHomeTeam().equals(schedules.get(j).getAwayTeam()))
-//                {
-//                    //if Home team is the same team
-//                    if(schedules.get(i).getHomeTeam().equals(schedules.get(j).getHomeTeam()) ||
-//                            schedules.get(i).getHomeTeam().equals(schedules.get(j).getAwayTeam()))
-//                    {
-//                        if(schedules.get(i).getAwayTeam().equals(schedules.get(j).getHomeTeam()))
-//                    }
-//
-//                }
-//
-//            }
-//        }
+
+
+
+
+
+       if (awayGames.stream().filter(g->g.getHomeTeam().getId()==game.getHomeTeam().getId())
+               .count()>0)
+       {
+           return false;
+       }
+
+        if (homeGames.stream().filter(g->g.getAwayTeam().getId()==game.getHomeTeam().getId())
+                .count()>0)
+        {
+            return false;
+        }
+
+
+
+
+
+
         return true;
     }
 
-    public boolean spaceTimeValidator() throws SQLException
+    public boolean spaceTimeValidator(Game game) throws SQLException
     {
-        List<Game> schedules = repo.queryForAll();
-        for(int i = 0; i < schedules.size(); i++)
-        {
-            for(int j = i+1; j< schedules.size(); j++)
-            {
-                //Compare that each team is not playing a game at the same time in a different game
-                if(schedules.get(i).getStartTime().equals(schedules.get(j).getStartTime()))
-                {
-                    return false;
-                }
+        List<Game> awayGames = repo.query(repo.queryBuilder()
+                .where()
+                .eq("homeTeam_id",game.getAwayTeam().getId())
+                        .or()
+                .eq("awayTeam_id",game.getAwayTeam().getId())
+                .prepare());
+       if ( awayGames.stream()
+        .filter(g->g.getStartTime().getTime()<(game.getStartTime().getTime()+2*60*60*1000)
+                && (g.getStartTime().getTime()+2*60*60*1000)>game.getStartTime().getTime())
+                .count()>0)
+       {
+           return false;
+       }
 
-            }
-        }
+       
+
 
         return true;
     }
