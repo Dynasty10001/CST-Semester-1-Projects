@@ -7,7 +7,7 @@ import controllers.GameController;
 import controllers.TeamController;
 import controllers.TournamentController;
 import models.*;
-import models.String;
+
 import org.junit.*;
 
 import javax.validation.ConstraintViolation;

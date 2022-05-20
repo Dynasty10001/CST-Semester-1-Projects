@@ -3,10 +3,7 @@ package models;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
-import javax.validation.constraints.Future;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.*;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -20,12 +17,12 @@ public class Game {
 
     //@Column(nullable = false)
     @DatabaseField(foreign = true,canBeNull = false, foreignAutoRefresh = true)
-    @NotEmpty(message = "Game must have a Home Team" )
+    @NotNull(message = "Game must have a Home Team" )
     private Team homeTeam;
 
     //@Column(nullable = false)
     @DatabaseField(foreign = true,canBeNull = false, foreignAutoRefresh = true)
-    @NotEmpty(message = "Game must have an Away Team" )
+    @NotNull(message = "Game must have an Away Team" )
     private Team awayTeam;
 
     //@Column(nullable = true)
@@ -36,7 +33,7 @@ public class Game {
 
     //@Column(nullable = false)
     @DatabaseField(canBeNull = false)
-    @NotEmpty(message = "A date must be selected for the game")
+    @NotNull(message = "A date must be selected for the game")
     @Future
     private Date startTime;
     // TODO: 5/18/2022  for some reason, @Future doesnt seem to be working. Must Fix
@@ -51,7 +48,7 @@ public class Game {
 
     //@Column(nullable = false)
     @DatabaseField(foreign = true, canBeNull = false)
-    @NotEmpty(message = "Game must be contained inside a tournament")
+    @NotNull(message = "Game must be contained inside a tournament")
     private Tournament tournament;
 
 

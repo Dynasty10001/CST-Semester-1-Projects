@@ -93,7 +93,7 @@ public class AddGameView
         Game game = GC.createGame(homeTeamBox.getValue(), awayTeamBox.getValue(), gameTime.getTime(),
                 locationField.getText(), TUC.getTournament());
 
-        HashMap<java.lang.String, java.lang.String> error = vh.getErrors(game);
+        HashMap<String, String> error = vh.getErrors(game);
 
         teamFieldError.setText(error.get("teamName"));
         cityFieldError.setText(error.get("city"));
