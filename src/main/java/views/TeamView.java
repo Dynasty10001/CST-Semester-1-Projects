@@ -76,9 +76,9 @@ public class TeamView
 	}
 
 	@FXML
-	protected void teamViewAddPlayerHandler() throws IOException
+	protected void teamViewRosterViewHandler() throws IOException
 	{
-		AppView.popupHandler("add-team-view.fxml");
+		AppView.popupHandler("addPlayerToTeamPopup.fxml");
 	}
 	
 	

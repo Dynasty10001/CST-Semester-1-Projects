@@ -1,5 +1,6 @@
 package views;
 
+import com.cosacpmg.App;
 import controllers.PlayerController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -74,6 +75,14 @@ public class PlayerView {
         lblERRProvince.setText(error.get("province"));
         lblERRTeam.setText(error.get("team"));
         lblERRPosition.setText(error.get("position"));
+        
+        if (error.isEmpty())
+        {
+    
+            PlayerController pc = new PlayerController(App.connection);
+            pc.addPlayer(player);
+        }
+        
 
     }
 

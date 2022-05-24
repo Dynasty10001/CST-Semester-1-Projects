@@ -17,13 +17,9 @@
                   </TableView>
                   <Button layoutX="213.0" layoutY="372.0" mnemonicParsing="false" onAction="#teamViewAddTeamHandler" prefHeight="25.0" prefWidth="83.0" text="Add Team" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="0.0" />
                </children></AnchorPane>
-          <AnchorPane>
-               <children>
-                  <Button fx:id="addPlayer" layoutX="176.0" layoutY="347.0" mnemonicParsing="false" onAction="#teamViewAddPlayerHandler" prefHeight="25.0" prefWidth="103.0" text="Add Player" />
-                  <ListView fx:id="Roster" layoutX="176.0" layoutY="73.0" prefHeight="274.0" prefWidth="103.0" />
-                  <Button layoutX="176.0" layoutY="372.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="103.0" text="Remove Player" />
-               </children></AnchorPane>
+          <AnchorPane />
         </items>
       </SplitPane>
+      <Button layoutX="556.0" layoutY="346.0" mnemonicParsing="false" onAction="#teamViewRosterViewHandler" text="View Roster" />
    </children>
 </AnchorPane>

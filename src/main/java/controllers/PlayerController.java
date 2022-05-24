@@ -7,6 +7,7 @@ import models.Player;
 import models.ValidationHelper;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class PlayerController {
 
@@ -34,6 +35,17 @@ public class PlayerController {
         Player returnedPlayer = null;
 
         return returnedPlayer;
+    }
+    public ArrayList<Player> getAllPlayer()
+    {
+        try
+        {
+            return (ArrayList<Player>) repo.queryForAll();
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static Player createPlayer(String First, String Last, int Jersey, String Pos, String Email, String Phone, String EName, String EPhone, String EEmail, String Street, String City, String Prov, String Postal)
