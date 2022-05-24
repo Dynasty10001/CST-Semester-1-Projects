@@ -39,7 +39,7 @@ public class PlayerController {
     public static Player createPlayer(String First, String Last, int Jersey, String Pos, String Email, String Phone, String EName, String EPhone, String EEmail, String Street, String City, String Prov, String Postal)
     {
         Player player = new Player();
-        player.setFirstName (First);
+        player.setFirstName(First);
         player.setLastName(Last);
         player.setJerseyNo(Jersey);
         player.setPosition(Pos);
@@ -56,25 +56,44 @@ public class PlayerController {
         return player;
     }
 
-    public Player addPlayer(Player player) throws SQLException {
+    public Player addPlayer(Player player) {
         Player returnedPlayer = player;
-        this.repo.create(returnedPlayer);
+        try {
+            this.repo.create(returnedPlayer);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         return returnedPlayer;
     }
 
-    public Player editplayer()
+    public Player editPlayer(Player player)
     {
-        Player returnedPlayer = null;
+        try {
+            this.repo.update(player);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
-        return returnedPlayer;
+        return player;
     }
 
-    public void addPlayerToTeam(Player player, int teamID) {
+    public Player addPlayerToTeam(Player player, int teamID) {
+        if (player.getTeam() == 0)
+        {
+            player.setTeam(teamID);
+            editPlayer(player);
+        }
 
+        return player;
     }
 
-    public void removePlayerFromTeam(Player player) {
+    public Player removePlayerFromTeam(Player player) {
 
+        player.setTeam(0);
+
+        editPlayer(player);
+
+        return player;
     }
 }

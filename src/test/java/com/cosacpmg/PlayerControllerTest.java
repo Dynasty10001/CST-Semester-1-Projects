@@ -34,6 +34,8 @@ public class PlayerControllerTest {
         player.setProvince("Saskatchewan");
         player.setPostalCode("S7V0A1");
 
+        new App().startDB();//Jank, but just for testing
+
         PC = new PlayerController(App.connection);
     }
 

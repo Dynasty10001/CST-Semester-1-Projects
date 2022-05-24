@@ -3,8 +3,11 @@ package views;
 import com.cosacpmg.App;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -29,9 +32,22 @@ public class AppView
     {
 //		FXMLLoader loader = new FXMLLoader(AppView.class.getResource(fxmlPath));
         FXMLLoader loader = new FXMLLoader(App.class.getResource(fxmlPath));
-        Pane pane = new Pane();
-        pane.getChildren().add(loader.load());
-        bP.setCenter(pane);
+//        Pane pane = new Pane();
+//        pane.getChildren().add(loader.load());
+        bP.setCenter(loader.load());
+    }
+
+    protected static void popupHandler(String fxmlPath)
+    {
+        FXMLLoader loader = new FXMLLoader(App.class.getResource(fxmlPath));
+        Stage dialog = new Stage();
+        dialog.initModality(Modality.WINDOW_MODAL);
+        try {
+            dialog.setScene(new Scene(loader.load()));
+            dialog.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     // Todo Do this later. bozo. maybe store an array list of panes as strings in a "history" list
@@ -70,7 +86,6 @@ public class AppView
     {
         changePaneHandler("standing-view-pane.fxml");
     }
-
 
 
 

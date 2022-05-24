@@ -74,6 +74,12 @@ public class TeamView
 	{
 		AppView.changePaneHandler("add-team-view.fxml",AppView.staticBorderPane);
 	}
+
+	@FXML
+	protected void teamViewAddPlayerHandler() throws IOException
+	{
+		AppView.popupHandler("add-team-view.fxml");
+	}
 	
 	
 }
