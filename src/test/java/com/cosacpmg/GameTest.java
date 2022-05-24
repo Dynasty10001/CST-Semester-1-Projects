@@ -1,7 +1,6 @@
 package com.cosacpmg;
 
 import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
-import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import controllers.GameController;
 import controllers.TeamController;
@@ -22,21 +21,16 @@ import static org.junit.Assert.*;
 public class GameTest
 {
     //private static final String CONNECT_STRING = "jdbc:sqlight:schedule.db";
-    private static ValidatorFactory VF;
+    private static ValidatorFactory Vf;
     private static Validator validator;
-    Game masterTest;
-    Tournament masterTournament;
-    private static GameController testGameController;
-    private static TournamentController testTournamentController;
-    private static TeamController testTeamController;
-    private static ConnectionSource dbConn;
-    Team testHometeam, testAwayTeam;
-    String testLocation;
-    Date date;
+    private static Game validGame;
+    private String repeatA(int count){
+        return new String(new char[count]).replace('\0','A');
+    }
 
-    private void assertInvalidGameMessage(java.lang.String expectedProperty, java.lang.String expectedErrMsg, Object expectedValue){
+    private void assertInvalidGame(String expectedProperty, String expectedErrMsg, Object expectedValue){
         //run validator on car object and store the resulting violations in a collection
-        Set<ConstraintViolation<Game>> constraintViolations = validator.validate( masterTest );//use the private global car created in setUpValidCar
+        Set<ConstraintViolation<Game>> constraintViolations = validator.validate( validGame );//use the private global car created in setUpValidCar
 
         //count how many violations - SHOULD ONLY BE 1
         assertEquals( 1, constraintViolations.size() );
@@ -56,48 +50,70 @@ public class GameTest
 
     @BeforeClass
     public static void SetupValidator() throws SQLException {
-        VF = Validation.buildDefaultValidatorFactory();
-        validator = VF.getValidator();
-
-        dbConn = new JdbcPooledConnectionSource("jdbc:sqlite:schedule.db");
-        testTeamController = new TeamController(dbConn);
-        testGameController = new GameController( dbConn);
-        testTournamentController = new TournamentController(dbConn);
+        Vf = Validation.buildDefaultValidatorFactory();
+        validator = Vf.getValidator();
 
 
-
-
-    }
+            }
 
     @AfterClass
     public static void tearDownValidator()
     {
-        VF.close();
+        //gracefully teardown the validator factory
+        Vf.close();
     }
 
 
     @Before
-    public void TestSetup() throws SQLException {
+    public void TestSetup()
+    {
+        Date date= new Date();
+        date.setTime(date.getTime()+7000);
+        validGame = new Game();
+        validGame.setAwayTeam (new Team());
+        validGame.setHomeTeam(new Team());
+        validGame.setStartTime(date);
+        validGame.setLocation("Test");
+        validGame.setTournament(new Tournament());
+        validGame.setWinners(0);
 
-        testTeamController = new TeamController(dbConn);
-        testGameController = new GameController( dbConn);
-        testTournamentController = new TournamentController(dbConn);
 
-        Calendar time = Calendar.getInstance();
-        time.set(2022, Calendar.JUNE,10);
-        date = time.getTime();
-
-        TableUtils.clearTable(dbConn,Tournament.class);
-        TableUtils.clearTable(dbConn,Game.class);
-        TableUtils.clearTable(dbConn,Team.class);
-
-        masterTournament = testTournamentController.createTournament("MasterTournament");
-        testHometeam = new Team();
-        testAwayTeam = new Team();
-        testLocation = new String();
-        masterTest = testGameController.createGame(testHometeam, testAwayTeam, date, testLocation, masterTournament);
 
     }
+
+
+    @Test
+    public void testGameAwayTeamNull()
+    {
+        validGame.setAwayTeam(null);
+        assertInvalidGame("awayTeam", "Game must have an Away Team" ,null);
+    }
+
+
+    @Test
+    public void testGameAllValid()
+    {
+        assertEquals (0, validator.validate(validGame ).size());
+    }
+
+
+
+    @Test
+    public void testGameHomeTeamNull()
+    {
+        validGame.setHomeTeam(null);
+        assertInvalidGame("homeTeam", "Game must have a Home Team" ,null);
+    }
+
+
+    @Test
+    public void testGameStartTimeFuture()
+    {
+        
+    }
+
+
+
 
     /**
      * Rigorous Test :-)
