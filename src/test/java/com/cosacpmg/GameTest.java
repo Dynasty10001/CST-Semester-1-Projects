@@ -49,12 +49,11 @@ public class GameTest
     }
 
     @BeforeClass
-    public static void SetupValidator() throws SQLException {
+    public static void SetupValidator() throws SQLException 
+    {
         Vf = Validation.buildDefaultValidatorFactory();
         validator = Vf.getValidator();
-
-
-            }
+    }
 
     @AfterClass
     public static void tearDownValidator()
@@ -76,12 +75,8 @@ public class GameTest
         validGame.setLocation("Test");
         validGame.setTournament(new Tournament());
         validGame.setWinners(0);
-
-
-
     }
-
-
+    
     @Test
     public void testGameAwayTeamNull()
     {
@@ -89,15 +84,12 @@ public class GameTest
         assertInvalidGame("awayTeam", "Game must have an Away Team" ,null);
     }
 
-
     @Test
     public void testGameAllValid()
     {
         assertEquals (0, validator.validate(validGame ).size());
     }
-
-
-
+    
     @Test
     public void testGameHomeTeamNull()
     {
@@ -109,211 +101,71 @@ public class GameTest
     @Test
     public void testGameStartTimeFuture()
     {
-        
+        Date date = new Date();
+        date.setTime(date.getTime()+1000*60*60*48);
+        validGame.setStartTime(date);
+        assertEquals (0, validator.validate(validGame ).size());
     }
 
-
-
-
-    /**
-     * Rigorous Test :-)
-     */
     @Test
-    public void shouldAnswerWithTrue()
+    public void testGameStartTimePast()
     {
-        assertTrue( true );
+        Date date = new Date();
+        date.setTime(date.getTime()-1000*60*60*48);
+        validGame.setStartTime(date);
+        assertInvalidGame("startTime", "Date must not be in the past" , date);
     }
-
-    /**
-     * Test to make sure a Game is successfully created and the values are going into the correct slots
-     */
+    
     @Test
-    public void ManualCreationOfGame() throws SQLException {
-
-        Game testGame = testGameController.createGame(testHometeam,testAwayTeam, date,testLocation,masterTournament);
-
-        assertNotNull(testGame);
-        assertEquals(testHometeam,testGame.getHomeTeam());
-        assertEquals(testAwayTeam,testGame.getAwayTeam());
-        assertEquals(testLocation,testGame.getLocation());
-        assertEquals(date,testGame.getStartTime());
+    public void testGameStartTimeNull()
+    {
+        validGame.setStartTime(null);
+        assertInvalidGame("startTime", "A date must be selected for the game" , null);
     }
 
-    /**
-     * Test to make sure a created game is added to the database
-     */
     @Test
-    public void GameAddedToDatabase() throws SQLException {
-        Team UnusedTeamOne = new Team();
-        Team UnusedTeamTwo = new Team();
-        Calendar time = Calendar.getInstance();
-        time.set(2022, Calendar.JUNE,10);
-        Date newDate = time.getTime();
-        Game SecondGame = testGameController.createGame(UnusedTeamOne,UnusedTeamTwo, newDate,new String(),masterTournament);
-
-        List<Game> schedule = testGameController.getSchedule(masterTournament);
-
-        assertTrue(schedule.size() > 1);
+    public void testGameLocationEmpty()
+    {
+        validGame.setLocation("");
+        assertInvalidGame("location","Game must have a location that it is played at", "");
     }
 
-    /**
-     * Test to make sure a team is NOT added to the database when the Home Team is Null
-     */
     @Test
-    public void HomeTeamIsNull(){
-        Team UnusedTeamOne = null;
-        Team UnusedTeamTwo = new Team();
-        Calendar time = Calendar.getInstance();
-        time.set(2022, Calendar.JUNE,10);
-        Date newDate = time.getTime();
-        boolean threwException = false;
-        try {
-            Game SecondGame = testGameController.createGame(UnusedTeamOne,UnusedTeamTwo, newDate,new String(),masterTournament);
-            List<Game> schedule = testGameController.getSchedule(masterTournament);
-            assertTrue(schedule.size() == 1);
-        } catch (SQLException e) {
-            threwException = true;
-        }
-
-        assertTrue(threwException);
+    public void testGameTournamentNull()
+    {
+        validGame.setTournament(null);
+        assertInvalidGame("tournament", "Game must be contained inside a tournament", null);
     }
 
-    /**
-     * Test to make sure a team is NOT added to the database when the Away Team is Null
-     */
     @Test
-    public void AwayTeamIsNull(){
-        Team UnusedTeamOne = new Team();
-        Team UnusedTeamTwo = null;
-        Calendar time = Calendar.getInstance();
-        time.set(2022, Calendar.JUNE,10);
-        Date newDate = time.getTime();
-        boolean threwException = false;
-        try {
-            Game SecondGame = testGameController.createGame(UnusedTeamOne,UnusedTeamTwo, newDate,new String(),masterTournament);
-            List<Game> schedule = testGameController.getSchedule(masterTournament);
-            assertTrue(schedule.size() == 1);
-        } catch (SQLException e) {
-            threwException = true;
-        }
-
-        assertTrue(threwException);
+    public void testGameWinnnersTooHigh()
+    {
+        validGame.setWinners(2);
+        assertInvalidGame("winners", "Error with winner Field. 1 is Home Team wins, -1 is Away Team Wins, 0 is Tie, null is Game not Played",
+                2);
     }
 
-    /**
-     * Test to make sure a team is NOT added to the database when the Both Teams are Null
-     */
     @Test
-    public void BothTeamIsNull(){
-        Team UnusedTeamOne = new Team();
-        Team UnusedTeamTwo = null;
-        Calendar time = Calendar.getInstance();
-        time.set(2022, Calendar.JUNE,10);
-        Date newDate = time.getTime();
-        boolean threwException = false;
-        try {
-            Game SecondGame = testGameController.createGame(UnusedTeamOne,UnusedTeamTwo, newDate,new String(),masterTournament);
-            List<Game> schedule = testGameController.getSchedule(masterTournament);
-            assertTrue(schedule.size() == 1);
-        } catch (SQLException e) {
-            threwException = true;
-        }
-
-        assertTrue(threwException);
-
+    public void testGameWinnnersTooLow()
+    {
+        validGame.setWinners(-2);
+        assertInvalidGame("winners", "Error with winner Field. 1 is Home Team wins, -1 is Away Team Wins, 0 is Tie, null is Game not Played",
+                -2);
     }
 
-
-    /**
-     * Test to make sure a team is NOT added to the database when the Date is set into the future
-     // TODO: 5/18/2022  for some reason, @Future doesnt seem to be working. Must Fix
-     */
-    //@Test
-    public void GameDateMustBeInFuture(){
-
-        Team UnusedTeamOne = new Team();
-        Team UnusedTeamTwo = new Team();
-        Calendar time = Calendar.getInstance();
-        time.set(1, Calendar.JUNE,10);
-        Date newDate = time.getTime();
-        List<Game> schedule = new ArrayList<Game>();
-        boolean threwException = false;
-        try {
-            Game SecondGame = testGameController.createGame(UnusedTeamOne,UnusedTeamTwo, newDate,new String(),masterTournament);
-            schedule = testGameController.getSchedule(masterTournament);
-            assertTrue(schedule.size() == 1);
-        } catch (SQLException e) {
-            threwException = true;
-        }
-
-        assertTrue(schedule.size()>0);
-        assertTrue(schedule.size()<2);
-    }
-
-    /**
-     * Test to make sure a team is NOT added to the database when Both Teams are Null
-     */
     @Test
-    public void DateIsNull(){
-        Team UnusedTeamOne = new Team();
-        Team UnusedTeamTwo = new Team();
-        Calendar time = Calendar.getInstance();
-        time.set(2022, Calendar.JUNE,10);
-        Date newDate = null;
-        boolean threwException = false;
-        try {
-            Game SecondGame = testGameController.createGame(UnusedTeamOne,UnusedTeamTwo, newDate,new String(),masterTournament);
-            List<Game> schedule = testGameController.getSchedule(masterTournament);
-            assertTrue(schedule.size() == 1);
-        } catch (SQLException e) {
-            threwException = true;
-        }
+    public void testGameWinnersValid()
+    {
+        validGame.setWinners(-1);
+        assertEquals (0, validator.validate(validGame ).size());
 
-        assertTrue(threwException);
+        validGame.setWinners(0);
+        assertEquals (0, validator.validate(validGame ).size());
 
+        validGame.setWinners(1);
+        assertEquals (0, validator.validate(validGame ).size());
+
+        validGame.setWinners(null);
+        assertEquals (0, validator.validate(validGame ).size());
     }
-
-    /**
-     * Test to make sure a team is NOT added to the database when the Date is Null
-     */
-    @Test
-    public void LocationIsNull(){
-        Team UnusedTeamOne = new Team();
-        Team UnusedTeamTwo = new Team();
-        Calendar time = Calendar.getInstance();
-        time.set(2022, Calendar.JUNE,10);
-        Date newDate = time.getTime();
-        boolean threwException = false;
-        try {
-            Game SecondGame = testGameController.createGame(UnusedTeamOne,UnusedTeamTwo, newDate,null,masterTournament);
-            List<Game> schedule = testGameController.getSchedule(masterTournament);
-            assertTrue(schedule.size() == 1);
-        } catch (SQLException e) {
-            threwException = true;
-        }
-        assertTrue(threwException);
-    }
-
-    /**
-     * Test to make sure a team is NOT added to the database when the tournament is Null
-     */
-    @Test
-    public void TournamentIsNull(){
-        Team UnusedTeamOne = new Team();
-        Team UnusedTeamTwo = new Team();
-        Calendar time = Calendar.getInstance();
-        time.set(2022, Calendar.JUNE,10);
-        Date newDate = time.getTime();
-        boolean threwException = false;
-        try {
-            Game SecondGame = testGameController.createGame(UnusedTeamOne,UnusedTeamTwo, newDate,new String(),null);
-            List<Game> schedule = testGameController.getSchedule(masterTournament);
-            assertTrue(schedule.size() == 1);
-        } catch (SQLException e) {
-            threwException = true;
-        }
-        assertTrue(threwException);
-    }
-
-
 }
