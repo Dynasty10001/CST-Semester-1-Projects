@@ -7,7 +7,7 @@ import javafx.scene.control.ListView;
 import models.Player;
 
 
-public class AddPlayerToTeamPopup {
+public class RosterPopup {
 	
 	@FXML
 	protected ListView<Player> allPlayerList;
@@ -26,33 +26,49 @@ public class AddPlayerToTeamPopup {
 		initTeamPlayerList(pc);
 		
 	}
-	
+
+	protected void updateUI() {
+		PlayerController pc = new PlayerController(App.connection);
+		initAllPlayerList(pc);
+		initTeamPlayerList(pc);
+	}
 	
 	
 	private void initTeamPlayerList(PlayerController pc)
 	{
-		teamPlayerList.getItems().addAll(pc.queryForPlayersOnTeam(currentTeamId));
+		teamPlayerList.getItems().setAll(pc.queryForPlayersOnTeam(currentTeamId));
 	
 	}
 	
 	
 	private void initAllPlayerList(PlayerController pc)
 	{
-		allPlayerList.getItems().addAll(pc.queryForPlayersOnTeam(0));
+		allPlayerList.getItems().setAll(pc.queryForPlayersOnTeam(0));
 	}
 	
 	
 	@FXML
-	protected void playerSelected()
+	protected void rosterAddPlayerHandler()
 	{
-		
 		Player selectedPlayer = (Player) allPlayerList.getSelectionModel().getSelectedItems().get(0);
-		System.out.println(selectedPlayer.getFirstName());
+		PlayerController pc = new PlayerController(App.connection);
+		selectedPlayer.setTeam(currentTeamId);
+		pc.updatePlayer(selectedPlayer);
+		updateUI();
 	}
 	
 	public static void setCurrentTeam(int teamId)
 	{
 			currentTeamId = teamId;
 	
+	}
+
+	@FXML
+	protected void rosterRemovePlayerHandler() {
+		Player selectedPlayer = (Player) teamPlayerList.getSelectionModel().getSelectedItems().get(0);
+		PlayerController pc = new PlayerController(App.connection);
+		selectedPlayer.setTeam(0);
+		pc.updatePlayer(selectedPlayer);
+		updateUI();
 	}
 }

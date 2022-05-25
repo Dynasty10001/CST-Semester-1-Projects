@@ -2,6 +2,7 @@ package views;
 
 import com.cosacpmg.App;
 import controllers.PlayerController;
+import controllers.TeamController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -14,7 +15,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 
-public class PlayerView {
+public class AddPlayerView {
 
     private Player player;
 
@@ -52,6 +53,12 @@ public class PlayerView {
 
 
     @FXML
+    protected void initialize()
+    {
+        cbTeam.getItems().setAll(new TeamController(App.connection).getAllTeams());
+    }
+
+    @FXML
     protected void addPlayerSubmitHandler()
     {
         ValidationHelper vh = new ValidationHelper();
@@ -68,7 +75,7 @@ public class PlayerView {
         lblERRJersey.setText(error.get("jerseyNo"));
         lblERRCity.setText(error.get("city"));
         lblERRStreet.setText(error.get("streetAddress"));
-        lblERRPostalCode.setText(error.get("postalcode"));
+        lblERRPostalCode.setText(error.get("postalCode"));
         lblERREName.setText(error.get("emergencyName"));
         lblERREPhone.setText(error.get("emergencyPhoneNumber"));
         lblERREEmail.setText(error.get("emergencyEmail"));
@@ -81,6 +88,18 @@ public class PlayerView {
     
             PlayerController pc = new PlayerController(App.connection);
             pc.addPlayer(player);
+
+            tfFirstName.setText("");
+            tfLastName.setText("");
+            tfEmail.setText("");
+            tfPhone.setText("");
+            tfJersey.setText("");
+            tfCity.setText("");
+            tfStreet.setText("");
+            tfPostalCode.setText("");
+            tfEName.setText("");
+            tfEPhone.setText("");
+            tfEEmail.setText("");
         }
         
 

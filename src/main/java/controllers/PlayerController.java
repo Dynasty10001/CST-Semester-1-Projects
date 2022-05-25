@@ -39,7 +39,6 @@ public class PlayerController {
         return returnedPlayer;
     }
     
-    
     public ArrayList<Player>  getAllPlayersMatch(Player player)
     {
     
@@ -101,6 +100,18 @@ public class PlayerController {
         return returnedPlayer;
     }
 
+    public Player updatePlayer(Player player)
+    {
+
+        try {
+            this.repo.update(player);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return player;
+    }
+
     public Player editPlayer(Player player)
     {
         try {
@@ -138,8 +149,12 @@ public class PlayerController {
      */
     public ArrayList<Player> queryForPlayersOnTeam(int teamId)
     {
-        Player searchPlayer = new Player();
-        searchPlayer.setTeam(teamId);
-        return getAllPlayersMatch(searchPlayer);
+        try {
+            ArrayList<Player> returnList = (ArrayList<Player>) repo.queryForEq("team", teamId);
+            return returnList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

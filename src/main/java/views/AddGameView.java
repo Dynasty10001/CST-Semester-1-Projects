@@ -23,10 +23,6 @@ import java.util.HashMap;
 public class AddGameView
 {
 
-    TournamentController TUC ;
-    GameController GC;
-    TeamController TC;
-
         @FXML
         TextField locationField;
 
@@ -47,10 +43,7 @@ public class AddGameView
 
         @FXML
         protected void initialize() throws SQLException {
-
-            TUC = App.TUC;
-            GC = App.GC;
-            TC = App.TC;
+            TeamController TC = new TeamController(App.connection);
 
             homeTeamBox.getItems().addAll(TC.getAllTeams());
             awayTeamBox.getItems().addAll(TC.getAllTeams());
@@ -59,6 +52,8 @@ public class AddGameView
 
     @FXML
     protected void addGameSubmitHandler() throws SQLException, IOException {
+
+        TournamentController TUC = new TournamentController(App.connection);
 
         if (TUC.getTournament() == null)
         {
@@ -83,12 +78,14 @@ public class AddGameView
 
         if (homeTeamBox.getValue() == null)
         {
-            homeTeamBox.setValue(TC.createTeam(null,null,null,null,null));
+            homeTeamBox.setValue(TeamController.createTeam(null,null,null,null,null));
         }
         if (awayTeamBox.getValue() == null)
         {
-            awayTeamBox.setValue(TC.createTeam(null,null,null,null,null));
+            awayTeamBox.setValue(TeamController.createTeam(null,null,null,null,null));
         }
+
+        GameController GC = new GameController(App.connection);
 
         Game game = GC.createGame(homeTeamBox.getValue(), awayTeamBox.getValue(), gameTime.getTime(),
                 locationField.getText(), TUC.getTournament());
