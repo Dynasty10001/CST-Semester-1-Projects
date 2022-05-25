@@ -21,13 +21,13 @@ public class AppView
     {
         staticBorderPane = borderPane;
     }
-    
 
-	private void changePaneHandler(String fxmlPath) throws IOException
-	{
+
+    private void changePaneHandler(String fxmlPath) throws IOException
+    {
         changePaneHandler(fxmlPath, staticBorderPane);
-	}
-    
+    }
+
     protected static void changePaneHandler(String fxmlPath, BorderPane bP) throws IOException
     {
 //		FXMLLoader loader = new FXMLLoader(AppView.class.getResource(fxmlPath));
@@ -78,7 +78,7 @@ public class AppView
     @FXML
     protected void onSchedulesNavHandler() throws IOException
     {
-        changePaneHandler("schedules-view-pane.fxml");
+        changePaneHandler("schedules-view.fxml");
     }
 
     @FXML

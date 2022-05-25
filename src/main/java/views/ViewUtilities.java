@@ -5,7 +5,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ViewUtilities
 {
-	
+
 	/**
 	 * This is a utility method that will Return a tableColumn for use in a TableView within javafx. This Is a
 	 * generic method and will take two parameters, on is the label of the column, and the other is the attribute of
@@ -27,7 +27,7 @@ public class ViewUtilities
 	}
 
 	public static void test(){
-	
+
 	}
-	
+
 }

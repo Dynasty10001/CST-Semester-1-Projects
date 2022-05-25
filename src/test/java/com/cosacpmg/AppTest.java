@@ -1,15 +1,13 @@
 package com.cosacpmg;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import controllers.TeamController;
 import org.junit.Test;
 
 /**
  * Unit test for simple App.
  */
-public class AppTest
+public class AppTest 
 {
     /**
      * Rigorous Test :-)
@@ -19,8 +17,6 @@ public class AppTest
     {
         assertTrue( true );
     }
-    
-    
 
 
 }

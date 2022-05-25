@@ -13,12 +13,12 @@ import java.util.ArrayList;
 public class TeamController
 {
 	public Dao<Team, Long> repo;
-	
+
 	public TeamController() {
 	}
-	
-	
-	
+
+
+
 	public TeamController(ConnectionSource connection)
 	{
 		try
@@ -31,7 +31,7 @@ public class TeamController
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * This method gets a team from the database by matching with the supplied search object, any null or empty
 	 * valies are ignored.
@@ -40,20 +40,20 @@ public class TeamController
 	 */
 	public ArrayList<Team> getTeam(Team searchObject)
 	{
-		
+
 		try
 		{
-			
+
 			return (ArrayList<Team>) repo.queryForMatching(searchObject);
-			
-			
+
+
 		} catch (SQLException e)
 		{
 			e.printStackTrace();
 		}
 		return null;
 	}
-	
+
 	/**
 	 * A method that gets all teams from the database
 	 * @return
@@ -67,11 +67,11 @@ public class TeamController
 		{
 			e.printStackTrace();
 		}
-		
+
 		return null;
 	}
-	
-	
+
+
 	/**
 	 * this method takes in a team and adds it to the database
 	 * @param team
@@ -88,7 +88,7 @@ public class TeamController
 		}
 		return team;
 	}
-	
+
 	/**
 	 * This is a 'factory' method that will create a team
 	 * @param teamName
@@ -101,22 +101,22 @@ public class TeamController
 	public static Team createTeam(String teamName, String city, String area, String coachName, String coachNum)
 	{
 		ValidationHelper vh = new ValidationHelper();
-		
+
 		Team team = new Team();
 		team.setTeamName(teamName);
 		team.setCity(city);
 		team.setArea(area);
 		team.setCoachName(coachName);
 		team.setCoachNumber(coachNum);
-		
-		
+
+
 		if(vh.getErrors(team).isEmpty()){
 			return team;
 		}
 		else
 			return null;
 	}
-	
-	
-	
+
+
+
 }
