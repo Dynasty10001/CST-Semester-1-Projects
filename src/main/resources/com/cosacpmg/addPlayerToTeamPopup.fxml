@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.AddPlayerToTeamPopup">
@@ -9,7 +10,10 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <ListView fx:id="allPlayerList" layoutY="-2.0" prefHeight="344.0" prefWidth="175.0" />
+                  <ListView fx:id="allPlayerList" layoutY="-2.0" prefHeight="344.0" prefWidth="175.0">
+                     <effect>
+                        <Bloom threshold="1.0" />
+                     </effect></ListView>
                   <Button layoutX="102.0" layoutY="342.0" mnemonicParsing="false" text="Remove" />
                   <Button layoutX="21.0" layoutY="342.0" mnemonicParsing="false" text="Add" />
                </children></AnchorPane>
