@@ -206,5 +206,14 @@ public class Player implements Serializable {
     public void setEmergencyPhoneNumber(String emergencyPhoneNumber) {
         this.emergencyPhoneNumber = emergencyPhoneNumber;
     }
-
+    
+    /**
+     * This is used by the Roster View to display the player name when placed in a list
+     * @return
+     */
+    @Override
+    public String toString()
+    {
+        return firstName + " " + lastName;
+    }
 }

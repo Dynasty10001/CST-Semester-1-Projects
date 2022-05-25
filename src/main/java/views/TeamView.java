@@ -78,6 +78,8 @@ public class TeamView
 	@FXML
 	protected void teamViewRosterViewHandler() throws IOException
 	{
+		int currentTeam = (int) teamList.getSelectionModel().getSelectedItem().getId();
+		AddPlayerToTeamPopup.setCurrentTeam(currentTeam);
 		AppView.popupHandler("addPlayerToTeamPopup.fxml");
 	}
 	

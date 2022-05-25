@@ -15,7 +15,7 @@ public class TournamentController
 //	Tournament currentTournament;
 
     public Dao<Tournament, Long> repo;
-    private Tournament CurrentTournament;
+    private static Tournament CurrentTournament;
 
 
     public TournamentController(ConnectionSource dbConn) throws SQLException {

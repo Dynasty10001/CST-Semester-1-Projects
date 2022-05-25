@@ -6,8 +6,10 @@ import com.j256.ormlite.table.*;
 import models.Player;
 import models.ValidationHelper;
 
+import java.sql.Array;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class PlayerController {
 
@@ -36,6 +38,26 @@ public class PlayerController {
 
         return returnedPlayer;
     }
+    
+    
+    public ArrayList<Player>  getAllPlayersMatch(Player player)
+    {
+    
+        try
+        {
+            List queryList = repo.queryForMatching(player);
+            if (queryList.size() > 0)
+            {
+                return (ArrayList<Player>)queryList;
+            }
+            
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
     public ArrayList<Player> getAllPlayer()
     {
         try
@@ -107,5 +129,17 @@ public class PlayerController {
         editPlayer(player);
 
         return player;
+    }
+    
+    /**
+     * this method querries the database using the getAllPlayersMatch method and seraches by the teamId provided
+     * @param teamId
+     * @return
+     */
+    public ArrayList<Player> queryForPlayersOnTeam(int teamId)
+    {
+        Player searchPlayer = new Player();
+        searchPlayer.setTeam(teamId);
+        return getAllPlayersMatch(searchPlayer);
     }
 }

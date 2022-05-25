@@ -54,7 +54,7 @@ public class App extends Application
             TUC = new TournamentController(connection);
             GC = new GameController(connection);
             TC = new TeamController(connection);
-            PlaceDummyData(TC,GC,TUC);
+//            PlaceDummyData(TC,GC,TUC);
         }
         catch (SQLException e)
         {
