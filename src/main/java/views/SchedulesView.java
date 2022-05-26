@@ -16,7 +16,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class GameView implements Initializable
+public class SchedulesView implements Initializable
 {
 
 

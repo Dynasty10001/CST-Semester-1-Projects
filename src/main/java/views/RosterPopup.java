@@ -60,7 +60,6 @@ public class RosterPopup {
 	public static void setCurrentTeam(int teamId)
 	{
 			currentTeamId = teamId;
-	
 	}
 
 	@FXML

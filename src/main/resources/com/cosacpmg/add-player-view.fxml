@@ -45,6 +45,36 @@
             <TextField fx:id="tfEmail" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3" />
             <TextField fx:id="tfPhone" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <TextField fx:id="tfJersey" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+            <TextField fx:id="tfCity" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <TextField fx:id="tfStreet" GridPane.columnIndex="3" GridPane.rowIndex="7" />
+            <TextField fx:id="tfPostalCode" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+
+            <ComboBox fx:id="cbProvince" prefWidth="150.0" promptText="Select Province" GridPane.columnIndex="3" GridPane.rowIndex="9">
+             <items>
+                 <FXCollections fx:factory="observableArrayList">
+                     <String fx:value="Alberta" />
+                     <String fx:value="British Columbia" />
+                     <String fx:value="Manitoba" />
+                     <String fx:value="Saskatchewan" />
+                 </FXCollections>
+             </items>
+
+         </ComboBox>
+            <TextField fx:id="tfEName" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+            <TextField fx:id="tfEPhone" GridPane.columnIndex="3" GridPane.rowIndex="12" />
+            <TextField fx:id="tfEEmail" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="14" />
+            <ComboBox fx:id="cbTeam" prefWidth="150.0" promptText="Select Team" GridPane.columnIndex="1" GridPane.rowIndex="16" />
+            <ComboBox fx:id="cbPosition" prefWidth="150.0" promptText="Select Position" GridPane.columnIndex="1" GridPane.rowIndex="17">
+             <items>
+                 <FXCollections fx:factory="observableArrayList">
+                     <String fx:value="Defence" />
+                     <String fx:value="Forward" />
+                     <String fx:value="Goalkeeper" />
+                     <String fx:value="Mid-Field" />
+                 </FXCollections>
+             </items>
+
+             </ComboBox>
             <Label text="Email" GridPane.rowIndex="3" />
             <Label text="Phone Number" GridPane.rowIndex="5" />
             <Label text="Jersey Number" GridPane.columnIndex="2" GridPane.rowIndex="5" />
@@ -61,58 +91,28 @@
             <Label text="Email" GridPane.rowIndex="14" />
             <Label text="Team" GridPane.rowIndex="16" />
             <Label text="Phone Number" GridPane.columnIndex="2" GridPane.rowIndex="12" />
-            <TextField fx:id="tfEName" GridPane.columnIndex="1" GridPane.rowIndex="12" />
-            <TextField fx:id="tfEPhone" GridPane.columnIndex="3" GridPane.rowIndex="12" />
-            <TextField fx:id="tfEEmail" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="14" />
             <Label fx:id="lblPosition" text="Position" GridPane.rowIndex="17" />
-            <ComboBox fx:id="cbTeam" prefWidth="150.0" promptText="Select Team" GridPane.columnIndex="1" GridPane.rowIndex="16" />
-            <Label fx:id="lblERRLastName" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.columnSpan="2" style="-fx-text-fill: red;" />
-             <Label fx:id="lblERRFirstName" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="2" style="-fx-text-fill: red;" />
-            <ComboBox fx:id="cbPosition" prefWidth="150.0" promptText="Select Position" GridPane.columnIndex="1" GridPane.rowIndex="17">
-             <items>
-                 <FXCollections fx:factory="observableArrayList">
-                     <String fx:value="Defence" />
-                     <String fx:value="Forward" />
-                     <String fx:value="Goalkeeper" />
-                     <String fx:value="Mid-Field" />
-                 </FXCollections>
-             </items>
-
-             </ComboBox>
-
-            <ComboBox fx:id="cbProvince" prefWidth="150.0" promptText="Select Province" GridPane.columnIndex="3" GridPane.rowIndex="9">
-             <items>
-                 <FXCollections fx:factory="observableArrayList">
-                     <String fx:value="Alberta" />
-                     <String fx:value="British Columbia" />
-                     <String fx:value="Manitoba" />
-                     <String fx:value="Saskatchewan" />
-                 </FXCollections>
-             </items>
-
-         </ComboBox>
-            <TextField fx:id="tfCity" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <TextField fx:id="tfStreet" GridPane.columnIndex="3" GridPane.rowIndex="7" />
-            <TextField fx:id="tfPostalCode" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-            <Label fx:id="lblERRPhone" GridPane.rowIndex="6" GridPane.columnSpan="2"  style="-fx-text-fill: red;" />
+            <Label fx:id="lblERRLastName" style="-fx-text-fill: red;" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+             <Label fx:id="lblERRFirstName" style="-fx-text-fill: red;" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+            <Label fx:id="lblERRPhone" style="-fx-text-fill: red;" GridPane.columnSpan="2" GridPane.rowIndex="6" />
             <Button mnemonicParsing="false" onAction="#addPlayerCancelHandler" text="Cancel" GridPane.columnIndex="2" GridPane.rowIndex="19" />
             <Button mnemonicParsing="false" onAction="#addPlayerSubmitHandler" text="Submit" GridPane.columnIndex="3" GridPane.rowIndex="19" />
-            <Label fx:id="lblERRJersey" GridPane.columnIndex="2" GridPane.rowIndex="6" GridPane.columnSpan="2"  style="-fx-text-fill: red;" />
-            <Label fx:id="lblERREmail" GridPane.rowIndex="4" style="-fx-text-fill: red;" GridPane.columnSpan="2"  />
-            <Label fx:id="lblERRCity" GridPane.rowIndex="8" style="-fx-text-fill: red;" GridPane.columnSpan="2"  />
+            <Label fx:id="lblERRJersey" style="-fx-text-fill: red;" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="6" />
+            <Label fx:id="lblERREmail" style="-fx-text-fill: red;" GridPane.columnSpan="2" GridPane.rowIndex="4" />
+            <Label fx:id="lblERRCity" style="-fx-text-fill: red;" GridPane.columnSpan="2" GridPane.rowIndex="8" />
             <Label text="Add A Player" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <Label fx:id="lblERRStreet" GridPane.columnIndex="2" GridPane.rowIndex="8" style="-fx-text-fill: red;" GridPane.columnSpan="2" />
-            <Label fx:id="lblERRPostalCode" GridPane.rowIndex="10" style="-fx-text-fill: red;" GridPane.columnSpan="2"  />
-            <Label fx:id="lblERREName" GridPane.rowIndex="13" style="-fx-text-fill: red;" GridPane.columnSpan="2"  />
-            <Label fx:id="lblERRProvince" GridPane.columnIndex="2" GridPane.rowIndex="10" style="-fx-text-fill: red;" GridPane.columnSpan="2" />
-            <Label fx:id="lblERRPosition" GridPane.columnIndex="2" GridPane.rowIndex="17" style="-fx-text-fill: red;" GridPane.columnSpan="2" />
-            <Label fx:id="lblERREPhone" GridPane.columnIndex="2" GridPane.rowIndex="13" style="-fx-text-fill: red;" GridPane.columnSpan="2"  />
-            <Label fx:id="lblERREEmail" GridPane.rowIndex="15" style="-fx-text-fill: red;" GridPane.columnSpan="2"  />
-            <Label fx:id="lblERRTeam" GridPane.columnIndex="2" GridPane.rowIndex="16"  style="-fx-text-fill: red;"/>
+            <Label fx:id="lblERRStreet" style="-fx-text-fill: red;" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="8" />
+            <Label fx:id="lblERRPostalCode" style="-fx-text-fill: red;" GridPane.columnSpan="2" GridPane.rowIndex="10" />
+            <Label fx:id="lblERREName" style="-fx-text-fill: red;" GridPane.columnSpan="2" GridPane.rowIndex="13" />
+            <Label fx:id="lblERRProvince" style="-fx-text-fill: red;" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="10" />
+            <Label fx:id="lblERRPosition" style="-fx-text-fill: red;" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="17" />
+            <Label fx:id="lblERREPhone" style="-fx-text-fill: red;" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="13" />
+            <Label fx:id="lblERREEmail" style="-fx-text-fill: red;" GridPane.columnSpan="2" GridPane.rowIndex="15" />
+            <Label fx:id="lblERRTeam" style="-fx-text-fill: red;" GridPane.columnIndex="2" GridPane.rowIndex="16" />
          </children>
       </GridPane>
    </children>

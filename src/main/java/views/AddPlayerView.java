@@ -66,9 +66,12 @@ public class AddPlayerView {
         player = PlayerController.createPlayer(tfFirstName.getText(), tfLastName.getText(), Integer.parseInt(tfJersey.getText()),
                 cbPosition.getValue().toString(), tfEmail.getText(), tfPhone.getText(), tfEName.getText(), tfEPhone.getText(), tfEEmail.getText(),
                 tfStreet.getText(), tfCity.getText(), cbProvince.getValue().toString(), tfPostalCode.getText());
-//        (Team)(cbTeam.getValue()).
-//        player.setTeam(cbTeam.getSelectionModel().getSelectedItem());
-//fixme add team stuff
+        if (cbTeam.getValue() != null)
+        {
+            Team temp = (Team) cbTeam.getSelectionModel().getSelectedItem();
+            player.setTeam((int) temp.getId());
+        }
+
         HashMap<String, String> error = vh.getErrors(player);
 
         lblERRFirstName.setText(error.get("firstName"));

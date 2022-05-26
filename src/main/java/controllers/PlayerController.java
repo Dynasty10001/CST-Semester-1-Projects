@@ -110,7 +110,12 @@ public class PlayerController {
             e.printStackTrace();
         }
 
-        return player;
+        try {
+            return repo.queryForEq("playerID", player.getPlayerId()).get(0);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public Player editPlayer(Player player)

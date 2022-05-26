@@ -1,6 +1,7 @@
 package views;
 
 import com.cosacpmg.App;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -19,6 +20,8 @@ public class AppView
     public Button playerNavButton;
     public Button homeNavButton;
     public Button backNavButton;
+    public Button standingNavButton;
+
     @FXML
     BorderPane borderPane;
     static BorderPane staticBorderPane;
@@ -71,30 +74,35 @@ public class AppView
     {
 //        System.out.println("Working?");
         changePaneHandler("home-view.fxml");
+        hideNavButtons();
     }
     
     @FXML
     protected void onPlayerNavHandler() throws IOException
     {
         changePaneHandler("add-player-view.fxml");
+        showNavButtons();
     }
     
     @FXML
     protected void onTeamsNavHandler() throws IOException
     {
         changePaneHandler("team-view.fxml");
+        showNavButtons();
     }
     
     @FXML
     protected void onSchedulesNavHandler() throws IOException
     {
         changePaneHandler("schedules-view.fxml");
+        showNavButtons();
     }
     
     @FXML
     protected void onStandingNavHandler() throws IOException
     {
-        changePaneHandler("standing-view-pane.fxml");
+//        changePaneHandler("standing-view-pane.fxml");
+        showNavButtons();
     }
     
     protected void hideNavButtons()
@@ -103,6 +111,7 @@ public class AppView
         teamsNavButton.setVisible(false);
         playerNavButton.setVisible(false);
         homeNavButton.setVisible(false);
+        standingNavButton.setVisible(false);
 //        backNavButton.setVisible(false);
     }
     
@@ -112,8 +121,8 @@ public class AppView
         teamsNavButton.setVisible(true);
         playerNavButton.setVisible(true);
         homeNavButton.setVisible(true);
+        standingNavButton.setVisible(true);
 //        backNavButton.setVisible(false);
     }
-
 
 }

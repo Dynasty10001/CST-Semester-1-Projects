@@ -37,8 +37,7 @@ public class TeamView
 	@FXML
 	protected void initialize()
 	{
-		//TODO implement database call here to load in all teams that are in this tournament add all of them to the
-		// TeamList
+
 		System.out.println("UI: TeamView Initialization");
 		
 		

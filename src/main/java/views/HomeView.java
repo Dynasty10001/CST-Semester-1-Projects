@@ -34,7 +34,7 @@ public class HomeView
 	protected void onSchedulesNavHandler() throws IOException
 	{
 		mainAppView.showNavButtons();
-		mainAppView.onStandingNavHandler();
+		mainAppView.onSchedulesNavHandler();
 	}
 	
 	@FXML
