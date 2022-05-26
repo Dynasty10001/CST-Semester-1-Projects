@@ -9,6 +9,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import models.Player;
+import models.Team;
 import models.ValidationHelper;
 
 import java.io.IOException;
@@ -65,7 +66,9 @@ public class AddPlayerView {
         player = PlayerController.createPlayer(tfFirstName.getText(), tfLastName.getText(), Integer.parseInt(tfJersey.getText()),
                 cbPosition.getValue().toString(), tfEmail.getText(), tfPhone.getText(), tfEName.getText(), tfEPhone.getText(), tfEEmail.getText(),
                 tfStreet.getText(), tfCity.getText(), cbProvince.getValue().toString(), tfPostalCode.getText());
-
+//        (Team)(cbTeam.getValue()).
+//        player.setTeam(cbTeam.getSelectionModel().getSelectedItem());
+//fixme add team stuff
         HashMap<String, String> error = vh.getErrors(player);
 
         lblERRFirstName.setText(error.get("firstName"));

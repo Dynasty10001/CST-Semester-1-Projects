@@ -25,7 +25,8 @@
                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Button mnemonicParsing="false" prefHeight="101.0" prefWidth="91.0" style="-fx-background-color: transparent;">
+                        <Button fx:id="backNavButton" mnemonicParsing="false" prefHeight="101.0" prefWidth="91.0"
+                                style="-fx-background-color: transparent;">
                             <graphic>
                                 <VBox prefHeight="64.0" prefWidth="64.0">
                                     <children>
@@ -38,11 +39,11 @@
                                 </VBox>
                             </graphic>
                         </Button>
-                        <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onHomeNavHandler" prefHeight="101.0" prefWidth="91.0" style="-fx-background-color: transparent;" GridPane.columnIndex="1">
+                        <Button fx:id="homeNavButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onHomeNavHandler" prefHeight="101.0" prefWidth="91.0" style="-fx-background-color: transparent;" GridPane.columnIndex="1">
                             <graphic>
                                 <VBox prefHeight="64.0">
                                     <children>
-                                        <ImageView fx:id="homeNavButton" fitHeight="42.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+                                        <ImageView  fitHeight="42.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
                                                 <Image url="@../../images/Home.png" />
                                             </image>
@@ -52,11 +53,11 @@
                                 </VBox>
                             </graphic>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#onPlayerNavHandler" prefHeight="101.0" prefWidth="91.0" style="-fx-background-color: transparent;" GridPane.columnIndex="2">
+                        <Button fx:id="playerNavButton" mnemonicParsing="false" onAction="#onPlayerNavHandler" prefHeight="101.0" prefWidth="91.0" style="-fx-background-color: transparent;" GridPane.columnIndex="2">
                             <graphic>
                                 <VBox prefHeight="64.0" prefWidth="64.0">
                                     <children>
-                                        <ImageView fx:id="playerNavButton" fitHeight="42.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+                                        <ImageView fitHeight="42.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
                                                 <Image url="@../../images/User-Group-256.png" />
                                             </image>
@@ -66,11 +67,12 @@
                                 </VBox>
                             </graphic>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#onTeamsNavHandler" prefHeight="101.0" prefWidth="91.0" style="-fx-background-color: transparent;" GridPane.columnIndex="3">
+                        <Button fx:id="teamsNavButton" mnemonicParsing="false" onAction="#onTeamsNavHandler"
+                                prefHeight="101.0" prefWidth="91.0" style="-fx-background-color: transparent;" GridPane.columnIndex="3">
                             <graphic>
                                 <VBox prefHeight="64.0" prefWidth="64.0">
                                     <children>
-                                        <ImageView fx:id="playerTeamView" fitHeight="42.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+                                        <ImageView fitHeight="42.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
                                                 <Image url="@../../images/Soccer-256.png" />
                                             </image>
@@ -80,7 +82,9 @@
                                 </VBox>
                             </graphic>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#onSchedulesNavHandler" prefHeight="101.0" prefWidth="91.0" style="-fx-background-color: transparent;" GridPane.columnIndex="4">
+                        <Button fx:id="scheduleNavButton" mnemonicParsing="false" onAction="#onSchedulesNavHandler"
+                                prefHeight="101.0"
+                                prefWidth="91.0" style="-fx-background-color: transparent;" GridPane.columnIndex="4">
                             <graphic>
                                 <VBox prefHeight="64.0" prefWidth="64.0">
                                     <children>
