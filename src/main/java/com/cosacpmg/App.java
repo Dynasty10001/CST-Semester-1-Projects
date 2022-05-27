@@ -82,7 +82,7 @@ public class App extends Application
      */
     public static ArrayList<Game> PlaceDummyData(TeamController tc, GameController gc, TournamentController TUC) throws SQLException {
         ArrayList<Game> gameList = new ArrayList<>();
-        TUC.createTournament("Dummy");
+        TUC.createTournament("Dummy", new Date(),new Date() );
         Team one = tc.createTeam("Saskatoon","Sparks" , "Brighton","Jack" ,"111 111 1111" );
         tc.addTeam(one);
         Team two = tc.createTeam("Royals", "Regina", "redArbour", "Jack", "111 111 1111");

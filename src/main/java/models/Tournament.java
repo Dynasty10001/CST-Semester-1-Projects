@@ -5,32 +5,50 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.*;
 
 @DatabaseTable(tableName = "Tournaments")
 public class Tournament
 {
     @DatabaseField(generatedId = true)
-    private int tournamentID;
+    private long tournamentID;
 
-    @DatabaseField(canBeNull = false)
+    @DatabaseField(canBeNull = false )
+    @Size(max = 64, message = "Validation Error: Tournament name has to be 64 characters or less")
+    @NotEmpty(message = "Validation Error: Tournament name field is empty, please enter valid entry")
     private String tournamentName;
 
+
     @ForeignCollectionField(eager = true)
-    protected ForeignCollection<Game> schedule;
+    protected ForeignCollection<Game> games;
 
-    protected ArrayList<Team> teamList;
 
+    @DatabaseField(canBeNull = false)
+    @NotNull(message = "A date must be selected for the game")
+    @Future(message = "Date must not be in the past")
+    private  Date startDate;
+
+    @DatabaseField(canBeNull = false)
+    @NotNull(message = "A date must be selected for the game")
+    @Future(message = "Date must not be in the past")
+    private Date endDate;
+
+
+    public ForeignCollection<Game> getGames() {
+        return games;
+    }
+
+    public void setGames(ForeignCollection<Game> games) {
+        this.games = games;
+    }
 
     public Tournament()
     {
-    }
 
-    public int getTournamentID() {
-        return tournamentID;
     }
 
     public String getTournamentName() {
@@ -41,17 +59,24 @@ public class Tournament
         this.tournamentName = tournamentName;
     }
 
-    public ArrayList<Game> getSchedule() {
-        //return (ArrayList) Arrays.asList(schedule.toArray());
-        return null;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public ArrayList<Team> getTeamList() {
-        return teamList;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
-    public void setTeamList(ArrayList<Team> teamList) {
-        this.teamList = teamList;
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public long getTournamentID() {
+        return tournamentID;
     }
 
 

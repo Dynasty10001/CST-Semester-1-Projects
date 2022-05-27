@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 
@@ -62,7 +63,7 @@ public class AddGameView
 
         if (TUC.getTournament() == null)
         {
-            TUC.createTournament("TestTournament");
+            TUC.createTournament("TestTournament", new Date(), new Date());
         }
         //System.out.println("Team Added");
 

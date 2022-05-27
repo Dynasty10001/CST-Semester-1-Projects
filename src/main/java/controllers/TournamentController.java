@@ -9,6 +9,7 @@ import models.Tournament;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class TournamentController
 {
@@ -25,16 +26,17 @@ public class TournamentController
         //ensure table exist
         TableUtils.createTableIfNotExists(dbConn, Tournament.class);
         CurrentTournament = repo.queryForFirst(repo.queryBuilder().prepare());
-
     }
 
     //Creates a new tournament
-    public Tournament createTournament(String name) throws SQLException
+    public Tournament createTournament(String name, Date startDate, Date endDate) throws SQLException
     {
         Tournament myTournament = new Tournament();
         myTournament.setTournamentName(name);
+        myTournament.setStartDate(startDate);
+        myTournament.setEndDate(endDate);
         changeTournament(myTournament);
-        myTournament.setTeamList(new ArrayList<Team>());
+
         return myTournament;
     }
 
