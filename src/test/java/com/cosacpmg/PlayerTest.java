@@ -60,7 +60,7 @@ public class PlayerTest {
         validPlayer.setFirstName ("Heff");
         validPlayer.setLastName("Heffington");
         validPlayer.setJerseyNo(10);
-        validPlayer.setPosition(Position.Forward);
+        validPlayer.setPosition("Forward");
         validPlayer.setEmail("Heff1234@gmail.com");
         validPlayer.setPhoneNumber("3061234567");
         validPlayer.setEmergencyName("Mother Heffington");
@@ -146,7 +146,7 @@ public class PlayerTest {
     @Test
     public void testPlayerPositionValid()
     {
-    validPlayer.setPosition(Position.Midfield);
+    validPlayer.setPosition("Midfield");
         assertEquals (0, validator.validate(validPlayer ).size());
     }
     @Test

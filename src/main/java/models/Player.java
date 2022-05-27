@@ -34,14 +34,14 @@ public class Player implements Serializable {
     private String team;
 
     @DatabaseField(canBeNull = false)
-    @Size( min = 1, max = 4)
-    @NotEmpty(message = "All fields must be filled out with valid information" )
-    private Position position;
+    @Pattern(regexp = "^(Forward|Midfield|Defence|Goalie)$", message = "Position must be one of the following: Forward, Midfield, Defence, or Goalie")
+    @NotEmpty(message = "All fields must be filled out with valid information")
+    private String position;
 
-    @DatabaseField(canBeNull = true)
-    @Size( max = 4)
+    @DatabaseField(canBeNull = false)
+    @Pattern(regexp = "^(Forward|Midfield|Defence|Goalie|Substitution)$", message = "Position must be one of the following: Forward, Midfield, Defence, or Goalie")
     @NotEmpty(message = "All fields must be filled out with valid information" )
-    private Position assignedPosition;
+    private String assignedPosition;
 
     @DatabaseField(canBeNull = false)
     @NotEmpty(message = "All fields must be filled out with valid information" )
@@ -134,11 +134,11 @@ public class Player implements Serializable {
         this.team = team;
     }
 
-    public Position getPosition() {
+    public String getPosition() {
         return position;
     }
 
-    public void setPosition(Position position) {
+    public void setPosition(String position) {
         this.position = position;
     }
 
@@ -211,8 +211,11 @@ public class Player implements Serializable {
         return emergencyPhoneNumber;
     }
 
-    public void setEmergencyPhoneNumber(String emergencyPhoneNumber) {
-        this.emergencyPhoneNumber = emergencyPhoneNumber;
-    }
+    public void setEmergencyPhoneNumber(String emergencyPhoneNumber) {this.emergencyPhoneNumber = emergencyPhoneNumber;}
+
+    public void setAssignPosition(String assignPosition) {this.assignedPosition = assignedPosition;}
+
+    public String getAssignPosition() {return assignedPosition;}
+
 
 }

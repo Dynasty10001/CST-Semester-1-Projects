@@ -28,8 +28,6 @@ public class PlayerController {
     }
 
 
-
-
     public Player getPlayer()
     {
         Player returnedPlayer = null;
@@ -37,13 +35,14 @@ public class PlayerController {
         return returnedPlayer;
     }
 
-    public static Player createPlayer(String First, String Last, int Jersey, Position Pos, String Email, String Phone, String EName, String EPhone, String EEmail, String Street, String City, String Prov, String Postal)
+    public static Player createPlayer(String First, String Last, int Jersey, String Pos, String Email, String Phone, String EName, String EPhone, String EEmail, String Street, String City, String Prov, String Postal)
     {
         Player player = new Player();
         player.setFirstName (First);
         player.setLastName(Last);
         player.setJerseyNo(Jersey);
         player.setPosition(Pos);
+        player.setAssignPosition("Substitution");
         player.setEmail(Email);
         player.setPhoneNumber(Phone);
         player.setEmergencyName(EName);
