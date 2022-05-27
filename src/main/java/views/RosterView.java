@@ -12,7 +12,7 @@ public class RosterView {
      * @param player
      * @param position
      */
-    public void givePlayerPosition(Player player, Position position)
+    public void givePlayerPosition(Player player, String position)
     {
 
     }

@@ -30,8 +30,8 @@ public class Player implements Serializable {
     @Max(value = 99, message= "Jersey Number Must be an Integer between 01 and 99")
     private int jerseyNo;
 
-    @DatabaseField(canBeNull = true)
-    private String team;
+    @DatabaseField(canBeNull = true, foreign = true, columnName = "team_id")
+    private Team team;
 
     @DatabaseField(canBeNull = false)
     @Pattern(regexp = "^(Forward|Midfield|Defence|Goalie)$", message = "Position must be one of the following: Forward, Midfield, Defence, or Goalie")
@@ -126,11 +126,11 @@ public class Player implements Serializable {
         this.jerseyNo = jerseyNo;
     }
 
-    public String getTeam() {
+    public Team getTeam() {
         return team;
     }
 
-    public void setTeam(String team) {
+    public void setTeam(Team team) {
         this.team = team;
     }
 
@@ -211,11 +211,22 @@ public class Player implements Serializable {
         return emergencyPhoneNumber;
     }
 
-    public void setEmergencyPhoneNumber(String emergencyPhoneNumber) {this.emergencyPhoneNumber = emergencyPhoneNumber;}
+    public void setEmergencyPhoneNumber(String emergencyPhoneNumber) {
+        this.emergencyPhoneNumber = emergencyPhoneNumber;
+    }
 
     public void setAssignPosition(String assignPosition) {this.assignedPosition = assignedPosition;}
 
     public String getAssignPosition() {return assignedPosition;}
 
+    /**
+     * This is used by the Roster View to display the player name when placed in a list
+     * @return
+     */
+    @Override
+    public String toString()
+    {
+        return firstName + " " + lastName;
+    }
 
 }

@@ -5,13 +5,21 @@ import controllers.TeamController;
 import models.Player;
 import models.Team;
 import org.junit.*;
+import views.RosterView;
+
+import java.util.ArrayList;
+import java.util.concurrent.ForkJoinPool;
+
 import static org.junit.Assert.*;
 
 
 public class RosterTest {
 
+    RosterView testView;
     public Team testTeam;
     public Player validPlayer1, validPlayer2, validPlayer3, validPlayer4, validPlayer5, validPlayer6, validPlayer7, validPlayer8;
+    Player[] PlayerList;
+    PlayerController PC;
 
     /**
      * Purpose:
@@ -20,6 +28,7 @@ public class RosterTest {
     @Before
     public void testSetup()
     {
+        testView = new RosterView();
          testTeam = TeamController.createTeam(
                 "TheHeffingtonHeffs",
                 "Saskatoon",
@@ -146,6 +155,21 @@ public class RosterTest {
                 "Saskatoon",
                 "Saskatchewan",
                 "S7V0A1");
+
+        PC = new PlayerController(App.connection);
+        PlayerList = new Player[] {validPlayer1, validPlayer2, validPlayer3,validPlayer4,validPlayer5,validPlayer6,validPlayer7,validPlayer8};
+
+        for (int i = 0; i < 8; i++){
+            PC.addPlayerToTeam(PlayerList[i],testTeam);
+            PC.addPlayer(PlayerList[i]);
+        }
+    }
+
+    @After
+    public void onTearDown(){
+        for (int i = 0; i<8;i++) {
+            PC.removePlayer(PlayerList[i]);
+        }
     }
 
 
@@ -157,7 +181,15 @@ public class RosterTest {
     @Test
     public void playerGivenNewPosition()
     {
-        assertFalse(true);
+        testView.givePlayerPosition(validPlayer1, "Forward");
+        assertSame("Forward", validPlayer1.getAssignPosition());
+        Player returnedPlayer = PC.updatePlayer(validPlayer1);
+        if (returnedPlayer != null){
+            assertEquals(returnedPlayer.getAssignPosition(),validPlayer1.getAssignPosition());
+        }
+        else {
+            fail();
+        }
     }
 
     /**
@@ -177,7 +209,15 @@ public class RosterTest {
     @Test
     public void playerPositionNumberValidatorMidField()
     {
-
+        validPlayer1.setAssignPosition("Midfield");
+        validPlayer7.setAssignPosition("Midfield");
+        validPlayer3.setAssignPosition("Midfield");
+        validPlayer5.setAssignPosition("Midfield");
+        testView.PositionNumberValidator();
+        assertSame("Substitution", validPlayer1.getAssignPosition());
+        assertSame("Substitution", validPlayer7.getAssignPosition());
+        assertSame("Substitution", validPlayer3.getAssignPosition());
+        assertSame("Substitution", validPlayer5.getAssignPosition());
     }
 
     /**
@@ -187,7 +227,11 @@ public class RosterTest {
     @Test
     public void playerPositionNumberValidatorGoalie()
     {
-
+        validPlayer1.setAssignPosition("Goalie");
+        validPlayer7.setAssignPosition("Goalie");
+        testView.PositionNumberValidator();
+        assertSame("Substitution", validPlayer1.getAssignPosition());
+        assertSame("Substitution", validPlayer7.getAssignPosition());
     }
 
     /**
@@ -197,7 +241,13 @@ public class RosterTest {
     @Test
     public void playerPositionNumberValidatorDefence()
     {
-
+        validPlayer1.setAssignPosition("Defence");
+        validPlayer6.setAssignPosition("Defence");
+        validPlayer7.setAssignPosition("Defence");
+        testView.PositionNumberValidator();
+        assertSame("Substitution", validPlayer1.getAssignPosition());
+        assertSame("Substitution", validPlayer7.getAssignPosition());
+        assertSame("Substitution", validPlayer6.getAssignPosition());
     }
 
     /**
@@ -207,7 +257,11 @@ public class RosterTest {
     @Test
     public void playerPositionNumberValidatorForward()
     {
-
+        validPlayer1.setAssignPosition("Forward");
+        validPlayer7.setAssignPosition("Forward");
+        testView.PositionNumberValidator();
+        assertSame("Substitution", validPlayer1.getAssignPosition());
+        assertSame("Substitution", validPlayer7.getAssignPosition());
     }
 
     /**
@@ -218,7 +272,14 @@ public class RosterTest {
     @Test
     public void playerPositionNumberValidatorCorrectNumberOfPositions()
     {
-
+        validPlayer1.setAssignPosition("Forward");
+        validPlayer2.setAssignPosition("Defence");
+        validPlayer3.setAssignPosition("Defence");
+        validPlayer4.setAssignPosition("Midfield");
+        validPlayer5.setAssignPosition("Midfield");
+        validPlayer6.setAssignPosition("Midfield");
+        validPlayer7.setAssignPosition("Goalie");
+        validPlayer8.setAssignPosition("Substitution");
     }
 
 

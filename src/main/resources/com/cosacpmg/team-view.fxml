@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.TeamView">
+<AnchorPane xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.TeamView">
    <children>
       <SplitPane dividerPositions="0.5" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+          <AnchorPane>
                <children>
-                  <TableView fx:id="teamList" layoutY="49.0" prefHeight="321.0" prefWidth="296.0" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="49.0">
+                  <TableView fx:id="teamList" layoutY="49.0" onMouseClicked="#teamViewOnTeamSelectHandler" prefHeight="321.0" prefWidth="296.0" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="49.0">
                     <columns>
                       <TableColumn prefWidth="75.0" text="C1" />
                       <TableColumn prefWidth="75.0" text="C2" />
@@ -17,8 +19,42 @@
                   </TableView>
                   <Button layoutX="213.0" layoutY="372.0" mnemonicParsing="false" onAction="#teamViewAddTeamHandler" prefHeight="25.0" prefWidth="83.0" text="Add Team" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="0.0" />
                </children></AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+          <AnchorPane fx:id="teamViewDetailPane">
+               <children>
+                  <VBox AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
+                     <children>
+                        <Label fx:id="teamName" alignment="CENTER" text="asdf">
+                           <font>
+                              <Font size="24.0" />
+                           </font></Label>
+                         <Label fx:id="teamCity" alignment="CENTER" layoutX="10.0" layoutY="10.0" text="asdf">
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding></Label>
+                         <Label fx:id="teamArea" alignment="CENTER" layoutX="10.0" layoutY="27.0" text="adsf">
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding></Label>
+                         <Label fx:id="teamCoachName" alignment="CENTER" layoutX="10.0" layoutY="44.0" text="adsf">
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding></Label>
+                         <Label fx:id="teamCoachPhoneNumber" alignment="CENTER" layoutX="10.0" layoutY="61.0" text="asdf">
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding></Label>
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+                  <Button layoutX="102.0" layoutY="372.0" mnemonicParsing="false" onAction="#teamViewRosterViewHandler" text="View Roster" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="77.0" />
+                  <ListView fx:id="rosterList" prefHeight="280.0" prefWidth="200.0" AnchorPane.bottomAnchor="28.0" AnchorPane.rightAnchor="20.0" />
+               </children></AnchorPane>
         </items>
       </SplitPane>
    </children>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
 </AnchorPane>
