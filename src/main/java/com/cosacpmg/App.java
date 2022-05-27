@@ -36,10 +36,6 @@ public class App extends Application
     public static final java.lang.String CONNECTION_STRING = "jdbc:sqlite:schedule.db";
     public static ConnectionSource connection;
     private static Stage mainStage;
-    public static TournamentController TUC;
-    public static TeamController TC;
-    public static GameController GC;
-//    private static TeamController teamController;
 
     // AppView.class.getResource("/com.cosacpmg/app-view.fxml")
     @Override
@@ -65,10 +61,7 @@ public class App extends Application
         try
         {
             connection = new JdbcPooledConnectionSource(CONNECTION_STRING);
-            TUC = new TournamentController(connection);
-            GC = new GameController(connection);
-            TC = new TeamController(connection);
-            PlaceDummyData(TC,GC,TUC);
+//            PlaceDummyData(TC,GC,TUC);
         }
         catch (SQLException e)
         {

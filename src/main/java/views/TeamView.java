@@ -1,11 +1,16 @@
 package views;
 
 import com.cosacpmg.App;
+import controllers.PlayerController;
 import controllers.TeamController;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import models.Team;
 
@@ -14,31 +19,21 @@ import java.util.ArrayList;
 
 public class TeamView
 {
-	
-	
+
+
+	public Label teamName, teamCity, teamArea, teamCoachName, teamCoachPhoneNumber;
+	public ListView rosterList;
 	@FXML protected TableView<Team> teamList;
+	@FXML protected AnchorPane teamViewDetailPane;
 
 	@FXML BorderPane borderPane;
 	
 	
-	/**
-	 * This method creates columns to be used in a table view, using a label as the name of the column and the
-	 * property name being the text name of the attribute.
-	 * @param label
-	 * @param propertyName
-	 * @return
-	 */
-	private TableColumn<Team,String> createColumn(String label, String propertyName){
-		TableColumn<Team, String> returnCol = new TableColumn<Team, String>(label);
-		returnCol.setCellValueFactory(new PropertyValueFactory<Team, String>(propertyName));
-		return returnCol;
-	}
-	
 	@FXML
 	protected void initialize()
 	{
-		//TODO implement database call here to load in all teams that are in this tournament add all of them to the
-		// TeamList
+		teamViewDetailPane.setVisible(false);
+
 		System.out.println("UI: TeamView Initialization");
 		
 		
@@ -69,11 +64,55 @@ public class TeamView
 	}
 	
 	
+	/**
+	 * handles the add team button changes view
+	 * @throws IOException
+	 */
 	@FXML
 	protected void teamViewAddTeamHandler() throws IOException
 	{
 		AppView.changePaneHandler("add-team-view.fxml",AppView.staticBorderPane);
 	}
 	
+	/**
+	 * View Roster button handler opens Roster, on close it will update the Ui
+	 * @throws IOException
+	 */
+	@FXML
+	protected void teamViewRosterViewHandler() throws IOException
+	{
+		Team currentTeam =  teamList.getSelectionModel().getSelectedItem();
+		RosterPopup.setCurrentTeam(currentTeam);
+		AppView.popupHandler("roster-popup-view.fxml");
+		updatePlayerList();
+		
+	}
 	
+	/**
+	 * updates the player list with the currently selected team
+	 */
+	public void updatePlayerList(){
+		Team currentTeam = teamList.getSelectionModel().getSelectedItem();
+		rosterList.getItems().setAll(new PlayerController(App.connection).queryForPlayersOnTeam(currentTeam));
+	}
+	
+	
+	/**
+	 * handler for clicking on the team List, updates view for that team
+	 * @param mouseEvent
+	 */
+	public void teamViewOnTeamSelectHandler(MouseEvent mouseEvent)
+	{
+		Team currentTeam =  teamList.getSelectionModel().getSelectedItem();
+		teamName.setText(currentTeam.getTeamName());
+		teamCity.setText("City: " + currentTeam.getCity());
+		teamArea.setText("Area: " + currentTeam.getArea());
+		teamCoachName.setText("Coach: " + currentTeam.getCoachName());
+		teamCoachPhoneNumber.setText("Coach Phonenumber: " + currentTeam.getCoachNumber());
+
+		rosterList.getItems().setAll(new PlayerController(App.connection).queryForPlayersOnTeam(currentTeam));
+
+		teamViewDetailPane.setVisible(true);
+	
+	}
 }
