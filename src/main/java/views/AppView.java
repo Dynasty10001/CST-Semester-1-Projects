@@ -35,11 +35,22 @@ public class AppView
     }
     
     
+    /**
+     * A non-static method for changing the center pane
+     * Just takes in the fxml Path, uses the current object border pane
+     * @param fxmlPath
+     */
     private void changePaneHandler(String fxmlPath) throws IOException
     {
         changePaneHandler(fxmlPath, staticBorderPane);
     }
     
+    /**
+     * Sets the cetner pane in the db to a view that is based on the fxmlPath must be supplied with the bp
+     * @param fxmlPath
+     * @param bP
+     * @throws IOException
+     */
     protected static void changePaneHandler(String fxmlPath, BorderPane bP) throws IOException
     {
 //		FXMLLoader loader = new FXMLLoader(AppView.class.getResource(fxmlPath));
@@ -49,6 +60,10 @@ public class AppView
         bP.setCenter(loader.load());
     }
     
+    /**
+     * Passing this method a fxmlPath will create a show and wait popup that will instatiate a view of that fxml file
+     * @param fxmlPath fxml path to create a popup for
+     */
     protected static void popupHandler(String fxmlPath)
     {
         FXMLLoader loader = new FXMLLoader(App.class.getResource(fxmlPath));
@@ -106,6 +121,9 @@ public class AppView
         showNavButtons();
     }
     
+    /**
+     * Hides the nav buttons while on the mainmenu view
+     */
     protected void hideNavButtons()
     {
         scheduleNavButton.setVisible(false);
@@ -116,6 +134,10 @@ public class AppView
 //        backNavButton.setVisible(false);
     }
     
+    
+    /**
+     * Shows the nav buttons when leaving the main menu views
+     */
     protected void showNavButtons(){
     
         scheduleNavButton.setVisible(true);

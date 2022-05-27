@@ -16,7 +16,10 @@ public class PlayerControllerTest {
     private static PlayerController PC;
 
     private static Player player;
-
+    
+    /**
+     * Test settup
+     */
     @Before
     public void setUp()
     {
@@ -40,8 +43,11 @@ public class PlayerControllerTest {
         PC = new PlayerController(App.connection);
         PC.addPlayer(player);
     }
-
-
+    
+    
+    /**
+     * Test that player is added proppery
+     */
     @Test
     public void testThatPlayerIsAddedToTeam()
     {
@@ -49,7 +55,10 @@ public class PlayerControllerTest {
         PC.addPlayerToTeam(player, team);
         assertEquals(team, player.getTeam());
     }
-
+    
+    /**
+     * Test that player is removed properly
+     */
     @Test
     public void testThatPlayerIsRemovedFromTeam()
     {
@@ -59,6 +68,9 @@ public class PlayerControllerTest {
         assertEquals(null, player.getTeam());
     }
     
+    /**
+     * Test to see that player is updated correctly
+     */
     @Test public void testThatPlayerIsUpdated()
     {
         String newName = "newFirstName";
@@ -66,6 +78,16 @@ public class PlayerControllerTest {
         assertEquals(PC.updatePlayer(player).getFirstName(), newName);
     }
     
-
-
+    
+    /**
+     * Test that palyer cannot be updated with invalid field
+     */
+    @Test
+    public void testThatPlayerIsNotUpdatedWithInvalidName()
+    {
+//        String oldName = player.getFirstName();
+        player.setFirstName(null);
+        assertEquals(PC.updatePlayer(player).getFirstName(), "Heff");
+    }
+    
 }

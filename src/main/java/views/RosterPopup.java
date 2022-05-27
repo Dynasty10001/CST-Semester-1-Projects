@@ -29,7 +29,10 @@ public class RosterPopup {
 		initTeamPlayerList(pc);
 		
 	}
-
+	
+	/**
+	 * Updates the UI, mainly the Player Lists
+	 */
 	protected void updateUI() {
 		PlayerController pc = new PlayerController(App.connection);
 		initAllPlayerList(pc);
@@ -37,6 +40,10 @@ public class RosterPopup {
 	}
 	
 	
+	/**
+	 * Initializes the Team's Player List
+	 * @param pc player controller
+	 */
 	private void initTeamPlayerList(PlayerController pc)
 	{
 		teamPlayerList.getItems().setAll(pc.queryForPlayersOnTeam(currentTeam));
@@ -44,6 +51,10 @@ public class RosterPopup {
 	}
 	
 	
+	/**
+	 * Initializes all player list
+	 * @param pc player controller
+	 */
 	private void initAllPlayerList(PlayerController pc)
 	{
 		
@@ -57,6 +68,9 @@ public class RosterPopup {
 	}
 	
 	
+	/**
+	 * handler for the add player button
+	 */
 	@FXML
 	protected void rosterAddPlayerHandler()
 	{
@@ -71,11 +85,18 @@ public class RosterPopup {
 		}
 	}
 	
+	/**
+	 * A setter that sets the currentTeam, used when the RosterPopup is created
+	 * @param team currentTeam
+	 */
 	public static void setCurrentTeam(Team team)
 	{
 			currentTeam = team;
 	}
-
+	
+	/**
+	 * Hander for the remove player button
+	 */
 	@FXML
 	protected void rosterRemovePlayerHandler() {
 		Player selectedPlayer = (Player) teamPlayerList.getSelectionModel().getSelectedItems().get(0);

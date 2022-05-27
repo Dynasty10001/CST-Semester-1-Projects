@@ -64,12 +64,20 @@ public class TeamView
 	}
 	
 	
+	/**
+	 * handles the add team button changes view
+	 * @throws IOException
+	 */
 	@FXML
 	protected void teamViewAddTeamHandler() throws IOException
 	{
 		AppView.changePaneHandler("add-team-view.fxml",AppView.staticBorderPane);
 	}
-
+	
+	/**
+	 * View Roster button handler opens Roster, on close it will update the Ui
+	 * @throws IOException
+	 */
 	@FXML
 	protected void teamViewRosterViewHandler() throws IOException
 	{
@@ -80,12 +88,19 @@ public class TeamView
 		
 	}
 	
+	/**
+	 * updates the player list with the currently selected team
+	 */
 	public void updatePlayerList(){
 		Team currentTeam = teamList.getSelectionModel().getSelectedItem();
 		rosterList.getItems().setAll(new PlayerController(App.connection).queryForPlayersOnTeam(currentTeam));
 	}
 	
 	
+	/**
+	 * handler for clicking on the team List, updates view for that team
+	 * @param mouseEvent
+	 */
 	public void teamViewOnTeamSelectHandler(MouseEvent mouseEvent)
 	{
 		Team currentTeam =  teamList.getSelectionModel().getSelectedItem();
