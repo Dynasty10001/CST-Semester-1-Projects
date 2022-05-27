@@ -1,8 +1,11 @@
 package views;
 
 import com.cosacpmg.App;
+import controllers.PlayerController;
 import controllers.TeamController;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -16,8 +19,10 @@ import java.util.ArrayList;
 
 public class TeamView
 {
-	
-	
+
+
+	public Label teamName, teamCity, teamArea, teamCoachName, teamCoachPhoneNumber;
+	public ListView rosterList;
 	@FXML protected TableView<Team> teamList;
 	@FXML protected AnchorPane teamViewDetailPane;
 
@@ -76,6 +81,15 @@ public class TeamView
 	
 	public void teamViewOnTeamSelectHandler(MouseEvent mouseEvent)
 	{
+		Team currentTeam =  teamList.getSelectionModel().getSelectedItem();
+		teamName.setText(currentTeam.getTeamName());
+		teamCity.setText(currentTeam.getCity());
+		teamArea.setText(currentTeam.getArea());
+		teamCoachName.setText(currentTeam.getCoachName());
+		teamCoachPhoneNumber.setText(currentTeam.getCoachNumber());
+
+		rosterList.getItems().setAll(new PlayerController(App.connection).queryForPlayersOnTeam(currentTeam));
+
 		teamViewDetailPane.setVisible(true);
 	
 	}

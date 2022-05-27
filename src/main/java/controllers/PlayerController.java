@@ -101,7 +101,6 @@ public class PlayerController {
         return returnedPlayer;
     }
 
-    //todo write test for this
     public Player updatePlayer(Player player)
     {
 

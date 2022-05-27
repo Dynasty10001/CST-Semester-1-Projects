@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.TeamView">
    <children>
@@ -19,7 +20,20 @@
                </children></AnchorPane>
           <AnchorPane fx:id="teamViewDetailPane">
                <children>
+                  <VBox AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
+                     <children>
+                        <Label fx:id="teamName" alignment="CENTER">
+                           <font>
+                              <Font size="24.0" />
+                           </font></Label>
+                         <Label fx:id="teamCity" alignment="CENTER" layoutX="10.0" layoutY="10.0" />
+                         <Label fx:id="teamArea" alignment="CENTER" layoutX="10.0" layoutY="27.0" />
+                         <Label fx:id="teamCoachName" alignment="CENTER" layoutX="10.0" layoutY="44.0" />
+                         <Label fx:id="teamCoachPhoneNumber" alignment="CENTER" layoutX="10.0" layoutY="61.0" />
+                     </children>
+                  </VBox>
                   <Button layoutX="102.0" layoutY="372.0" mnemonicParsing="false" onAction="#teamViewRosterViewHandler" text="View Roster" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="57.0" />
+                  <ListView fx:id="rosterList" prefHeight="280.0" prefWidth="150.0" AnchorPane.bottomAnchor="28.0" AnchorPane.rightAnchor="0.0" />
                </children></AnchorPane>
         </items>
       </SplitPane>
