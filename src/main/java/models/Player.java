@@ -2,6 +2,7 @@ package models;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import org.hibernate.validator.constraints.Range;
 
 
 import javax.validation.constraints.*;
@@ -33,8 +34,14 @@ public class Player implements Serializable {
     private String team;
 
     @DatabaseField(canBeNull = false)
+    @Size( min = 1, max = 4)
     @NotEmpty(message = "All fields must be filled out with valid information" )
-    private String position;
+    private Position position;
+
+    @DatabaseField(canBeNull = true)
+    @Size( max = 4)
+    @NotEmpty(message = "All fields must be filled out with valid information" )
+    private Position assignedPosition;
 
     @DatabaseField(canBeNull = false)
     @NotEmpty(message = "All fields must be filled out with valid information" )
@@ -127,11 +134,11 @@ public class Player implements Serializable {
         this.team = team;
     }
 
-    public String getPosition() {
+    public Position getPosition() {
         return position;
     }
 
-    public void setPosition(String position) {
+    public void setPosition(Position position) {
         this.position = position;
     }
 
@@ -142,6 +149,7 @@ public class Player implements Serializable {
     public void setStreetAddress(String streetAddress) {
         this.streetAddress = streetAddress;
     }
+
 
     public String getCity() {
         return city;

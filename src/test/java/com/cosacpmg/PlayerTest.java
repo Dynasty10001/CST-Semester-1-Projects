@@ -2,6 +2,7 @@ package com.cosacpmg;
 
 
 import models.Player;
+import models.Position;
 import org.junit.*;
 
 import javax.validation.*;
@@ -59,7 +60,7 @@ public class PlayerTest {
         validPlayer.setFirstName ("Heff");
         validPlayer.setLastName("Heffington");
         validPlayer.setJerseyNo(10);
-        validPlayer.setPosition("Forward");
+        validPlayer.setPosition(Position.Forward);
         validPlayer.setEmail("Heff1234@gmail.com");
         validPlayer.setPhoneNumber("3061234567");
         validPlayer.setEmergencyName("Mother Heffington");
@@ -145,13 +146,13 @@ public class PlayerTest {
     @Test
     public void testPlayerPositionValid()
     {
-    validPlayer.setPosition("MidField");
+    validPlayer.setPosition(Position.Midfield);
         assertEquals (0, validator.validate(validPlayer ).size());
     }
     @Test
     public void testPlayerPositionEmpty()
     {
-        validPlayer.setPosition("");
+        validPlayer.setPosition(null);
         assertInvalidPlayer("position", "All fields must be filled out with valid information", "");
     }
 

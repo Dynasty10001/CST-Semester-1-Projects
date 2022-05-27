@@ -4,6 +4,7 @@ import com.j256.ormlite.dao.*;
 import com.j256.ormlite.support.*;
 import com.j256.ormlite.table.*;
 import models.Player;
+import models.Position;
 import models.ValidationHelper;
 
 import java.sql.SQLException;
@@ -36,7 +37,7 @@ public class PlayerController {
         return returnedPlayer;
     }
 
-    public static Player createPlayer(String First, String Last, int Jersey, String Pos, String Email, String Phone, String EName, String EPhone, String EEmail, String Street, String City, String Prov, String Postal)
+    public static Player createPlayer(String First, String Last, int Jersey, Position Pos, String Email, String Phone, String EName, String EPhone, String EEmail, String Street, String City, String Prov, String Postal)
     {
         Player player = new Player();
         player.setFirstName (First);

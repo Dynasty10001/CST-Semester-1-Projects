@@ -123,4 +123,8 @@ public class GameController
         }
         return true;
     }
+
+    public void filterByDate() {
+
+    }
 }

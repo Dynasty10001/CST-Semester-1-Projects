@@ -160,11 +160,6 @@ public class GameControllerTest {
         assertTrue(testGameController.roundRobinValidator(secondGame));
     }
 
-
-
-
-
-
     @Test
     public void CreateGameOnUsedField() throws SQLException {
         Team UnusedTeamOne = new Team();
@@ -173,16 +168,26 @@ public class GameControllerTest {
 
         List<Game> schedule = testGameController.getSchedule(masterTournament);
         assertTrue(schedule.size()>0);
-//        assertFalse(schedule.contains(SecondGame));
+        assertFalse(schedule.contains(SecondGame));
         assertFalse(schedule.size()>1);
     }
 
-    //@Test
+    @Test
+    public void FilterGamesBasedOnDateWith2GamesScheduled(){
+        testGameController.filterByDate();
+    }
+
+    @Test
+    public void FilterGamesBasedOnDateWithNoGamesScheduled(){
+        testGameController.filterByDate();
+    }
+
+    @Test
     public void CreateGameRoundRobinRescheduled()
     {
         fail();
     }
-    //@Test
+    @Test
     public void CreateGameRoundRobinNotReschedule()
     {
         fail();
