@@ -6,6 +6,7 @@ import models.Tournament;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Test;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -30,7 +31,7 @@ public class TournamentTest
     }
 
 
-    private void assertInvalidGame(String expectedProperty, String expectedErrMsg, Object expectedValue){
+    private void assertInvalidTournament(String expectedProperty, String expectedErrMsg, Object expectedValue){
         //run validator on car object and store the resulting violations in a collection
         Set<ConstraintViolation<Tournament>> constraintViolations = validator.validate(validTournament);//use the private global car created in setUpValidCar
 
@@ -75,9 +76,118 @@ public class TournamentTest
         validTournament.setStartDate(date);
         date.setTime(date.getTime()+3*24*60*60*10000);
         validTournament.setEndDate(date);
-
-
     }
+
+    @Test
+    public void testTournamentNameLengthInvalid()
+    {
+        validTournament.setTournamentName(repeatA(65));
+        assertInvalidTournament("tournamentName",
+                "Validation Error: Tournament name has to be 64 characters or less",
+                repeatA(65));
+    }
+
+    @Test
+    public void testTournamentNameLengthLessThanorEqual64()
+    {
+        validTournament.setTournamentName(repeatA(64));
+        assertEquals(0,validator.validate(validTournament).size());
+
+        validTournament.setTournamentName(repeatA(35));
+        assertEquals(0,validator.validate(validTournament).size());
+    }
+
+    @Test
+    public void testTournamentNameNotEmpty()
+    {
+        validTournament.setTournamentName("");
+        assertInvalidTournament("tournamentName",
+                "Validation Error: Tournament name field is empty, please enter valid entry",
+                "");
+    }
+
+    @Test
+    public void testTournamentNameCanHaveSymbols()
+    {
+        validTournament.setTournamentName("!@#$%^&**()??//\\,.<>*-/+`~__-+=");
+        assertEquals(0,validator.validate(validTournament).size());
+    }
+
+    @Test
+    public void testStartDateNull()
+    {
+        validTournament.setStartDate(null);
+        assertInvalidTournament("startDate",
+                "A date must be selected for the game",
+                null);
+    }
+
+    @Test
+    public void testEndDateNull()
+    {
+        validTournament.setEndDate(null);
+        assertInvalidTournament("endDate",
+                "A date must be selected for the game",
+                null);
+    }
+
+    @Test
+    public void testStartDatePast()
+    {
+        Date date = new Date();
+        date.setTime(date.getTime()-1000*60*60*48);
+        validTournament.setStartDate(date);
+        assertInvalidTournament("startDate",
+                "Date must not be in the past",
+                date);
+    }
+
+    @Test
+    public void testEndDatePast()
+    {
+        Date date = new Date();
+        date.setTime(date.getTime()-1000*60*60*48);
+        validTournament.setEndDate(date);
+        assertInvalidTournament("endDate",
+                "Date must not be in the past",
+                date);
+    }
+
+    @Test
+    public void testStartDateFuture()
+    {
+        Date date = new Date();
+        date.setTime(date.getTime()+1000*60*60*48);
+        validTournament.setStartDate(date);
+        assertEquals(0,validator.validate(validTournament).size());
+    }
+
+    @Test
+    public void testEndDateFuture()
+    {
+        Date date = new Date();
+        date.setTime(date.getTime()+1000*60*60*48);
+        validTournament.setEndDate(date);
+        assertEquals(0,validator.validate(validTournament).size());
+    }
+
+    @Test
+    public void testStartDateAfterEndDate()
+    {
+        Date date = new Date();
+        date.setTime(date.getTime()+1000*60*60*48*7);
+        validTournament.setStartDate(date);
+        Date date2 = new Date();
+        date2.setTime(date2.getTime()1000*60*60*48*2);
+        validTournament.setEndDate(date2);
+        assertInvalidTournament("endDate",
+                "End date must be after the start date",
+                date);
+    }
+
+
+
+
 
 
 

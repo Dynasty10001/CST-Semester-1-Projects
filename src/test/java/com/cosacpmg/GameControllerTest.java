@@ -18,6 +18,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -171,10 +172,36 @@ public class GameControllerTest {
         Team UnusedTeamTwo = new Team();
         Game SecondGame = testGameController.createGame(UnusedTeamOne,UnusedTeamTwo, date,testLocation,masterTournament);
 
-        List<Game> schedule = testGameController.getSchedule(masterTournament);
+        List<Game> schedule = testGameController.getAllGamesByTournament(masterTournament);
         assertTrue(schedule.size()>0);
 //        assertFalse(schedule.contains(SecondGame));
         assertFalse(schedule.size()>1);
+    }
+
+    //todo find way so that 2 lists can be comapred
+    @Test
+    public void testGamesByTournamentValid() throws SQLException {
+        Date newDate = new Date();
+        newDate.setTime(date.getTime()+900000);
+
+        Tournament tourney = testTournamentController.createTournament("test", date, newDate);
+        testTournamentController.addTournament(tourney);
+        masterTest.setTournament(tourney);
+        testGameController.addGame(masterTest);
+        List<Game> validGames = new ArrayList<Game>();
+        validGames.add(masterTest);
+        assertEquals(validGames, testGameController.getAllGamesByTournament(tourney));
+    }
+
+    @Test
+    public void testGamesByTournamentNotValid() throws SQLException {
+        Tournament tourney = new Tournament();
+        testTournamentController.addTournament(tourney);
+        masterTest.setTournament(tourney);
+        testGameController.addGame(masterTest);
+        List<Game> validGames = new ArrayList<Game>();
+        validGames.add(masterTest);
+        assertNotEquals(validGames, testGameController.getAllGamesByTournament(masterTournament));
     }
 
     //@Test

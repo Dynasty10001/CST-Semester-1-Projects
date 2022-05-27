@@ -63,8 +63,8 @@ public class GameController
         game.getGameEvents().add(gameEvent);
     }
 
-    public List<Game> getSchedule(Tournament tournament) throws SQLException {
-        List<Game> schedule = repo.queryForAll();
+    public List<Game> getAllGamesByTournament(Tournament tournament) throws SQLException {
+        List<Game> schedule = repo.queryForEq("tournament_id", tournament.getTournamentID());
         return schedule;
     }
 

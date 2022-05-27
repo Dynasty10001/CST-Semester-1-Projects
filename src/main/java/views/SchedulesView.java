@@ -62,7 +62,7 @@ public class SchedulesView implements Initializable
 
         try {
             gameList.getItems().addAll(new GameController(App.connection)
-                    .getSchedule(new TournamentController(App.connection).getTournament())); //Query call goes in here
+                    .getAllGamesByTournament(new TournamentController(App.connection).getTournament())); //Query call goes in here
 //            gameList.stream().foreach(x->{
 //
 //            });

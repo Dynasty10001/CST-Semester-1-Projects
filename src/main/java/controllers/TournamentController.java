@@ -29,7 +29,7 @@ public class TournamentController
     }
 
     //Creates a new tournament
-    public Tournament createTournament(String name, Date startDate, Date endDate) throws SQLException
+    public Tournament createTournament(String name, Date startDate, Date endDate)
     {
         Tournament myTournament = new Tournament();
         myTournament.setTournamentName(name);
@@ -40,7 +40,7 @@ public class TournamentController
         return myTournament;
     }
 
-    public Tournament addTournament(Tournament tourney) throws SQLException
+    public Tournament addTournament(Tournament tourney)
     {
         try
         {
