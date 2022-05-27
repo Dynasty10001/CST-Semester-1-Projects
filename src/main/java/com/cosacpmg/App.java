@@ -19,6 +19,20 @@ import java.util.Date;
 
 public class App extends Application
 {
+//    protected static void popupHandler(String fxmlPath)
+//    {
+//        FXMLLoader loader = new FXMLLoader(App.class.getResource(fxmlPath));
+//        Stage dialog = new Stage();
+//        dialog.initModality(Modality.WINDOW_MODAL);
+//        try
+//        {
+//            dialog.setScene(new Scene(loader.load()));
+//            dialog.showAndWait();
+//        } catch (IOException e)
+//        {
+//            e.printStackTrace();
+//        }
+//    }
     public static final java.lang.String CONNECTION_STRING = "jdbc:sqlite:schedule.db";
     public static ConnectionSource connection;
     private static Stage mainStage;
