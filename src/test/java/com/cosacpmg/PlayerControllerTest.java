@@ -61,9 +61,9 @@ public class PlayerControllerTest {
     
     @Test public void testThatPlayerIsUpdated()
     {
-//        String newName = "newFirstName";
-//        player.setFirstName(newName);
-//        assertEquals(PC.updatePlayer(player).getFirstName(), newName);
+        String newName = "newFirstName";
+        player.setFirstName(newName);
+        assertEquals(PC.updatePlayer(player).getFirstName(), newName);
     }
     
 
