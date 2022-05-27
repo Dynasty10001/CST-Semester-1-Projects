@@ -2,13 +2,14 @@
 
 <?import java.lang.*?>
 <?import javafx.collections.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.AddPlayerView">
    <children>
-      <GridPane layoutY="-1.0" maxHeight="1.7976931348623157E308" prefHeight="400.0" prefWidth="600.0">
+      <GridPane hgap="10.0" layoutY="-1.0" maxHeight="1.7976931348623157E308" prefHeight="450.0" prefWidth="600.0" vgap="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -16,6 +17,7 @@
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -38,18 +40,18 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="First Name" GridPane.rowIndex="1" />
-            <Label prefHeight="17.0" prefWidth="95.0" text="Last Name" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <TextField fx:id="tfFirstName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="tfLastName" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-            <TextField fx:id="tfEmail" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3" />
-            <TextField fx:id="tfPhone" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <TextField fx:id="tfJersey" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-            <TextField fx:id="tfCity" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <TextField fx:id="tfStreet" GridPane.columnIndex="3" GridPane.rowIndex="7" />
-            <TextField fx:id="tfPostalCode" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <Label text="First Name" GridPane.rowIndex="2" />
+            <Label prefHeight="17.0" prefWidth="95.0" text="Last Name" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <TextField fx:id="tfFirstName" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="tfLastName" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <TextField fx:id="tfEmail" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="4" />
+            <TextField fx:id="tfPhone" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="tfJersey" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+            <TextField fx:id="tfCity" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <TextField fx:id="tfStreet" GridPane.columnIndex="3" GridPane.rowIndex="8" />
+            <TextField fx:id="tfPostalCode" GridPane.columnIndex="1" GridPane.rowIndex="10" />
 
-            <ComboBox fx:id="cbProvince" prefWidth="150.0" promptText="Select Province" GridPane.columnIndex="3" GridPane.rowIndex="9">
+            <ComboBox fx:id="cbProvince" prefWidth="150.0" promptText="Select Province" GridPane.columnIndex="3" GridPane.rowIndex="10">
              <items>
                  <FXCollections fx:factory="observableArrayList">
                      <String fx:value="Alberta" />
@@ -60,11 +62,11 @@
              </items>
 
          </ComboBox>
-            <TextField fx:id="tfEName" GridPane.columnIndex="1" GridPane.rowIndex="12" />
-            <TextField fx:id="tfEPhone" GridPane.columnIndex="3" GridPane.rowIndex="12" />
-            <TextField fx:id="tfEEmail" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="14" />
-            <ComboBox fx:id="cbTeam" prefWidth="150.0" promptText="Select Team" GridPane.columnIndex="1" GridPane.rowIndex="16" />
-            <ComboBox fx:id="cbPosition" prefWidth="150.0" promptText="Select Position" GridPane.columnIndex="1" GridPane.rowIndex="17">
+            <TextField fx:id="tfEName" GridPane.columnIndex="1" GridPane.rowIndex="13" />
+            <TextField fx:id="tfEPhone" GridPane.columnIndex="3" GridPane.rowIndex="13" />
+            <TextField fx:id="tfEEmail" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="15" />
+            <ComboBox fx:id="cbTeam" prefWidth="150.0" promptText="Select Team" GridPane.columnIndex="1" GridPane.rowIndex="17" />
+            <ComboBox fx:id="cbPosition" prefWidth="150.0" promptText="Select Position" GridPane.columnIndex="3" GridPane.rowIndex="17">
              <items>
                  <FXCollections fx:factory="observableArrayList">
                      <String fx:value="Defence" />
@@ -75,45 +77,54 @@
              </items>
 
              </ComboBox>
-            <Label text="Email" GridPane.rowIndex="3" />
-            <Label text="Phone Number" GridPane.rowIndex="5" />
-            <Label text="Jersey Number" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-            <Label text="City" GridPane.rowIndex="7" />
-            <Label text="Street Address" GridPane.columnIndex="2" GridPane.rowIndex="7" />
-            <Label text="Postal Code" GridPane.rowIndex="9" />
-            <Label text="Province" GridPane.columnIndex="2" GridPane.rowIndex="9" />
-            <Label prefHeight="17.0" prefWidth="299.0" text="Emergency Contact / Guardian Information" GridPane.columnSpan="2147483647" GridPane.rowIndex="11">
+            <Label text="Email" GridPane.rowIndex="4" />
+            <Label text="Phone Number" GridPane.rowIndex="6" />
+            <Label text="Jersey Number" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+            <Label text="City" GridPane.rowIndex="8" />
+            <Label text="Street Address" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+            <Label text="Postal Code" GridPane.rowIndex="10" />
+            <Label text="Province" GridPane.columnIndex="2" GridPane.rowIndex="10" />
+            <Label prefHeight="17.0" prefWidth="299.0" text="Emergency Contact / Guardian Information" GridPane.columnSpan="2147483647" GridPane.rowIndex="12">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Label text="Name" GridPane.rowIndex="12" />
-            <Label text="Email" GridPane.rowIndex="14" />
-            <Label text="Team" GridPane.rowIndex="16" />
-            <Label text="Phone Number" GridPane.columnIndex="2" GridPane.rowIndex="12" />
-            <Label fx:id="lblPosition" text="Position" GridPane.rowIndex="17" />
-            <Label fx:id="lblERRLastName" style="-fx-text-fill: red;" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="2" />
-             <Label fx:id="lblERRFirstName" style="-fx-text-fill: red;" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2" />
-            <Label fx:id="lblERRPhone" style="-fx-text-fill: red;" GridPane.columnSpan="2" GridPane.rowIndex="6" />
-            <Button mnemonicParsing="false" onAction="#addPlayerCancelHandler" text="Cancel" GridPane.columnIndex="2" GridPane.rowIndex="19" />
-            <Button mnemonicParsing="false" onAction="#addPlayerSubmitHandler" text="Submit" GridPane.columnIndex="3" GridPane.rowIndex="19" />
-            <Label fx:id="lblERRJersey" style="-fx-text-fill: red;" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="6" />
-            <Label fx:id="lblERREmail" style="-fx-text-fill: red;" GridPane.columnSpan="2" GridPane.rowIndex="4" />
-            <Label fx:id="lblERRCity" style="-fx-text-fill: red;" GridPane.columnSpan="2" GridPane.rowIndex="8" />
+            <Label text="Name" GridPane.rowIndex="13" />
+            <Label text="Email" GridPane.rowIndex="15" />
+            <Label text="Team" GridPane.rowIndex="17" />
+            <Label text="Phone Number" GridPane.columnIndex="2" GridPane.rowIndex="13" />
+            <Label fx:id="lblPosition" text="Position" GridPane.columnIndex="2" GridPane.rowIndex="17" />
+            <Label fx:id="lblERRLastName" style="-fx-text-fill: red;" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+             <Label fx:id="lblERRFirstName" style="-fx-text-fill: red;" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+            <Label fx:id="lblERRPhone" style="-fx-text-fill: red;" GridPane.columnSpan="2" GridPane.rowIndex="7" />
+            <Button mnemonicParsing="false" onAction="#addPlayerCancelHandler" text="Cancel" GridPane.columnIndex="2" GridPane.rowIndex="20" />
+            <Button mnemonicParsing="false" onAction="#addPlayerSubmitHandler" text="Submit" GridPane.columnIndex="3" GridPane.rowIndex="20" />
+            <Label fx:id="lblERRJersey" style="-fx-text-fill: red;" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="7" />
+            <Label fx:id="lblERREmail" style="-fx-text-fill: red;" GridPane.columnSpan="2" GridPane.rowIndex="5" />
+            <Label fx:id="lblERRCity" style="-fx-text-fill: red;" GridPane.columnSpan="2" GridPane.rowIndex="9" />
             <Label text="Add A Player" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
             </Label>
-            <Label fx:id="lblERRStreet" style="-fx-text-fill: red;" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="8" />
-            <Label fx:id="lblERRPostalCode" style="-fx-text-fill: red;" GridPane.columnSpan="2" GridPane.rowIndex="10" />
-            <Label fx:id="lblERREName" style="-fx-text-fill: red;" GridPane.columnSpan="2" GridPane.rowIndex="13" />
-            <Label fx:id="lblERRProvince" style="-fx-text-fill: red;" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="10" />
-            <Label fx:id="lblERRPosition" style="-fx-text-fill: red;" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="17" />
-            <Label fx:id="lblERREPhone" style="-fx-text-fill: red;" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="13" />
-            <Label fx:id="lblERREEmail" style="-fx-text-fill: red;" GridPane.columnSpan="2" GridPane.rowIndex="15" />
-            <Label fx:id="lblERRTeam" style="-fx-text-fill: red;" GridPane.columnIndex="2" GridPane.rowIndex="16" />
+            <Label fx:id="lblERRStreet" style="-fx-text-fill: red;" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="9" />
+            <Label fx:id="lblERRPostalCode" style="-fx-text-fill: red;" GridPane.columnSpan="2" GridPane.rowIndex="11" />
+            <Label fx:id="lblERREName" style="-fx-text-fill: red;" GridPane.columnSpan="2" GridPane.rowIndex="14" />
+            <Label fx:id="lblERRProvince" style="-fx-text-fill: red;" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="11" />
+            <Label fx:id="lblERRPosition" style="-fx-text-fill: red;" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="18" />
+            <Label fx:id="lblERREPhone" style="-fx-text-fill: red;" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="14" />
+            <Label fx:id="lblERREEmail" style="-fx-text-fill: red;" GridPane.columnSpan="2" GridPane.rowIndex="16" />
+            <Label fx:id="lblERRTeam" style="-fx-text-fill: red;" GridPane.columnIndex="2" GridPane.rowIndex="17" />
          </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
       </GridPane>
    </children>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
 </AnchorPane>
