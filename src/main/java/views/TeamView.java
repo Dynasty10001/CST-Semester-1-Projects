@@ -76,6 +76,13 @@ public class TeamView
 		Team currentTeam =  teamList.getSelectionModel().getSelectedItem();
 		RosterPopup.setCurrentTeam(currentTeam);
 		AppView.popupHandler("roster-popup-view.fxml");
+		updatePlayerList();
+		
+	}
+	
+	public void updatePlayerList(){
+		Team currentTeam = teamList.getSelectionModel().getSelectedItem();
+		rosterList.getItems().setAll(new PlayerController(App.connection).queryForPlayersOnTeam(currentTeam));
 	}
 	
 	
@@ -83,10 +90,10 @@ public class TeamView
 	{
 		Team currentTeam =  teamList.getSelectionModel().getSelectedItem();
 		teamName.setText(currentTeam.getTeamName());
-		teamCity.setText(currentTeam.getCity());
-		teamArea.setText(currentTeam.getArea());
-		teamCoachName.setText(currentTeam.getCoachName());
-		teamCoachPhoneNumber.setText(currentTeam.getCoachNumber());
+		teamCity.setText("City: " + currentTeam.getCity());
+		teamArea.setText("Area: " + currentTeam.getArea());
+		teamCoachName.setText("Coach: " + currentTeam.getCoachName());
+		teamCoachPhoneNumber.setText("Coach Phonenumber: " + currentTeam.getCoachNumber());
 
 		rosterList.getItems().setAll(new PlayerController(App.connection).queryForPlayersOnTeam(currentTeam));
 

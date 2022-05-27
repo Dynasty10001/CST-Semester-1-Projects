@@ -11,7 +11,7 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <ListView fx:id="allPlayerList" layoutY="-2.0" prefHeight="320.0" prefWidth="175.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <ListView fx:id="allPlayerList" layoutY="-2.0" prefHeight="320.0" prefWidth="175.0" AnchorPane.bottomAnchor="53.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <effect>
                         <Bloom threshold="1.0" />
                      </effect></ListView>
@@ -22,7 +22,7 @@
                </padding></AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <ListView fx:id="teamPlayerList" layoutY="-4.0" prefHeight="320.0" prefWidth="175.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <ListView fx:id="teamPlayerList" layoutY="-4.0" prefHeight="320.0" prefWidth="175.0" AnchorPane.bottomAnchor="53.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
                   <Button layoutX="14.0" layoutY="340.0" mnemonicParsing="false" onAction="#rosterRemovePlayerHandler" text="Remove" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="14.0" />
                </children>
                <padding>

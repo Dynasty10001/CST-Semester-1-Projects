@@ -27,10 +27,11 @@ public class AppView
     static BorderPane staticBorderPane;
     
     @FXML
-    protected void initialize()
+    protected void initialize() throws IOException
     {
         staticBorderPane = borderPane;
         new HomeView().setMainAppView(this);
+        onHomeNavHandler();
     }
     
     
