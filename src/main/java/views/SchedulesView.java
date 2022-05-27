@@ -2,6 +2,7 @@ package views;
 
 import com.cosacpmg.App;
 import controllers.GameController;
+import controllers.TournamentController;
 import javafx.fxml.*;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -61,7 +62,7 @@ public class SchedulesView implements Initializable
 
         try {
             gameList.getItems().addAll(new GameController(App.connection)
-                    .getSchedule(App.TUC.getTournament())); //Query call goes in here
+                    .getSchedule(new TournamentController(App.connection).getTournament())); //Query call goes in here
 //            gameList.stream().foreach(x->{
 //
 //            });

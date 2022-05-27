@@ -9,7 +9,7 @@
         <items>
           <AnchorPane>
                <children>
-                  <TableView fx:id="teamList" layoutY="49.0" prefHeight="321.0" prefWidth="296.0" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="49.0">
+                  <TableView fx:id="teamList" layoutY="49.0" onMouseClicked="#teamViewOnTeamSelectHandler" prefHeight="321.0" prefWidth="296.0" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="49.0">
                     <columns>
                       <TableColumn prefWidth="75.0" text="C1" />
                       <TableColumn prefWidth="75.0" text="C2" />
@@ -17,9 +17,11 @@
                   </TableView>
                   <Button layoutX="213.0" layoutY="372.0" mnemonicParsing="false" onAction="#teamViewAddTeamHandler" prefHeight="25.0" prefWidth="83.0" text="Add Team" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="0.0" />
                </children></AnchorPane>
-          <AnchorPane />
+          <AnchorPane fx:id="teamViewDetailPane">
+               <children>
+                  <Button layoutX="102.0" layoutY="372.0" mnemonicParsing="false" onAction="#teamViewRosterViewHandler" text="View Roster" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="57.0" />
+               </children></AnchorPane>
         </items>
       </SplitPane>
-      <Button layoutX="556.0" layoutY="346.0" mnemonicParsing="false" onAction="#teamViewRosterViewHandler" text="View Roster" />
    </children>
 </AnchorPane>

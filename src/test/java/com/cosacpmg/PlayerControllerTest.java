@@ -3,6 +3,7 @@ package com.cosacpmg;
 import com.j256.ormlite.jdbc.*;
 import controllers.PlayerController;
 import models.Player;
+import models.Team;
 import org.junit.*;
 
 
@@ -37,23 +38,34 @@ public class PlayerControllerTest {
         new App().startDB();//Jank, but just for testing
 
         PC = new PlayerController(App.connection);
+        PC.addPlayer(player);
     }
 
 
     @Test
     public void testThatPlayerIsAddedToTeam()
     {
-        PC.addPlayerToTeam(player, 1);
-        assertEquals(1, player.getTeam());
+        Team team = new Team();
+        PC.addPlayerToTeam(player, team);
+        assertEquals(team, player.getTeam());
     }
 
     @Test
     public void testThatPlayerIsRemovedFromTeam()
     {
-        PC.addPlayerToTeam(player, 1);
+        Team team = new Team();
+        PC.addPlayerToTeam(player, team);
         PC.removePlayerFromTeam(player);
-        assertEquals(0, player.getTeam());
+        assertEquals(null, player.getTeam());
     }
+    
+    @Test public void testThatPlayerIsUpdated()
+    {
+//        String newName = "newFirstName";
+//        player.setFirstName(newName);
+//        assertEquals(PC.updatePlayer(player).getFirstName(), newName);
+    }
+    
 
 
 }

@@ -29,8 +29,8 @@ public class Player implements Serializable {
     @Max(value = 99, message= "Jersey Number Must be an Integer between 01 and 99")
     private int jerseyNo;
 
-    @DatabaseField(canBeNull = true)
-    private int team;
+    @DatabaseField(canBeNull = true, foreign = true, columnName = "team_id")
+    private Team team;
 
     @DatabaseField(canBeNull = false)
     @NotEmpty(message = "All fields must be filled out with valid information" )
@@ -119,11 +119,11 @@ public class Player implements Serializable {
         this.jerseyNo = jerseyNo;
     }
 
-    public int getTeam() {
+    public Team getTeam() {
         return team;
     }
 
-    public void setTeam(int team) {
+    public void setTeam(Team team) {
         this.team = team;
     }
 

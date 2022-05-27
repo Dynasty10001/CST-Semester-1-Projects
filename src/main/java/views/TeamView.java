@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import models.Team;
 
@@ -17,26 +19,15 @@ public class TeamView
 	
 	
 	@FXML protected TableView<Team> teamList;
+	@FXML protected AnchorPane teamViewDetailPane;
 
 	@FXML BorderPane borderPane;
 	
 	
-	/**
-	 * This method creates columns to be used in a table view, using a label as the name of the column and the
-	 * property name being the text name of the attribute.
-	 * @param label
-	 * @param propertyName
-	 * @return
-	 */
-	private TableColumn<Team,String> createColumn(String label, String propertyName){
-		TableColumn<Team, String> returnCol = new TableColumn<Team, String>(label);
-		returnCol.setCellValueFactory(new PropertyValueFactory<Team, String>(propertyName));
-		return returnCol;
-	}
-	
 	@FXML
 	protected void initialize()
 	{
+		teamViewDetailPane.setVisible(false);
 
 		System.out.println("UI: TeamView Initialization");
 		
@@ -77,10 +68,15 @@ public class TeamView
 	@FXML
 	protected void teamViewRosterViewHandler() throws IOException
 	{
-		int currentTeam = (int) teamList.getSelectionModel().getSelectedItem().getId();
+		Team currentTeam =  teamList.getSelectionModel().getSelectedItem();
 		RosterPopup.setCurrentTeam(currentTeam);
 		AppView.popupHandler("roster-popup-view.fxml");
 	}
 	
 	
+	public void teamViewOnTeamSelectHandler(MouseEvent mouseEvent)
+	{
+		teamViewDetailPane.setVisible(true);
+	
+	}
 }

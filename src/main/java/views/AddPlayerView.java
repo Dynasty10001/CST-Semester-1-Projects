@@ -69,7 +69,7 @@ public class AddPlayerView {
         if (cbTeam.getValue() != null)
         {
             Team temp = (Team) cbTeam.getSelectionModel().getSelectedItem();
-            player.setTeam((int) temp.getId());
+            player.setTeam(temp);
         }
 
         HashMap<String, String> error = vh.getErrors(player);

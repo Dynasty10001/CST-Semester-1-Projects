@@ -4,6 +4,7 @@ import com.j256.ormlite.dao.*;
 import com.j256.ormlite.support.*;
 import com.j256.ormlite.table.*;
 import models.Player;
+import models.Team;
 import models.ValidationHelper;
 
 import java.sql.Array;
@@ -118,22 +119,12 @@ public class PlayerController {
         return null;
     }
 
-    public Player editPlayer(Player player)
-    {
-        try {
-            this.repo.update(player);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
-        return player;
-    }
-
-    public Player addPlayerToTeam(Player player, int teamID) {
-        if (player.getTeam() == 0)
+    public Player addPlayerToTeam(Player player, Team team) {
+        if (player.getTeam() == null)
         {
-            player.setTeam(teamID);
-            editPlayer(player);
+            player.setTeam(team);
+            updatePlayer(player);
         }
 
         return player;
@@ -141,22 +132,28 @@ public class PlayerController {
 
     public Player removePlayerFromTeam(Player player) {
 
-        player.setTeam(0);
+        player.setTeam(null);
 
-        editPlayer(player);
+        updatePlayer(player);
 
         return player;
     }
     
     /**
      * this method querries the database using the getAllPlayersMatch method and seraches by the teamId provided
-     * @param teamId
+     * @param team
      * @return
      */
-    public ArrayList<Player> queryForPlayersOnTeam(int teamId)
+    public ArrayList<Player> queryForPlayersOnTeam(Team team)
     {
+        
+        
         try {
-            ArrayList<Player> returnList = (ArrayList<Player>) repo.queryForEq("team", teamId);
+            if (team == null)
+            {
+                return (ArrayList<Player>) repo.queryBuilder().where().isNull("team_id").query();
+            }
+            ArrayList<Player> returnList = (ArrayList<Player>) repo.queryForEq("team_id", team);
             return returnList;
         } catch (SQLException e) {
             e.printStackTrace();
