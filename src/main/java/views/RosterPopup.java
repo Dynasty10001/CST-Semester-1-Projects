@@ -228,4 +228,7 @@ public class RosterPopup {
 			}
 		}
 	}
+
+	//public void
+
 }
