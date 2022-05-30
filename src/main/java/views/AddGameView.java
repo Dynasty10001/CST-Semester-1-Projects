@@ -56,7 +56,7 @@ public class AddGameView
 
         TournamentController TUC = new TournamentController(App.connection);
 
-        if (TUC.getTournament() == null)
+        if (App.currentTournament == null)
         {
             TUC.createTournament("TestTournament", new Date(), new Date());
         }
@@ -89,7 +89,7 @@ public class AddGameView
         GameController GC = new GameController(App.connection);
 
         Game game = GC.createGame(homeTeamBox.getValue(), awayTeamBox.getValue(), gameTime.getTime(),
-                locationField.getText(), TUC.getTournament());
+                locationField.getText(), App.currentTournament);
 
         HashMap<String, String> error = vh.getErrors(game);
 

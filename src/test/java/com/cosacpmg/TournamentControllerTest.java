@@ -10,6 +10,7 @@ import models.Tournament;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Test;
 
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -17,6 +18,8 @@ import javax.validation.ValidatorFactory;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
+
+import static org.junit.Assert.assertNull;
 
 public class TournamentControllerTest {
     private static ValidatorFactory VF;
@@ -48,22 +51,29 @@ public class TournamentControllerTest {
 
     @Before
     public void TestSetup() throws SQLException {
-
-
         Calendar time = Calendar.getInstance();
         time.set(2022, Calendar.JUNE,10);
         time.add(Calendar.HOUR_OF_DAY, 10);
         date = time.getTime();
 
-
         testTournamentController = new TournamentController(dbConn);
         TableUtils.clearTable(dbConn,Tournament.class);
         masterTournament = testTournamentController.createTournament("MasterTournament", new Date(), new Date());
         testTournamentController.addTournament(masterTournament);
+    }
 
+    @Test
+    public void createInvalidTournament()
+    {
+        assertNull(testTournamentController.createTournament("MasterTournament", new Date(), new Date()));
+    }
 
+    @Test
+    public void startDateNull()
+    {
 
     }
+
 
 
 

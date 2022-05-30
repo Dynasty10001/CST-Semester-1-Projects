@@ -6,6 +6,7 @@ import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import models.Team;
 import models.Tournament;
+import models.ValidationHelper;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -32,13 +33,18 @@ public class TournamentController
     //Creates a new tournament
     public Tournament createTournament(String name, Date startDate, Date endDate)
     {
+        ValidationHelper vh = new ValidationHelper();
+
         Tournament myTournament = new Tournament();
         myTournament.setTournamentName(name);
         myTournament.setStartDate(startDate);
         myTournament.setEndDate(endDate);
-
-
-        return myTournament;
+        if(vh.getErrors(myTournament).isEmpty()){
+            return myTournament;
+        }
+        else {
+            return null;
+        }
     }
 
     public Tournament addTournament(Tournament tourney)
@@ -62,8 +68,9 @@ public class TournamentController
         return null;
     }
 
-    public void updateTournament(Tournament tournament) {
+    public Tournament updateTournament(Tournament tournament) {
         //CurrentTournament = tournament;
+        return null;
     }
 
 }

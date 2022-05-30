@@ -187,10 +187,31 @@ public class GameControllerTest {
         Tournament tourney = testTournamentController.createTournament("test", date, newDate);
         testTournamentController.addTournament(tourney);
         masterTest.setTournament(tourney);
-        testGameController.addGame(masterTest);
+        masterTest = testGameController.addGame(masterTest);
+
+        date.setTime(date.getTime()+36000);
+        Game secondGame = testGameController.createGame(testHometeam,testUnusedTeam, date, testLocation,tourney );
+        secondGame = testGameController.addGame(secondGame);
+
         List<Game> validGames = new ArrayList<Game>();
         validGames.add(masterTest);
-        assertEquals(validGames, testGameController.getAllGamesByTournament(tourney));
+        validGames.add(secondGame);
+        List<Game> validGamesFromDB = testGameController.getAllGamesByTournament(tourney);
+
+        validGames.stream().sorted((x,y) -> (int) (y.getGameID() - x.getGameID()));
+        validGamesFromDB.stream().sorted((x,y) -> (int) (y.getGameID() - x.getGameID()));
+//        assertEquals(validGames, testGameController.getAllGamesByTournament(tourney));
+        for(int i = 0; i < validGamesFromDB.size()-1; i++)
+        {
+            Long validGameID = validGames.get(i).getGameID();
+            Long validGameDBID = validGamesFromDB.get(i).getGameID();
+            validGameDBID += (Long) 1L;
+            assertEquals(validGameID, validGameDBID);
+        }
+
+//        validGames.stream().forEach(System.out::println);
+//        validGamesFromDB.stream().forEach(System.out::println);
+
     }
 
     @Test

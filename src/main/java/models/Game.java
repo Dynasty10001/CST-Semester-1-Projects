@@ -36,7 +36,6 @@ public class Game {
     @NotNull(message = "A date must be selected for the game")
     @Future(message = "Date must not be in the past")
     private Date startTime;
-    // TODO: 5/18/2022  for some reason, @Future doesnt seem to be working. Must Fix
 
     //@Column(nullable = false)
     @DatabaseField(canBeNull = false)
