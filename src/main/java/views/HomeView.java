@@ -1,12 +1,38 @@
 package views;
 
+import com.cosacpmg.App;
+import controllers.TeamController;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 
 import java.io.IOException;
 
 public class HomeView
 {
 	private static AppView mainAppView;
+
+	@FXML
+	Label lblHomePageTournamentName;
+
+	@FXML
+	Button playerHomeBtn, teamHomeBtn, scheduleHomeBtn, standingsHomeBtn;
+
+	@FXML
+	protected void initialize()
+	{
+		if(App.currentTournament !=null)
+		{
+			lblHomePageTournamentName.setText(App.currentTournament.getTournamentName());
+		}
+		else
+		{
+			playerHomeBtn.setDisable(true);
+			teamHomeBtn.setDisable(true);
+			scheduleHomeBtn.setDisable(true);
+			standingsHomeBtn.setDisable(true);
+		}
+	}
 	
 	
 	protected void onHomeNavHandler() throws IOException

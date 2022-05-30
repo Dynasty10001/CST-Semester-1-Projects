@@ -18,8 +18,8 @@
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="89.0" minWidth="10.0" prefWidth="68.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0" minWidth="10.0" prefWidth="120.0" />
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
@@ -94,16 +94,16 @@
                                 </VBox>
                             </graphic>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="64.0" style="-fx-background-color: transparent;" GridPane.columnIndex="9">
+                        <Button mnemonicParsing="false" onAction="#onTournamentsNavHandler" prefHeight="67.0" prefWidth="118.0" style="-fx-background-color: transparent;" GridPane.columnIndex="9">
                             <graphic>
-                                <VBox prefHeight="93.0" prefWidth="60.0">
+                                <VBox alignment="CENTER" prefHeight="59.0" prefWidth="66.0">
                                     <children>
-                                        <ImageView fitHeight="42.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+                                        <ImageView fitHeight="42.0" fitWidth="94.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
-                                                <Image url="@../../images/Home.png" />
+                                                <Image url="@../../images/Trophy-256.png" />
                                             </image>
                                         </ImageView>
-                                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="143.0" text="Home" textAlignment="CENTER" />
+                                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="143.0" text="Tournaments" textAlignment="CENTER" />
                                     </children>
                                 </VBox>
                             </graphic>

@@ -79,6 +79,12 @@ public class Tournament
         return tournamentID;
     }
 
+    @Override
+    public String toString()
+    {
+        return tournamentName;
+    }
+
 
 }
 

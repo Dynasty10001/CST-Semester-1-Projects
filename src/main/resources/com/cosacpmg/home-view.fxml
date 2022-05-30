@@ -24,7 +24,7 @@
                   <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
               </rowConstraints>
               <children>
-                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#onPlayerNavHandler" prefHeight="101.0" prefWidth="91.0" style="-fx-background-color: transparent;" GridPane.columnIndex="3">
+                  <Button fx:id="playerHomeBtn" alignment="CENTER" mnemonicParsing="false" onAction="#onPlayerNavHandler" prefHeight="101.0" prefWidth="91.0" style="-fx-background-color: transparent;" GridPane.columnIndex="3">
                       <graphic>
                           <VBox prefHeight="64.0" prefWidth="64.0">
                               <children>
@@ -38,7 +38,7 @@
                           </VBox>
                       </graphic>
                   </Button>
-                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#onTeamsNavHandler" prefHeight="101.0" prefWidth="91.0" style="-fx-background-color: transparent;" GridPane.columnIndex="4">
+                  <Button fx:id="teamHomeBtn" alignment="CENTER" mnemonicParsing="false" onAction="#onTeamsNavHandler" prefHeight="101.0" prefWidth="91.0" style="-fx-background-color: transparent;" GridPane.columnIndex="4">
                       <graphic>
                           <VBox prefHeight="64.0" prefWidth="64.0">
                               <children>
@@ -52,7 +52,7 @@
                           </VBox>
                       </graphic>
                   </Button>
-                  <Button fx:id="scheduleNavButton" alignment="CENTER" mnemonicParsing="false" onAction="#onSchedulesNavHandler" prefHeight="101.0" prefWidth="91.0" style="-fx-background-color: transparent;" GridPane.columnIndex="5">
+                  <Button fx:id="scheduleHomeBtn" alignment="CENTER" mnemonicParsing="false" onAction="#onSchedulesNavHandler" prefHeight="101.0" prefWidth="91.0" style="-fx-background-color: transparent;" GridPane.columnIndex="5">
                       <graphic>
                           <VBox prefHeight="64.0" prefWidth="64.0">
                               <children>
@@ -66,7 +66,7 @@
                           </VBox>
                       </graphic>
                   </Button>
-                  <Button alignment="CENTER" layoutX="401.0" layoutY="10.0" mnemonicParsing="false" onAction="#onStandingNavHandler" prefHeight="101.0" prefWidth="91.0" style="-fx-background-color: transparent;" GridPane.columnIndex="6">
+                  <Button fx:id="standingsHomeBtn" alignment="CENTER" layoutX="401.0" layoutY="10.0" mnemonicParsing="false" onAction="#onStandingNavHandler" prefHeight="101.0" prefWidth="91.0" style="-fx-background-color: transparent;" GridPane.columnIndex="6">
                       <graphic>
                           <VBox prefHeight="64.0" prefWidth="64.0">
                               <children>
@@ -82,7 +82,7 @@
                   </Button>
               </children>
           </GridPane>
-      <Label alignment="CENTER" text="Tournament" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+      <Label fx:id="lblHomePageTournamentName" alignment="CENTER" text="No Tournament Selected" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
          <font>
             <Font size="36.0" />
          </font>

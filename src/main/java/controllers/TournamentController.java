@@ -61,14 +61,17 @@ public class TournamentController
 
     }
 
-    public List<Tournament> getAllTournaments(){
+    public ArrayList<Tournament> getAllTournaments()
+    {
+        try
+        {
+            return (ArrayList<Tournament>) repo.queryForAll();
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
 
         return null;
-    }
 
-    public Tournament updateTournament(Tournament tournament) {
-        //CurrentTournament = tournament;
-        return null;
     }
-
 }

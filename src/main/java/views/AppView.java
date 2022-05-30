@@ -32,6 +32,15 @@ public class AppView
         staticBorderPane = borderPane;
         new HomeView().setMainAppView(this);
         onHomeNavHandler();
+        if(App.currentTournament == null)
+        {
+            hideNavButtons();
+        }
+        else
+        {
+            showNavButtons();
+        }
+
     }
     
     
@@ -120,6 +129,11 @@ public class AppView
 //        changePaneHandler("standing-view-pane.fxml");
         showNavButtons();
     }
+
+    @FXML
+    protected void onTournamentsNavHandler() throws IOException{
+        popupHandler("tournament-popup.fxml");
+    }
     
     /**
      * Hides the nav buttons while on the mainmenu view
@@ -147,5 +161,9 @@ public class AppView
         standingNavButton.setVisible(true);
 //        backNavButton.setVisible(false);
     }
+
+
+
+
 
 }
