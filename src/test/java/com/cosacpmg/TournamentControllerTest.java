@@ -19,7 +19,7 @@ import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
 
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 public class TournamentControllerTest {
     private static ValidatorFactory VF;
@@ -62,18 +62,44 @@ public class TournamentControllerTest {
         testTournamentController.addTournament(masterTournament);
     }
 
+    /*
+    we are testing valid tournament creation
+     */
+    @Test
+    public void createValidTournament()
+    {
+
+        assertNotNull( testTournamentController.createTournament("Test2", new Date(), new Date()));
+    }
+
+    /*
+     we are testing invalid tournament creation
+   */
     @Test
     public void createInvalidTournament()
     {
         assertNull(testTournamentController.createTournament("MasterTournament", new Date(), new Date()));
     }
 
+    /*
+     we are testing adding valid tournament
+   */
+
     @Test
-    public void startDateNull()
+    public void addValidTournament()
     {
 
+        assertNotEquals( testTournamentController.addTournament(masterTournament).getTournamentID(),0);
     }
+    /*
+    we are testing adding invalid tournament
+  */
+    @Test
+    public void addInvalidTournament()
+    {
 
+        assertEquals( testTournamentController.addTournament(testTournamentController.createTournament("Test3", null, new Date())).getTournamentID(),0);
+    }
 
 
 
