@@ -19,9 +19,9 @@ public class GameController
     
     
     
-    public static final int POINTS_FOR_WIN = 0;
+    public static final int POINTS_FOR_WIN = 3;
     public static final int POINTS_FOR_LOSS = 0;
-    public static final int POINTS_FOR_TIE = 0;
+    public static final int POINTS_FOR_TIE = 1;
     
     
     public GameController(ConnectionSource dbConn){
@@ -133,11 +133,41 @@ public class GameController
     
     public static int computeScore(int win, int loss, int tie){
         
-        return 0;
+        return win * POINTS_FOR_WIN + tie * POINTS_FOR_TIE + loss * POINTS_FOR_LOSS;
     }
-    
-    
-    
-    
-    
+
+
+    public int queryWins(Team team) {
+        ArrayList<Game> games = getGamesWithTeam(team);
+
+        return (int) games.stream().filter(e-> e.getWinner()==team).count();
+
+    }
+
+    public int queryLosses(Team team) {
+        ArrayList<Game> games = getGamesWithTeam(team);
+
+        return (int) games.stream().filter(e-> e.getWinner()!=team && e.getWinner() != null).count();
+    }
+
+    public int queryTies(Team team) {
+        ArrayList<Game> games = getGamesWithTeam(team);
+
+        return (int) games.stream().filter(e-> e.getWinner()==null && e.isPlayed()).count();
+    }
+
+    public ArrayList<Game> getGamesWithTeam(Team team)
+    {
+        try {
+            return (ArrayList<Game>) repo.query(repo.queryBuilder()
+                    .where()
+                    .eq("homeTeam_id",team)
+                    .or()
+                    .eq("awayTeam_id",team)
+                    .prepare());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

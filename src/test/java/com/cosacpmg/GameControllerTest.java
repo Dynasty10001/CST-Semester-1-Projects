@@ -178,17 +178,10 @@ public class GameControllerTest {
         assertFalse(schedule.size()>1);
     }
 
-    //@Test
-    public void CreateGameRoundRobinRescheduled()
-    {
-        fail();
-    }
-    //@Test
-    public void CreateGameRoundRobinNotReschedule()
-    {
-        fail();
-    }
-    
+
+    /**
+     * This test is testing the computeScore() method to ensure that the method is correctly calculating a teams score.
+     */
     @Test
     public void testThatScoreIsCalculatedCorrectly(){
         int wins = 10;
@@ -203,20 +196,7 @@ public class GameControllerTest {
     }
     
     
-    @Test
-    public void testThatStandingsEntryIsMade(){
-    
-        Game game = testGameController.createGame(testHometeam,testAwayTeam,new Date(),testLocation,masterTournament);
-        game.setWinners(1);
-        
-        StandingsEntry entry = new StandingsEntry(testHometeam);
-        entry.s
-        
-        
-        
-    }
-    
-    
+
     
     
  
