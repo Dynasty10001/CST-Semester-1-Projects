@@ -139,15 +139,16 @@ public class GameController
 
     public int queryWins(Team team) {
         ArrayList<Game> games = getGamesWithTeam(team);
+        
 
-        return (int) games.stream().filter(e-> e.getWinner()==team).count();
+        return (int) games.stream().filter(e-> e.getWinner() != null && e.getWinner().getId()==team.getId() && e.isPlayed()).count();
 
     }
 
     public int queryLosses(Team team) {
         ArrayList<Game> games = getGamesWithTeam(team);
 
-        return (int) games.stream().filter(e-> e.getWinner()!=team && e.getWinner() != null).count();
+        return (int) games.stream().filter(e-> e.getWinner() != null && e.getWinner().getId() != team.getId() && e.getWinner() != null && e.isPlayed()).count();
     }
 
     public int queryTies(Team team) {
@@ -169,5 +170,36 @@ public class GameController
             e.printStackTrace();
         }
         return null;
+    }
+    
+    /**
+     * Removes the game from the game
+     * @param game
+     */
+    public void removeGame(Game game)
+    {
+        try
+        {
+            repo.delete(game);
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+    
+    /**
+     * updates the supplied game in the db
+     * @param game
+     */
+    public void update(Game game)
+    {
+        try
+        {
+            repo.update(game);
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    
     }
 }

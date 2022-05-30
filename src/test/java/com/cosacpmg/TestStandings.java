@@ -7,36 +7,55 @@ import models.Game;
 import models.StandingsEntry;
 import models.Team;
 import models.Tournament;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 
 import java.sql.SQLException;
 import java.util.Date;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class TestStandings {
 
     Game game;
-    GameController testGameController;
+    GameController gc;
     Team testHometeam;
     Team testAwayTeam;
     String testLocation = "field1";
     Tournament masterTournament;
 
 
+    @BeforeClass
+    public static void settupDB(){
+        new App().startDB();
+    }
+    
     @Before
     public void setup() throws SQLException {
 
         TournamentController TC = new TournamentController(App.connection);
-
-        testGameController = new GameController(App.connection);
+        TeamController tc = new TeamController(App.connection);
+    
+    
+        gc = new GameController(App.connection);
 
         testHometeam = TeamController.createTeam("team Home", "Berlin", "west germany", "Angela Merkel", "234 567 8910");
         testAwayTeam = TeamController.createTeam("team Away", "London", "Brixton", "Margret Thatcher", "234 567 5555");
+        tc.addTeam(testHometeam);
+        tc.addTeam(testAwayTeam);
+    
+    
         masterTournament = TC.createTournament("MasterTournament");
 
-        game = testGameController.createGame(testHometeam,testAwayTeam,new Date(),testLocation,masterTournament);
+        game = gc.createGame(testHometeam, testAwayTeam, new Date(), testLocation, masterTournament);
+        gc.addGame(game);
+    
+    }
+    
+    @After
+    public void teardown()
+    {
+//        testGameController.removeGame(game);
     }
 
 
@@ -45,31 +64,36 @@ public class TestStandings {
 
 
         game.setWinners(1);
-
+        game.setPlayed(true);
+        gc.update(game);
+    
         StandingsEntry entry = new StandingsEntry(testHometeam);
-        assertTrue(entry.getWins() == 1);
+        assertEquals(1, entry.getWins());
 
     }
 
     @Test
     public void testStandingsEntryLossesQuery(){
 
-        Game game = testGameController.createGame(testHometeam,testAwayTeam,new Date(),testLocation,masterTournament);
         game.setWinners(-1);
-
+        game.setPlayed(true);
+        gc.update(game);
+    
+    
         StandingsEntry entry = new StandingsEntry(testHometeam);
-        assertTrue(entry.getLosses() == 1);
+        assertEquals(1, entry.getLosses());
 
     }
 
     @Test
     public void testStandingsEntryTiesQuery(){
 
-        Game game = testGameController.createGame(testHometeam,testAwayTeam,new Date(),testLocation,masterTournament);
         game.setWinners(0);
-
+        game.setPlayed(true);
+        gc.update(game);
+    
         StandingsEntry entry = new StandingsEntry(testHometeam);
-        assertTrue(entry.getTies() == 1);
-
+        assertEquals(1, entry.getTies());
+    
     }
 }

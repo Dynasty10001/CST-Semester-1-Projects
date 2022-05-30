@@ -90,6 +90,10 @@ public class Game {
      */
     public Team getWinner()
     {
+        if(winners == null)
+        {
+            return null;
+        }
         return winners==1? homeTeam: winners == -1? awayTeam: null;
     }
 
