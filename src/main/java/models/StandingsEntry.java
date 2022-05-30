@@ -8,9 +8,10 @@ public class StandingsEntry
 	
 	int score, wins, losses, ties;
 	Team team;
+
 	public StandingsEntry(Team team)
 	{
-		//todo querries the games that this team played in and set the variables in this class
+
 		this.team = team;
 
 		GameController gc = new GameController(App.connection);
@@ -42,4 +43,7 @@ public class StandingsEntry
 	{
 		return ties;
 	}
+	
+	@Override
+	public String toString() { return team.getCity() + " " + team.getTeamName(); }
 }
