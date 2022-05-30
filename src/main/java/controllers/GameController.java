@@ -16,7 +16,14 @@ public class GameController
 
     public Dao<Game, Long> repo;
     private ValidationHelper vh = new ValidationHelper();
-
+    
+    
+    
+    public static final int POINTS_FOR_WIN = 0;
+    public static final int POINTS_FOR_LOSS = 0;
+    public static final int POINTS_FOR_TIE = 0;
+    
+    
     public GameController(ConnectionSource dbConn){
         try {
             this.repo = DaoManager.createDao(dbConn,Game.class);
@@ -123,4 +130,14 @@ public class GameController
         }
         return true;
     }
+    
+    public static int computeScore(int win, int loss, int tie){
+        
+        return 0;
+    }
+    
+    
+    
+    
+    
 }
