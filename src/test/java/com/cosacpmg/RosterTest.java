@@ -269,7 +269,7 @@ public class RosterTest {
 
 
         testView.MakePlayerList(PC);
-        testView.PositionNumberValidator();
+        testView.positionNumberValidator();
 
         validPlayer1 = PC.getPlayer(validPlayer1);
         validPlayer7 = PC.getPlayer(validPlayer7);
@@ -296,7 +296,7 @@ public class RosterTest {
         PC.updatePlayer(validPlayer7);
 
         testView.MakePlayerList(PC);
-        testView.PositionNumberValidator();
+        testView.positionNumberValidator();
 
         validPlayer1 = PC.getPlayer(validPlayer1);
         validPlayer7 = PC.getPlayer(validPlayer7);
@@ -314,10 +314,10 @@ public class RosterTest {
         validPlayer1.setAssignPosition("Defence");
         validPlayer6.setAssignPosition("Defence");
         validPlayer7.setAssignPosition("Defence");
-        testView.PositionNumberValidator();
+        testView.positionNumberValidator();
 
         testView.MakePlayerList(PC);
-        testView.PositionNumberValidator();
+        testView.positionNumberValidator();
 
         validPlayer1 = PC.getPlayer(validPlayer1);
         validPlayer7 = PC.getPlayer(validPlayer7);
@@ -328,7 +328,7 @@ public class RosterTest {
         assertEquals("Substitution", validPlayer6.getAssignPosition());
 
         testView.MakePlayerList(PC);
-        testView.PositionNumberValidator();
+        testView.positionNumberValidator();
 
     }
 
@@ -341,10 +341,10 @@ public class RosterTest {
     {
         validPlayer1.setAssignPosition("Forward");
         validPlayer7.setAssignPosition("Forward");
-        testView.PositionNumberValidator();
+        testView.positionNumberValidator();
 
         testView.MakePlayerList(PC);
-        testView.PositionNumberValidator();
+        testView.positionNumberValidator();
 
         validPlayer1 = PC.getPlayer(validPlayer1);
         validPlayer7 = PC.getPlayer(validPlayer7);
@@ -370,10 +370,10 @@ public class RosterTest {
         validPlayer7.setAssignPosition("GoalTender");
         validPlayer8.setAssignPosition("Substitution");
 
-        testView.PositionNumberValidator();
+        testView.positionNumberValidator();
 
         testView.MakePlayerList(PC);
-        testView.PositionNumberValidator();
+        testView.positionNumberValidator();
 
         assertTrue(validPlayer8.getAssignPosition().equals("Substitution"));
         assertFalse(validPlayer1.getAssignPosition().equals("Substitution"));

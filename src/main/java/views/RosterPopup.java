@@ -29,6 +29,8 @@ public class RosterPopup {
 
 	ArrayList<Player> playersOnTeam;
 
+	ArrayList<Player> subList;
+
 	public PlayerController pc;
 
 	Player[] fieldPosArray = new Player[7];
@@ -37,17 +39,9 @@ public class RosterPopup {
 	protected void initialize(){
 //		System.out.println("Current team is " + currentTeam.getId());
 		pc = new PlayerController(App.connection);
+
 		initAllPlayerList(pc);
 		initTeamPlayerList(pc);
-
-		// initialize all labels
-		lblForward = new Label();
-		lblDefence1 = new Label();
-		lblGoalTender = new Label();
-		lblDefence2 = new Label();
-		lblMidfield1 = new Label();
-		lblMidfield2 = new Label();
-		lblMidfield3 = new Label();
 
 		
 	}
@@ -69,12 +63,15 @@ public class RosterPopup {
 	protected void initTeamPlayerList(PlayerController pc)
 	{
 		MakePlayerList(pc);
-		teamPlayerList.getItems().setAll(playersOnTeam);
+		subList = new ArrayList<>();
+		positionNumberValidator();
+		teamPlayerList.getItems().setAll(subList);
 	}
 
 	public void MakePlayerList(PlayerController pc) {
 		playersOnTeam = new ArrayList<>();
 		playersOnTeam.addAll(pc.queryForPlayersOnTeam(currentTeam));
+		playersOnTeam.get(0).setAssignPosition("Forward");
 	}
 
 
@@ -177,7 +174,7 @@ public class RosterPopup {
 	 * Purpose:
 	 * This method will protect against errors by making sure there can never be more than a set number of players in each position, and will clear them all if it does happen.
 	 */
-	public void PositionNumberValidator()
+	public void positionNumberValidator()
 	{
 
 		// DEBUG //////////////
@@ -270,18 +267,19 @@ public class RosterPopup {
 			switch (POS) {
 				case "Forward":
 					fieldPosArray[0] = player;
+					lblForward.setText(player.getFirstName() + " " + player.getLastName() + " \n Forward");
 					break;
 
 				case "Defence":
 					if (fieldPosArray[1] != null)
 					{
 						fieldPosArray[1] = player;
-						playersOnTeam.remove(player);
+						lblDefence1.setText(player.getFirstName() + " " + player.getLastName() + " \n Defence");
 					}
 					else
 					{
 						fieldPosArray[2] = player;
-						playersOnTeam.remove(player);
+						lblDefence2.setText(player.getFirstName() + " " + player.getLastName() + " \n Defence");
 					}
 					break;
 
@@ -289,28 +287,35 @@ public class RosterPopup {
 					if (fieldPosArray[3] != null)
 					{
 						fieldPosArray[3] = player;
-						playersOnTeam.remove(player);
+						lblMidfield1.setText(player.getFirstName() + " " + player.getLastName() + " \n Midfield");
 					}
 					else if (fieldPosArray[4] != null)
 					{
 						fieldPosArray[4] = player;
-						playersOnTeam.remove(player);
+						lblMidfield2.setText(player.getFirstName() + " " + player.getLastName() + " \n Midfield");
 					}
 					else
 					{
 						fieldPosArray[5] = player;
-						playersOnTeam.remove(player);
+						lblMidfield3.setText(player.getFirstName() + " " + player.getLastName() + " \n Midfield");
 					}
 					break;
 
 				case "GoalTender":
 					fieldPosArray[6] = player;
-					playersOnTeam.remove(player);
+					lblGoalTender.setText(player.getFirstName() + " " + player.getLastName() + " \n GoalTender");
 					break;
-
+				case "Substitution":
+					subList.add(player);
+					break;
 				default:
 					break;
 			}
 		}
+	}
+	@FXML
+	public void doThing()
+	{
+		fieldPositionFiller();
 	}
 }
