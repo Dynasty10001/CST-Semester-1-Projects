@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import models.Game;
 import models.Team;
+import models.Tournament;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -19,23 +20,11 @@ import java.util.Date;
 
 public class App extends Application
 {
-//    protected static void popupHandler(String fxmlPath)
-//    {
-//        FXMLLoader loader = new FXMLLoader(App.class.getResource(fxmlPath));
-//        Stage dialog = new Stage();
-//        dialog.initModality(Modality.WINDOW_MODAL);
-//        try
-//        {
-//            dialog.setScene(new Scene(loader.load()));
-//            dialog.showAndWait();
-//        } catch (IOException e)
-//        {
-//            e.printStackTrace();
-//        }
-//    }
+
     public static final java.lang.String CONNECTION_STRING = "jdbc:sqlite:schedule.db";
     public static ConnectionSource connection;
     private static Stage mainStage;
+    public static Tournament currentTournament;
 
     // AppView.class.getResource("/com.cosacpmg/app-view.fxml")
     @Override
@@ -83,8 +72,8 @@ public class App extends Application
         Date first = new Date();
         Date second = new Date();
         second.setTime(second.getTime()+3600000);
-        gameList.add(gc.createGame(one,two, first,new String(),TUC.getTournament()));
-        gameList.add(gc.createGame(one,two, second,new String(),TUC.getTournament()));
+        gameList.add(gc.createGame(one,two, first,new String(),currentTournament));
+        gameList.add(gc.createGame(one,two, second,new String(),currentTournament));
 
 
         return gameList;

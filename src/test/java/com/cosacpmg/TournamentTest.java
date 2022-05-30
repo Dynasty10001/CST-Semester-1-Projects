@@ -81,14 +81,15 @@ public class TournamentTest
     @Test
     public void testTournamentNameLengthInvalid()
     {
-        validTournament.setTournamentName(repeatA(65));
+        String validMax=repeatA(65);
+        validTournament.setTournamentName(validMax);
         assertInvalidTournament("tournamentName",
                 "Validation Error: Tournament name has to be 64 characters or less",
-                repeatA(65));
+                validMax);
     }
 
     @Test
-    public void testTournamentNameLengthLessThanorEqual64()
+    public void testTournamentNameLengthLessThanOrEqual64()
     {
         validTournament.setTournamentName(repeatA(64));
         assertEquals(0,validator.validate(validTournament).size());
@@ -106,12 +107,7 @@ public class TournamentTest
                 "");
     }
 
-    @Test
-    public void testTournamentNameCanHaveSymbols()
-    {
-        validTournament.setTournamentName("!@#$%^&**()??//\\,.<>*-/+`~__-+=");
-        assertEquals(0,validator.validate(validTournament).size());
-    }
+
 
     @Test
     public void testStartDateNull()
@@ -178,7 +174,7 @@ public class TournamentTest
         date.setTime(date.getTime()+1000*60*60*48*7);
         validTournament.setStartDate(date);
         Date date2 = new Date();
-        date2.setTime(date2.getTime()1000*60*60*48*2);
+        date2.setTime(date2.getTime()*1000*60*60*48*2);
         validTournament.setEndDate(date2);
         assertInvalidTournament("endDate",
                 "End date must be after the start date",

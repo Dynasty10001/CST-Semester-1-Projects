@@ -28,7 +28,7 @@ public class TournamentControllerTest {
 
     private static ConnectionSource dbConn;
 
-   
+
     Date date;
 
     @BeforeClass
@@ -56,21 +56,21 @@ public class TournamentControllerTest {
         date = time.getTime();
 
 
-
-
         testTournamentController = new TournamentController(dbConn);
-
         TableUtils.clearTable(dbConn,Tournament.class);
-
-
         masterTournament = testTournamentController.createTournament("MasterTournament", new Date(), new Date());
-
-
-
         testTournamentController.addTournament(masterTournament);
 
 
 
     }
+
+
+
+
+
+
+
+
 
 }

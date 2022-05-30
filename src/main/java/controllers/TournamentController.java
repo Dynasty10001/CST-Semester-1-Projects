@@ -10,6 +10,7 @@ import models.Tournament;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class TournamentController
 {
@@ -35,13 +36,14 @@ public class TournamentController
         myTournament.setTournamentName(name);
         myTournament.setStartDate(startDate);
         myTournament.setEndDate(endDate);
-        changeTournament(myTournament);
+
 
         return myTournament;
     }
 
     public Tournament addTournament(Tournament tourney)
     {
+        /*
         try
         {
             repo.create(tourney);
@@ -50,14 +52,18 @@ public class TournamentController
             e.printStackTrace();
         }
         return tourney;
+
+         */
+        return null;
     }
 
-    public Tournament getTournament(){
-        return CurrentTournament;
+    public List<Tournament> getAllTournaments(){
+
+        return null;
     }
 
-    public void changeTournament(Tournament tournament) {
-        CurrentTournament = tournament;
+    public void updateTournament(Tournament tournament) {
+        //CurrentTournament = tournament;
     }
 
 }
