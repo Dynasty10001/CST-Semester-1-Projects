@@ -215,7 +215,9 @@ public class Player implements Serializable {
         this.emergencyPhoneNumber = emergencyPhoneNumber;
     }
 
-    public void setAssignPosition(String assignPosition) {this.assignedPosition = assignedPosition;}
+    public void setAssignPosition(String assignPosition) {
+        this.assignedPosition = assignPosition;
+    }
 
     public String getAssignPosition() {return assignedPosition;}
 

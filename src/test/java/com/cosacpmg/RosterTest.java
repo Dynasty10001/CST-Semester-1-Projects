@@ -1,21 +1,21 @@
 package com.cosacpmg;
 
+import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
 import controllers.PlayerController;
 import controllers.TeamController;
 import models.Player;
 import models.Team;
 import org.junit.*;
-import views.RosterView;
+import views.RosterPopup;
 
-import java.util.ArrayList;
-import java.util.concurrent.ForkJoinPool;
+import java.sql.SQLException;
 
 import static org.junit.Assert.*;
 
 
 public class RosterTest {
 
-    RosterView testView;
+    RosterPopup testView;
     public Team testTeam;
     public Player validPlayer1, validPlayer2, validPlayer3, validPlayer4, validPlayer5, validPlayer6, validPlayer7, validPlayer8;
     Player[] PlayerList;
@@ -28,7 +28,7 @@ public class RosterTest {
     @Before
     public void testSetup()
     {
-        testView = new RosterView();
+        testView = new RosterPopup();
          testTeam = TeamController.createTeam(
                 "TheHeffingtonHeffs",
                 "Saskatoon",
@@ -156,19 +156,27 @@ public class RosterTest {
                 "Saskatchewan",
                 "S7V0A1");
 
-        PC = new PlayerController(App.connection);
+        try {
+            PC = new PlayerController(new JdbcPooledConnectionSource(App.CONNECTION_STRING));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         PlayerList = new Player[] {validPlayer1, validPlayer2, validPlayer3,validPlayer4,validPlayer5,validPlayer6,validPlayer7,validPlayer8};
 
         for (int i = 0; i < 8; i++){
-            PC.addPlayerToTeam(PlayerList[i],testTeam);
             PC.addPlayer(PlayerList[i]);
+            PC.addPlayerToTeam(PlayerList[i],testTeam);
         }
     }
 
     @After
     public void onTearDown(){
         for (int i = 0; i<8;i++) {
-            PC.removePlayer(PlayerList[i]);
+            try {
+                PC.removePlayer(PlayerList[i]);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -183,7 +191,7 @@ public class RosterTest {
     {
         testView.givePlayerPosition(validPlayer1, "Forward");
         assertSame("Forward", validPlayer1.getAssignPosition());
-        Player returnedPlayer = PC.updatePlayer(validPlayer1);
+        Player returnedPlayer = PC.repo.query();
         if (returnedPlayer != null){
             assertEquals(returnedPlayer.getAssignPosition(),validPlayer1.getAssignPosition());
         }
@@ -199,7 +207,22 @@ public class RosterTest {
     @Test
     public void playerPositionRemoved()
     {
-        fail();
+        validPlayer1.setAssignPosition("Forward");
+        PC.updatePlayer(validPlayer1);
+
+        assertEquals("Forward",validPlayer1.getAssignPosition());
+
+        testView.removePlayerPosition(validPlayer1);
+        assertEquals("Substitution",validPlayer1.getAssignPosition());
+
+        Player returnedPlayer = PC.repo.query();
+        if (returnedPlayer != null){
+            assertEquals(returnedPlayer.getAssignPosition(),validPlayer1.getAssignPosition());
+        }
+        else {
+            fail();
+        }
+
     }
 
     /**
@@ -280,6 +303,17 @@ public class RosterTest {
         validPlayer6.setAssignPosition("Midfield");
         validPlayer7.setAssignPosition("Goalie");
         validPlayer8.setAssignPosition("Substitution");
+
+        testView.PositionNumberValidator();
+
+        assertEquals("Substitution",validPlayer8.getAssignPosition());
+        assertNotEquals("Substitution",validPlayer1.getAssignPosition());
+        assertNotEquals("Substitution",validPlayer2.getAssignPosition());
+        assertNotEquals("Substitution",validPlayer3.getAssignPosition());
+        assertNotEquals("Substitution",validPlayer4.getAssignPosition());
+        assertNotEquals("Substitution",validPlayer5.getAssignPosition());
+        assertNotEquals("Substitution",validPlayer6.getAssignPosition());
+        assertNotEquals("Substitution",validPlayer7.getAssignPosition());
     }
 
 

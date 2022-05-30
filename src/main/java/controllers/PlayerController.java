@@ -109,6 +109,7 @@ public class PlayerController {
         player.setLastName(Last);
         player.setJerseyNo(Jersey);
         player.setPosition(Pos);
+        player.setAssignPosition("Substitution");
         player.setEmail(Email);
         player.setPhoneNumber(Phone);
         player.setEmergencyName(EName);
@@ -218,7 +219,7 @@ public class PlayerController {
         return null;
     }
 
-    public void removePlayer(Player player){
-
+    public void removePlayer(Player player) throws SQLException {
+            repo.delete(player);
     }
 }
