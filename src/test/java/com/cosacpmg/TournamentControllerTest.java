@@ -58,7 +58,7 @@ public class TournamentControllerTest {
 
         testTournamentController = new TournamentController(dbConn);
         TableUtils.clearTable(dbConn,Tournament.class);
-        masterTournament = testTournamentController.createTournament("MasterTournament", new Date(), new Date());
+        masterTournament = testTournamentController.createTournament("MasterTournament", date, date);
         testTournamentController.addTournament(masterTournament);
     }
 
@@ -68,6 +68,10 @@ public class TournamentControllerTest {
     @Test
     public void createValidTournament()
     {
+        Calendar time = Calendar.getInstance();
+        time.set(2022, Calendar.JUNE,10);
+        time.add(Calendar.HOUR_OF_DAY, 10);
+        date = time.getTime();
 
         assertNotNull( testTournamentController.createTournament("Test2", new Date(), new Date()));
     }
@@ -78,7 +82,7 @@ public class TournamentControllerTest {
     @Test
     public void createInvalidTournament()
     {
-        assertNull(testTournamentController.createTournament("MasterTournament", new Date(), new Date()));
+        assertNull(testTournamentController.createTournament("MasterTournament", date, date));
     }
 
     /*
@@ -88,8 +92,13 @@ public class TournamentControllerTest {
     @Test
     public void addValidTournament()
     {
+        Calendar time = Calendar.getInstance();
+        time.set(2022, Calendar.JUNE,10);
+        time.add(Calendar.HOUR_OF_DAY, 10);
+        date = time.getTime();
+        Tournament tourneyGood = testTournamentController.createTournament("Good Torunety", date, date);
 
-        assertNotEquals( testTournamentController.addTournament(masterTournament).getTournamentID(),0);
+        assertNotEquals( testTournamentController.addTournament(tourneyGood).getTournamentID(),0);
     }
     /*
     we are testing adding invalid tournament

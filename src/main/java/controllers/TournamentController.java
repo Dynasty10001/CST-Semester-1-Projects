@@ -49,7 +49,7 @@ public class TournamentController
 
     public Tournament addTournament(Tournament tourney)
     {
-        /*
+
         try
         {
             repo.create(tourney);
@@ -59,8 +59,6 @@ public class TournamentController
         }
         return tourney;
 
-         */
-        return null;
     }
 
     public List<Tournament> getAllTournaments(){

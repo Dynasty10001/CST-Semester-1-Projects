@@ -76,7 +76,7 @@ public class GameControllerTest {
         TableUtils.clearTable(dbConn,Game.class);
         TableUtils.clearTable(dbConn,Team.class);
 
-        masterTournament = testTournamentController.createTournament("MasterTournament", new Date(), new Date());
+        masterTournament = testTournamentController.createTournament("MasterTournament", date, date);
         testHometeam = testTeamController.createTeam("team Home", "Berlin", "west germany", "Angela Merkel", "234 567 8910");
         testAwayTeam = testTeamController.createTeam("team Away", "London", "Brixton", "Margret Thatcher", "234 567 5555");
         testUnusedTeam = testTeamController.createTeam("unused", "nowhere", "space", "go", "666 666 6666");
