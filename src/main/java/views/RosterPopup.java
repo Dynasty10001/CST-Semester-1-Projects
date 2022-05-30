@@ -1,12 +1,14 @@
 package views;
 
 import com.cosacpmg.App;
+import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
 import controllers.PlayerController;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import models.Player;
 import models.Team;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 
@@ -19,7 +21,9 @@ public class RosterPopup {
 	
 	private static Team currentTeam = null;
 
-	PlayerController pc;
+	ArrayList<Player> playersOnTeam;
+
+	public PlayerController pc;
 	
 	@FXML
 	protected void initialize(){
@@ -44,7 +48,7 @@ public class RosterPopup {
 	 * Initializes the Team's Player List
 	 * @param pc player controller
 	 */
-	private void initTeamPlayerList(PlayerController pc)
+	public void initTeamPlayerList(PlayerController pc)
 	{
 		teamPlayerList.getItems().setAll(pc.queryForPlayersOnTeam(currentTeam));
 	
@@ -114,9 +118,6 @@ public class RosterPopup {
 		
 	}
 
-
-
-
 	/**
 	 * Purpose:
 	 * this helper method will change a player's assigned position into the given position
@@ -155,6 +156,19 @@ public class RosterPopup {
 	 */
 	public void PositionNumberValidator()
 	{
+		playersOnTeam = (ArrayList<Player>) teamPlayerList.getItems();
+
+		// DEBUG //////////////
+		playersOnTeam.stream().forEach(x -> System.out.printf(x.getFirstName()));
+
+		// Array list to hold the different position on a team.
+		ArrayList<Player> forward = new ArrayList<Player>();
+		ArrayList<Player> midfield = new ArrayList<Player>();
+		ArrayList<Player> defence = new ArrayList<Player>();
+		ArrayList<Player> goalie = new ArrayList<Player>();
+
+		// Loop thorough all the players on a team and assign them to arraylists depending on their position.
+
 
 	}
 }

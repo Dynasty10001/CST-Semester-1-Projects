@@ -29,6 +29,14 @@ public class RosterTest {
     public void testSetup()
     {
         testView = new RosterPopup();
+
+        try {
+            PC = new PlayerController(new JdbcPooledConnectionSource(App.CONNECTION_STRING));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        testView.pc = PC;
          testTeam = TeamController.createTeam(
                 "TheHeffingtonHeffs",
                 "Saskatoon",
@@ -156,17 +164,16 @@ public class RosterTest {
                 "Saskatchewan",
                 "S7V0A1");
 
-        try {
-            PC = new PlayerController(new JdbcPooledConnectionSource(App.CONNECTION_STRING));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
         PlayerList = new Player[] {validPlayer1, validPlayer2, validPlayer3,validPlayer4,validPlayer5,validPlayer6,validPlayer7,validPlayer8};
 
         for (int i = 0; i < 8; i++){
             PC.addPlayer(PlayerList[i]);
             PC.addPlayerToTeam(PlayerList[i],testTeam);
         }
+        
+        RosterPopup.setCurrentTeam(testTeam);
+        testView.initTeamPlayerList(PC);
+
     }
 
     @After
@@ -191,7 +198,14 @@ public class RosterTest {
     {
         testView.givePlayerPosition(validPlayer1, "Forward");
         assertSame("Forward", validPlayer1.getAssignPosition());
-        Player returnedPlayer = PC.repo.query();
+        Player returnedPlayer = null;
+
+        try {
+            returnedPlayer = PC.repo.queryForEq("playerID", validPlayer1.getPlayerId()).get(0);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         if (returnedPlayer != null){
             assertEquals(returnedPlayer.getAssignPosition(),validPlayer1.getAssignPosition());
         }
@@ -215,7 +229,14 @@ public class RosterTest {
         testView.removePlayerPosition(validPlayer1);
         assertEquals("Substitution",validPlayer1.getAssignPosition());
 
-        Player returnedPlayer = PC.repo.query();
+        Player returnedPlayer = null;
+
+        try {
+            returnedPlayer = PC.repo.queryForEq("playerID", validPlayer1.getPlayerId()).get(0);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         if (returnedPlayer != null){
             assertEquals(returnedPlayer.getAssignPosition(),validPlayer1.getAssignPosition());
         }
