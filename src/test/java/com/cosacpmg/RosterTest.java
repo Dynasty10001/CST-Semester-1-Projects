@@ -284,15 +284,15 @@ public class RosterTest {
 
     /**
      * Purpose:
-     * This will test if the number validator will activate for an incorrect number of Goalie position on a team
+     * This will test if the number validator will activate for an incorrect number of GoalTender position on a team
      */
     @Test
-    public void playerPositionNumberValidatorGoalie()
+    public void playerPositionNumberValidatorGoalTender()
     {
-        validPlayer1.setAssignPosition("Goalie");
+        validPlayer1.setAssignPosition("GoalTender");
         PC.updatePlayer(validPlayer1);
 
-        validPlayer7.setAssignPosition("Goalie");
+        validPlayer7.setAssignPosition("GoalTender");
         PC.updatePlayer(validPlayer7);
 
         testView.MakePlayerList(PC);
@@ -367,7 +367,7 @@ public class RosterTest {
         validPlayer4.setAssignPosition("Midfield");
         validPlayer5.setAssignPosition("Midfield");
         validPlayer6.setAssignPosition("Midfield");
-        validPlayer7.setAssignPosition("Goalie");
+        validPlayer7.setAssignPosition("GoalTender");
         validPlayer8.setAssignPosition("Substitution");
 
         testView.PositionNumberValidator();

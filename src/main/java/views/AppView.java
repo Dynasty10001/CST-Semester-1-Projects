@@ -66,8 +66,11 @@ public class AppView
      */
     protected static void popupHandler(String fxmlPath)
     {
+
         FXMLLoader loader = new FXMLLoader(App.class.getResource(fxmlPath));
         Stage dialog = new Stage();
+
+        dialog.setResizable(false);
         dialog.initModality(Modality.WINDOW_MODAL);
         try
         {

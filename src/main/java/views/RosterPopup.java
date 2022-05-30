@@ -4,15 +4,21 @@ import com.cosacpmg.App;
 import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
 import controllers.PlayerController;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import models.Player;
 import models.Team;
 
+import java.sql.Array;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 
 public class RosterPopup {
+
+
+	@FXML
+	protected Label lblForward, lblDefence1, lblDefence2, lblMidfield1 ,lblMidfield2, lblMidfield3, lblGoalTender;
 	
 	@FXML
 	protected ListView<Player> allPlayerList;
@@ -24,6 +30,8 @@ public class RosterPopup {
 	ArrayList<Player> playersOnTeam;
 
 	public PlayerController pc;
+
+	Player[] fieldPosArray = new Player[7];
 	
 	@FXML
 	protected void initialize(){
@@ -31,6 +39,16 @@ public class RosterPopup {
 		pc = new PlayerController(App.connection);
 		initAllPlayerList(pc);
 		initTeamPlayerList(pc);
+
+		// initialize all labels
+		lblForward = new Label();
+		lblDefence1 = new Label();
+		lblGoalTender = new Label();
+		lblDefence2 = new Label();
+		lblMidfield1 = new Label();
+		lblMidfield2 = new Label();
+		lblMidfield3 = new Label();
+
 		
 	}
 	
@@ -161,18 +179,21 @@ public class RosterPopup {
 	 */
 	public void PositionNumberValidator()
 	{
+
 		// DEBUG //////////////
-		playersOnTeam.stream().forEach(x -> System.out.printf(x.getFirstName()));
+		//playersOnTeam.stream().forEach(x -> System.out.printf(x.getFirstName()));
+
+		///////////////////////
 
 		// Array list to hold the different position on a team.
 		ArrayList<Player> forward = new ArrayList<Player>();
 		ArrayList<Player> midfield = new ArrayList<Player>();
 		ArrayList<Player> defence = new ArrayList<Player>();
-		ArrayList<Player> goalie = new ArrayList<Player>();
+		ArrayList<Player> GoalTender = new ArrayList<Player>();
 
 		// Loop thorough all the players on a team and assign them to arraylists depending on their position.
 
-		for (Player player : playersOnTeam )
+		for (Player player : playersOnTeam)
 		{
 			String POS = player.getAssignPosition();
 			switch (POS){
@@ -185,8 +206,8 @@ public class RosterPopup {
 				case "Midfield":
 					midfield.add(player);
 					break;
-				case "Goalie":
-					goalie.add(player);
+				case "GoalTender":
+					GoalTender.add(player);
 					break;
 				case "Substitution":
 					break;
@@ -220,15 +241,76 @@ public class RosterPopup {
 			}
 		}
 
-		//Do the same to the Goalie list, making sure there is a max of 1.
-		if (goalie.size()>1)
+		//Do the same to the GoalTender list, making sure there is a max of 1.
+		if (GoalTender.size()>1)
 		{
-			for (Player player:goalie) {
+			for (Player player:GoalTender) {
 				removePlayerPosition(player);
 			}
 		}
+
+		fieldPositionFiller();
 	}
 
-	//public void
+	/**
+	 * Purpose:
+	 * This method will put players that have a field position (so not sub) on the field. This will change the labels
+	 * on the field and assign values to an organized array. This array will store the players sequentially
+	 * in this order: Forward, Midfield1, Midfield2, Midfield3, Defence1, Defence2, and Goaltender.
+	 */
+	private void fieldPositionFiller()
+	{
+		// Array to hold the player positions on the field
 
+		// This will loop through all players on the team and set the field labels
+		// to their names depending on their position
+		for (Player player : playersOnTeam)
+		{
+			String POS = player.getAssignPosition();
+			switch (POS) {
+				case "Forward":
+					fieldPosArray[0] = player;
+					break;
+
+				case "Defence":
+					if (fieldPosArray[1] != null)
+					{
+						fieldPosArray[1] = player;
+						playersOnTeam.remove(player);
+					}
+					else
+					{
+						fieldPosArray[2] = player;
+						playersOnTeam.remove(player);
+					}
+					break;
+
+				case "Midfield":
+					if (fieldPosArray[3] != null)
+					{
+						fieldPosArray[3] = player;
+						playersOnTeam.remove(player);
+					}
+					else if (fieldPosArray[4] != null)
+					{
+						fieldPosArray[4] = player;
+						playersOnTeam.remove(player);
+					}
+					else
+					{
+						fieldPosArray[5] = player;
+						playersOnTeam.remove(player);
+					}
+					break;
+
+				case "GoalTender":
+					fieldPosArray[6] = player;
+					playersOnTeam.remove(player);
+					break;
+
+				default:
+					break;
+			}
+		}
+	}
 }
