@@ -39,9 +39,14 @@ public class PlayerController {
      * Stub Method
      * @return
      */
-    public Player getPlayer()
+    public Player getPlayer(Player player)
     {
         Player returnedPlayer = null;
+        try {
+           returnedPlayer = repo.queryForEq("playerId", player.getPlayerId()).get(0);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         return returnedPlayer;
     }

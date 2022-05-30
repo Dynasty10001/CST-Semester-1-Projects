@@ -48,13 +48,18 @@ public class RosterPopup {
 	 * Initializes the Team's Player List
 	 * @param pc player controller
 	 */
-	public void initTeamPlayerList(PlayerController pc)
+	protected void initTeamPlayerList(PlayerController pc)
 	{
-		teamPlayerList.getItems().setAll(pc.queryForPlayersOnTeam(currentTeam));
-	
+		MakePlayerList(pc);
+		teamPlayerList.getItems().setAll(playersOnTeam);
 	}
-	
-	
+
+	public void MakePlayerList(PlayerController pc) {
+		playersOnTeam = new ArrayList<>();
+		playersOnTeam.addAll(pc.queryForPlayersOnTeam(currentTeam));
+	}
+
+
 	/**
 	 * Initializes all player list
 	 * @param pc player controller
@@ -156,8 +161,6 @@ public class RosterPopup {
 	 */
 	public void PositionNumberValidator()
 	{
-		playersOnTeam = (ArrayList<Player>) teamPlayerList.getItems();
-
 		// DEBUG //////////////
 		playersOnTeam.stream().forEach(x -> System.out.printf(x.getFirstName()));
 
@@ -169,6 +172,60 @@ public class RosterPopup {
 
 		// Loop thorough all the players on a team and assign them to arraylists depending on their position.
 
+		for (Player player : playersOnTeam )
+		{
+			String POS = player.getAssignPosition();
+			switch (POS){
+				case "Forward":
+					forward.add(player);
+					break;
+				case "Defence":
+					defence.add(player);
+					break;
+				case "Midfield":
+					midfield.add(player);
+					break;
+				case "Goalie":
+					goalie.add(player);
+					break;
+				case "Substitution":
+					break;
+				default:
+					player.setAssignPosition("Substitution");
+					break;
+			}
+		}
 
+		// Check the size of the list of players in the forward position, and if it is greater than 1, unassign all of the
+		// players with that position and set them as Substitutes.
+		if (forward.size()>1)
+		{
+			for (Player player:forward) {
+				removePlayerPosition(player);
+			}
+		}
+		//Do the same to the midfield list, but making sure there is a max of 3.
+		if (midfield.size()>3)
+		{
+			for (Player player:midfield) {
+				removePlayerPosition(player);
+			}
+		}
+
+		//Do the same to the midfield list, making sure there is a max of 2.
+		if (defence.size()>2)
+		{
+			for (Player player:defence) {
+				removePlayerPosition(player);
+			}
+		}
+
+		//Do the same to the Goalie list, making sure there is a max of 1.
+		if (goalie.size()>1)
+		{
+			for (Player player:goalie) {
+				removePlayerPosition(player);
+			}
+		}
 	}
 }

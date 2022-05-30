@@ -20,10 +20,11 @@ public class RosterTest {
     public Player validPlayer1, validPlayer2, validPlayer3, validPlayer4, validPlayer5, validPlayer6, validPlayer7, validPlayer8;
     Player[] PlayerList;
     PlayerController PC;
+    TeamController TC;
 
     /**
      * Purpose:
-     * This test will fuck you levi
+     * This will set up the Players and the List of them, allowing the test methods to run
      */
     @Before
     public void testSetup()
@@ -166,13 +167,21 @@ public class RosterTest {
 
         PlayerList = new Player[] {validPlayer1, validPlayer2, validPlayer3,validPlayer4,validPlayer5,validPlayer6,validPlayer7,validPlayer8};
 
+        try {
+            TC = new TeamController(new JdbcPooledConnectionSource(App.CONNECTION_STRING));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        TC.addTeam(testTeam);
+        RosterPopup.setCurrentTeam(testTeam);
+
         for (int i = 0; i < 8; i++){
             PC.addPlayer(PlayerList[i]);
             PC.addPlayerToTeam(PlayerList[i],testTeam);
         }
-        
-        RosterPopup.setCurrentTeam(testTeam);
-        testView.initTeamPlayerList(PC);
+
+        testView.MakePlayerList(PC);
 
     }
 
@@ -257,11 +266,20 @@ public class RosterTest {
         validPlayer7.setAssignPosition("Midfield");
         validPlayer3.setAssignPosition("Midfield");
         validPlayer5.setAssignPosition("Midfield");
+
+
+        testView.MakePlayerList(PC);
         testView.PositionNumberValidator();
-        assertSame("Substitution", validPlayer1.getAssignPosition());
-        assertSame("Substitution", validPlayer7.getAssignPosition());
-        assertSame("Substitution", validPlayer3.getAssignPosition());
-        assertSame("Substitution", validPlayer5.getAssignPosition());
+
+        validPlayer1 = PC.getPlayer(validPlayer1);
+        validPlayer7 = PC.getPlayer(validPlayer7);
+        validPlayer5 = PC.getPlayer(validPlayer5);
+        validPlayer3 = PC.getPlayer(validPlayer3);
+
+        assertEquals("Substitution", validPlayer1.getAssignPosition());
+        assertEquals("Substitution", validPlayer7.getAssignPosition());
+        assertEquals("Substitution", validPlayer3.getAssignPosition());
+        assertEquals("Substitution", validPlayer5.getAssignPosition());
     }
 
     /**
@@ -272,10 +290,18 @@ public class RosterTest {
     public void playerPositionNumberValidatorGoalie()
     {
         validPlayer1.setAssignPosition("Goalie");
+        PC.updatePlayer(validPlayer1);
+
         validPlayer7.setAssignPosition("Goalie");
+        PC.updatePlayer(validPlayer7);
+
+        testView.MakePlayerList(PC);
         testView.PositionNumberValidator();
-        assertSame("Substitution", validPlayer1.getAssignPosition());
-        assertSame("Substitution", validPlayer7.getAssignPosition());
+
+        validPlayer1 = PC.getPlayer(validPlayer1);
+        validPlayer7 = PC.getPlayer(validPlayer7);
+        assertEquals("Substitution", validPlayer1.getAssignPosition());
+        assertEquals("Substitution", validPlayer7.getAssignPosition());
     }
 
     /**
@@ -289,9 +315,21 @@ public class RosterTest {
         validPlayer6.setAssignPosition("Defence");
         validPlayer7.setAssignPosition("Defence");
         testView.PositionNumberValidator();
-        assertSame("Substitution", validPlayer1.getAssignPosition());
-        assertSame("Substitution", validPlayer7.getAssignPosition());
-        assertSame("Substitution", validPlayer6.getAssignPosition());
+
+        testView.MakePlayerList(PC);
+        testView.PositionNumberValidator();
+
+        validPlayer1 = PC.getPlayer(validPlayer1);
+        validPlayer7 = PC.getPlayer(validPlayer7);
+        validPlayer6 = PC.getPlayer(validPlayer6);
+
+        assertEquals("Substitution", validPlayer1.getAssignPosition());
+        assertEquals("Substitution", validPlayer7.getAssignPosition());
+        assertEquals("Substitution", validPlayer6.getAssignPosition());
+
+        testView.MakePlayerList(PC);
+        testView.PositionNumberValidator();
+
     }
 
     /**
@@ -304,8 +342,15 @@ public class RosterTest {
         validPlayer1.setAssignPosition("Forward");
         validPlayer7.setAssignPosition("Forward");
         testView.PositionNumberValidator();
-        assertSame("Substitution", validPlayer1.getAssignPosition());
-        assertSame("Substitution", validPlayer7.getAssignPosition());
+
+        testView.MakePlayerList(PC);
+        testView.PositionNumberValidator();
+
+        validPlayer1 = PC.getPlayer(validPlayer1);
+        validPlayer7 = PC.getPlayer(validPlayer7);
+
+        assertTrue(validPlayer1.getAssignPosition().equals("Substitution"));
+        assertTrue(validPlayer7.getAssignPosition().equals("Substitution"));
     }
 
     /**
@@ -327,14 +372,17 @@ public class RosterTest {
 
         testView.PositionNumberValidator();
 
-        assertEquals("Substitution",validPlayer8.getAssignPosition());
-        assertNotEquals("Substitution",validPlayer1.getAssignPosition());
-        assertNotEquals("Substitution",validPlayer2.getAssignPosition());
-        assertNotEquals("Substitution",validPlayer3.getAssignPosition());
-        assertNotEquals("Substitution",validPlayer4.getAssignPosition());
-        assertNotEquals("Substitution",validPlayer5.getAssignPosition());
-        assertNotEquals("Substitution",validPlayer6.getAssignPosition());
-        assertNotEquals("Substitution",validPlayer7.getAssignPosition());
+        testView.MakePlayerList(PC);
+        testView.PositionNumberValidator();
+
+        assertTrue(validPlayer8.getAssignPosition().equals("Substitution"));
+        assertFalse(validPlayer1.getAssignPosition().equals("Substitution"));
+        assertFalse(validPlayer2.getAssignPosition().equals("Substitution"));
+        assertFalse(validPlayer3.getAssignPosition().equals("Substitution"));
+        assertFalse(validPlayer4.getAssignPosition().equals("Substitution"));
+        assertFalse(validPlayer5.getAssignPosition().equals("Substitution"));
+        assertFalse(validPlayer6.getAssignPosition().equals("Substitution"));
+        assertFalse(validPlayer7.getAssignPosition().equals("Substitution"));
     }
 
 
