@@ -6,8 +6,10 @@ import controllers.GameController;
 public class StandingsEntry
 {
 	
-	int score, wins, losses, ties;
+	
+	
 	Team team;
+	int score, wins, losses, ties;
 
 	public StandingsEntry(Team team)
 	{
@@ -44,6 +46,13 @@ public class StandingsEntry
 		return ties;
 	}
 	
+	public Team getTeam()
+	{
+		return team;
+	}
+	
 	@Override
-	public String toString() { return team.getCity() + " " + team.getTeamName(); }
+	public String toString() {
+		return team.getCity() + " " + team.getTeamName();
+	}
 }

@@ -26,17 +26,28 @@ public class StandingsView {
 
         ArrayList<StandingsEntry> entries = teams.stream().map(StandingsEntry::new).collect(Collectors.toCollection(ArrayList::new));
 
-        standingsTeamTable.getColumns().setAll(ViewUtilities.getColumn("Team Name", "team"),
+        standingsTeamTable.getColumns().setAll(
+                ViewUtilities.getColumn("Team Name", "team"),
                 ViewUtilities.getColumn("Score", "score"),
                 ViewUtilities.getColumn("Wins", "wins"),
                 ViewUtilities.getColumn("Losses", "losses"),
                 ViewUtilities.getColumn("Ties", "ties"));
 
-        standingsTeamTable.getItems().setAll(entries);
+        standingsTeamTable.getItems().addAll(entries);
 
     }
 
     public void standingsViewOnClickHandler(MouseEvent mouseEvent) {
+        StandingsEntry currentEntry = (StandingsEntry) standingsTeamTable.getSelectionModel().getSelectedItem();
+        
+        team.setText(currentEntry.getTeam().toString());
+        score.setText("" +currentEntry.getScore());
+        losses.setText("" +currentEntry.getLosses());
+        ties.setText("" +currentEntry.getTies());
+        wins.setText("" +currentEntry.getWins());
+        
+        
+        
 
 
     }
