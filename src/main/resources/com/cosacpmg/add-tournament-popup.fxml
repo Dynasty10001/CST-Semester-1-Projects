@@ -6,16 +6,19 @@
 
 <AnchorPane prefHeight="200.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.AddTournamentPopUp">
    <children>
-      <TextField layoutX="100.0" layoutY="54.0" prefHeight="25.0" prefWidth="175.0" />
-      <DatePicker layoutX="100.0" layoutY="93.0" prefHeight="25.0" prefWidth="175.0" />
-      <DatePicker layoutX="100.0" layoutY="130.0" prefHeight="25.0" prefWidth="175.0" />
-      <Label layoutX="51.0" layoutY="58.0" text="Name:" textAlignment="RIGHT" />
+      <TextField fx:id="tournamentNameField" layoutX="100.0" layoutY="59.0" prefHeight="25.0" prefWidth="175.0" />
+      <DatePicker fx:id="tournamentStartDatePicker" layoutX="100.0" layoutY="115.0" prefHeight="25.0" prefWidth="175.0" />
+      <Label fx:id="lblERRTournamentName" layoutX="100.0" layoutY="39.0" textFill="#bf0000" />
+      <DatePicker fx:id="tournamentEndDatePicker" layoutX="100.0" layoutY="167.0" prefHeight="25.0" prefWidth="175.0" />
+      <Label layoutX="51.0" layoutY="63.0" text="Name:" textAlignment="RIGHT" />
+      <Label fx:id="lblERRTournamentStartDate" layoutX="100.0" layoutY="92.0" textFill="#bf0000" />
       <Label layoutX="81.0" layoutY="14.0" text="New Tournament">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="32.0" layoutY="97.0" text="Start Date:" textAlignment="RIGHT" />
-      <Label layoutX="34.0" layoutY="134.0" text="End Date:" textAlignment="RIGHT" />
+      <Label layoutX="32.0" layoutY="119.0" text="Start Date:" textAlignment="RIGHT" />
+      <Label layoutX="34.0" layoutY="171.0" text="End Date:" textAlignment="RIGHT" />
+      <Label fx:id="lblERRTournamentEndDate" layoutX="100.0" layoutY="150.0" textFill="#bf0000" />
    </children>
 </AnchorPane>
