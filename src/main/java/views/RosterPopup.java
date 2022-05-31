@@ -48,11 +48,11 @@ public class RosterPopup {
 		pc = new PlayerController(App.connection);
 		AllLabels = new ArrayList<>();
 		AllLabels.add(lblForward);
+		AllLabels.add(lblDefence1);
+		AllLabels.add(lblDefence2);
 		AllLabels.add(lblMidfield1);
 		AllLabels.add(lblMidfield2);
 		AllLabels.add(lblMidfield3);
-		AllLabels.add(lblDefence1);
-		AllLabels.add(lblDefence2);
 		AllLabels.add(lblGoalTender);
 		initAllPlayerList(pc);
 		initTeamPlayerList(pc);
@@ -85,7 +85,7 @@ public class RosterPopup {
 	public void MakePlayerList(PlayerController pc) {
 		playersOnTeam = new ArrayList<>();
 		playersOnTeam.addAll(pc.queryForPlayersOnTeam(currentTeam));
-		playersOnTeam.get(0).setAssignPosition("Forward");
+		//playersOnTeam.get(0).setAssignPosition("Forward");
 	}
 
 
@@ -192,11 +192,6 @@ public class RosterPopup {
 		draggedPLayer = (Player) teamPlayerList.getSelectionModel().getSelectedItems().get(0);
 
 		if(draggedPLayer != null){
-
-
-
-
-
 		}
 	}
 
@@ -222,11 +217,11 @@ public class RosterPopup {
 			case 0:
 				thisPosition = "Forward";
 				break;
-			case 1: case 2: case 3:
-				thisPosition = "Midfield";
-				break;
-			case 4: case 5:
+			case 1: case 2:
 				thisPosition = "Defence";
+				break;
+			case 3: case 4: case 5:
+				thisPosition = "Midfield";
 				break;
 			case 6:
 				thisPosition = "GoalTender";
