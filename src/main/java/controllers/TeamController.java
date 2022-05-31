@@ -18,7 +18,10 @@ public class TeamController
 	}
 
 
-
+	/**
+	 * Constructor for the team controller that also sets up the repo connection.
+	 * @param connection
+	 */
 	public TeamController(ConnectionSource connection)
 	{
 		try

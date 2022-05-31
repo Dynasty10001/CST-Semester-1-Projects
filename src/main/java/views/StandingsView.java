@@ -21,6 +21,10 @@ public class StandingsView {
 
     public TableView standingsTeamTable;
 
+    /**
+     * This method sets up the standings list by creating an ArrayList of Standings entries. This ArrayList is used to populate
+     * the table that holds the team name and all statistics.
+     */
     public void initialize() {
         ArrayList<Team> teams = new TeamController(App.connection).getAllTeams();
 
@@ -37,6 +41,11 @@ public class StandingsView {
 
     }
 
+    /**
+     * This method will grab the data from the table when clicked and put it into a StandingsEntry. This entry is
+     * then used to populate the labels on the right side of the splitpane with data.
+     * @param mouseEvent
+     */
     public void standingsViewOnClickHandler(MouseEvent mouseEvent) {
         StandingsEntry currentEntry = (StandingsEntry) standingsTeamTable.getSelectionModel().getSelectedItem();
         

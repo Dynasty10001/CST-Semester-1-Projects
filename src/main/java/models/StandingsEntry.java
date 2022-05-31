@@ -11,6 +11,11 @@ public class StandingsEntry
 	Team team;
 	int score, wins, losses, ties;
 
+	/**
+	 * This object is used for temporarily storing the statistics of a team. This will take in a team object and
+	 * query the database for the wins, losses, and ties. It will then call a method for calculating total score.
+	 * @param team
+	 */
 	public StandingsEntry(Team team)
 	{
 

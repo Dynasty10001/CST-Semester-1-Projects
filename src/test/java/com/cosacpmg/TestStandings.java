@@ -13,7 +13,6 @@ import java.sql.SQLException;
 import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class TestStandings {
 
@@ -24,12 +23,13 @@ public class TestStandings {
     String testLocation = "field1";
     Tournament masterTournament;
 
-
+    //Sets up a database for testing
     @BeforeClass
     public static void settupDB(){
         new App().startDB();
     }
-    
+
+    //Sets up the objects and controllers needed for testing
     @Before
     public void setup() throws SQLException {
 
@@ -51,17 +51,19 @@ public class TestStandings {
         gc.addGame(game);
     
     }
-    
+
+
     @After
     public void teardown()
     {
 //        testGameController.removeGame(game);
     }
 
-
+    /**
+     * Tests that wins are properly added to the standings entry from the database
+     */
     @Test
     public void testStandingsEntryWinsQuery(){
-
 
         game.setWinners(1);
         game.setPlayed(true);
@@ -72,6 +74,9 @@ public class TestStandings {
 
     }
 
+    /**
+     * Tests that losses are properly added to the standings entry from the database
+     */
     @Test
     public void testStandingsEntryLossesQuery(){
 
@@ -85,6 +90,9 @@ public class TestStandings {
 
     }
 
+    /**
+     * Tests that ties are properly added to the standings entry from the database
+     */
     @Test
     public void testStandingsEntryTiesQuery(){
 
