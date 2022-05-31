@@ -61,11 +61,11 @@ public class TournamentController
 
     }
 
-    public ArrayList<Tournament> getAllTournaments()
+    public List<Tournament> getAllTournaments()
     {
         try
         {
-            return (ArrayList<Tournament>) repo.queryForAll();
+            return (List<Tournament>) repo.queryForAll();
         } catch (SQLException e)
         {
             e.printStackTrace();
@@ -74,4 +74,26 @@ public class TournamentController
         return null;
 
     }
+
+    public boolean tournamentNameUnique (Tournament tourney) throws SQLException {
+        List <Tournament> tournaments = repo.query(repo.queryBuilder()
+                .where()
+                .eq("tournamentName", tourney.getTournamentName())
+                .prepare()
+        );
+
+        if (tournaments.stream()
+                .count()>0
+        )
+        {
+            return false;
+        }
+        return true;
+
+
+    }
+
+
+
+
 }

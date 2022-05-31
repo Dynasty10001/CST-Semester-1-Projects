@@ -4,6 +4,7 @@ import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotEmpty;
@@ -20,6 +21,7 @@ public class Tournament
     @DatabaseField(canBeNull = false, unique = true)
     @Size(max = 64, message = "Validation Error: Tournament name has to be 64 characters or less")
     @NotEmpty(message = "Validation Error: Tournament name field is empty, please enter valid entry")
+    //@UniqueElements(message = "Validation Error: Tournament name is already used, please enter a different name")
     private String tournamentName;
 
 
