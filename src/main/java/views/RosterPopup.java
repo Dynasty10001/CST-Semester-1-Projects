@@ -6,12 +6,14 @@ import controllers.PlayerController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 import models.Player;
 import models.Team;
 
 import java.sql.Array;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class RosterPopup {
@@ -19,6 +21,9 @@ public class RosterPopup {
 
 	@FXML
 	protected Label lblForward, lblDefence1, lblDefence2, lblMidfield1 ,lblMidfield2, lblMidfield3, lblGoalTender;
+
+	ArrayList<Label> AllLabels;
+
 	
 	@FXML
 	protected ListView<Player> allPlayerList;
@@ -34,12 +39,21 @@ public class RosterPopup {
 	public PlayerController pc;
 
 	Player[] fieldPosArray = new Player[7];
+
+	Player draggedPLayer;
 	
 	@FXML
 	protected void initialize(){
 //		System.out.println("Current team is " + currentTeam.getId());
 		pc = new PlayerController(App.connection);
-
+		AllLabels = new ArrayList<>();
+		AllLabels.add(lblForward);
+		AllLabels.add(lblMidfield1);
+		AllLabels.add(lblMidfield2);
+		AllLabels.add(lblMidfield3);
+		AllLabels.add(lblDefence1);
+		AllLabels.add(lblDefence2);
+		AllLabels.add(lblGoalTender);
 		initAllPlayerList(pc);
 		initTeamPlayerList(pc);
 
@@ -168,6 +182,67 @@ public class RosterPopup {
 	public void playerDragger()
 	{
 
+
+
+
+	}
+
+	@FXML
+	public void onClickSub(){
+		draggedPLayer = (Player) teamPlayerList.getSelectionModel().getSelectedItems().get(0);
+
+		if(draggedPLayer != null){
+
+
+
+
+
+		}
+	}
+
+	public void onClickLabel(){
+	}
+
+	@FXML
+	public void onMouseEnter(MouseEvent event){
+		if(draggedPLayer == null){
+			return;
+		}
+		System.out.println("I Worked");
+		Label label = (Label)event.getSource();
+		int i = AllLabels.indexOf(label);
+
+		if(fieldPosArray[i] != null){
+			removePlayerPosition(fieldPosArray[i]);
+			subList.add(fieldPosArray[i]);
+		}
+		String thisPosition = "";
+
+		switch (i){
+			case 0:
+				thisPosition = "Forward";
+				break;
+			case 1: case 2: case 3:
+				thisPosition = "Midfield";
+				break;
+			case 4: case 5:
+				thisPosition = "Defence";
+				break;
+			case 6:
+				thisPosition = "GoalTender";
+				break;
+		}
+
+		givePlayerPosition(draggedPLayer,thisPosition);
+
+		fieldPosArray[i] = draggedPLayer;
+		subList.remove(draggedPLayer);
+		label.setText(draggedPLayer.toString());
+		updateUI();
+	}
+
+	public void onMouseMoved(){
+		draggedPLayer = null;
 	}
 
 	/**
@@ -222,6 +297,7 @@ public class RosterPopup {
 				removePlayerPosition(player);
 			}
 		}
+
 		//Do the same to the midfield list, but making sure there is a max of 3.
 		if (midfield.size()>3)
 		{
