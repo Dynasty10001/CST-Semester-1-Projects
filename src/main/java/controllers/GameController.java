@@ -16,7 +16,14 @@ public class GameController
 
     public Dao<Game, Long> repo;
     private ValidationHelper vh = new ValidationHelper();
-
+    
+    
+    
+    public static final int POINTS_FOR_WIN = 3;
+    public static final int POINTS_FOR_LOSS = 0;
+    public static final int POINTS_FOR_TIE = 1;
+    
+    
     public GameController(ConnectionSource dbConn){
         try {
             this.repo = DaoManager.createDao(dbConn,Game.class);
@@ -122,5 +129,77 @@ public class GameController
             return false;
         }
         return true;
+    }
+    
+    public static int computeScore(int win, int loss, int tie){
+        
+        return win * POINTS_FOR_WIN + tie * POINTS_FOR_TIE + loss * POINTS_FOR_LOSS;
+    }
+
+
+    public int queryWins(Team team) {
+        ArrayList<Game> games = getGamesWithTeam(team);
+        
+
+        return (int) games.stream().filter(e-> e.getWinner() != null && e.getWinner().getId()==team.getId() && e.isPlayed()).count();
+
+    }
+
+    public int queryLosses(Team team) {
+        ArrayList<Game> games = getGamesWithTeam(team);
+
+        return (int) games.stream().filter(e-> e.getWinner() != null && e.getWinner().getId() != team.getId() && e.getWinner() != null && e.isPlayed()).count();
+    }
+
+    public int queryTies(Team team) {
+        ArrayList<Game> games = getGamesWithTeam(team);
+
+        return (int) games.stream().filter(e-> e.getWinner()==null && e.isPlayed()).count();
+    }
+
+    public ArrayList<Game> getGamesWithTeam(Team team)
+    {
+        try {
+            return (ArrayList<Game>) repo.query(repo.queryBuilder()
+                    .where()
+                    .eq("homeTeam_id",team)
+                    .or()
+                    .eq("awayTeam_id",team)
+                    .prepare());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    /**
+     * Removes the game from the game
+     * @param game
+     */
+    public void removeGame(Game game)
+    {
+        try
+        {
+            repo.delete(game);
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+    
+    /**
+     * updates the supplied game in the db
+     * @param game
+     */
+    public void update(Game game)
+    {
+        try
+        {
+            repo.update(game);
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    
     }
 }

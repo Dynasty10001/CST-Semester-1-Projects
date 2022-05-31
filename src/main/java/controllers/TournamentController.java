@@ -47,6 +47,12 @@ public class TournamentController
         }
     }
 
+    /**
+     * This method takes in a tournament and adds it to the database, returning the Tournament
+     * @param tourney
+     * @return
+     * @throws SQLException
+     */
     public Tournament addTournament(Tournament tourney)
     {
 
@@ -59,19 +65,23 @@ public class TournamentController
         }
         return tourney;
 
+
     }
 
-    public ArrayList<Tournament> getAllTournaments()
+    /**
+     * This method  returns the current tournament
+     * @return the current selected tournament
+     */
+    public List<Tournament> getAllTournaments()
     {
         try
         {
-            return (ArrayList<Tournament>) repo.queryForAll();
+            return repo.queryForAll();
         } catch (SQLException e)
         {
             e.printStackTrace();
         }
-
         return null;
-
     }
+
 }

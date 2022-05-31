@@ -59,10 +59,10 @@ public class RosterPopup {
 	{
 		
 		
-		ArrayList<Player> allPlayertTemp = pc.queryForPlayersOnTeam(null);
-		if (allPlayertTemp != null)
+		ArrayList<Player> allPlayerTemp = pc.queryForPlayersOnTeam(null);
+		if (allPlayerTemp != null)
 		{
-			allPlayerList.getItems().setAll(allPlayertTemp);
+			allPlayerList.getItems().setAll(allPlayerTemp);
 		}
 		
 	}
