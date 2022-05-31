@@ -5,6 +5,7 @@ import controllers.TournamentController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -19,6 +20,9 @@ public class TournamentPopup
 {
     @FXML
     ComboBox<Tournament> tournamentBox;
+
+    @FXML
+    Button tournamentSubmitBtn, tournamentNewTournamentBtn;
 
     //Starts the Popup combo box values
     @FXML
@@ -35,12 +39,16 @@ public class TournamentPopup
 //        Platform.exit();
         //todo close window not entire program and Update Nav
         AppView.changePaneHandler("home-view.fxml", staticBorderPane);
+        Stage stage = (Stage) tournamentSubmitBtn.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
     protected void newTournamentHandler()
     {
         popupHandler("add-tournament-popup.fxml");
+        Stage stage = (Stage) tournamentNewTournamentBtn.getScene().getWindow();
+        stage.close();
     }
 
     /**

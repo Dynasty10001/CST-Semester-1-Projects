@@ -18,16 +18,15 @@ public class TournamentController
 //	Tournament currentTournament;
 
     public Dao<Tournament, Long> repo;
-    private static Tournament CurrentTournament;
 
 
     public TournamentController(ConnectionSource dbConn) throws SQLException {
 
         this.repo = DaoManager.createDao(dbConn,Tournament.class);
-        repo.setAutoCommit(dbConn.getReadWriteConnection("Game"), true);
-        //ensure table existgit 
+        repo.setAutoCommit(dbConn.getReadWriteConnection("Tournament"), true);
+        //ensure table exists
         TableUtils.createTableIfNotExists(dbConn, Tournament.class);
-        CurrentTournament = repo.queryForFirst(repo.queryBuilder().prepare());
+//        CurrentTournament = repo.queryForFirst(repo.queryBuilder().prepare());
     }
 
     //Creates a new tournament
@@ -56,10 +55,15 @@ public class TournamentController
     public Tournament addTournament(Tournament tourney)
     {
 
+
         try
         {
-            repo.create(tourney);
-        } catch (SQLException e)
+//            if(tournamentNameUnique(tourney))
+            {
+                repo.create(tourney);
+            }
+        }
+        catch (SQLException e)
         {
             e.printStackTrace();
         }
@@ -88,20 +92,24 @@ public class TournamentController
         return null;
     }
 
-    public boolean tournamentNameUnique (Tournament tourney) throws SQLException {
+    //todo Add to view
+
+    /**
+     * This method with ensure that the tournament namet
+     * @param tourney
+     * @return
+     * @throws SQLException
+     */
+    public boolean tournamentNameUnique (Tournament tourney) throws SQLException
+    {
         List <Tournament> tournaments = repo.query(repo.queryBuilder()
                 .where()
                 .eq("tournamentName", tourney.getTournamentName())
                 .prepare()
         );
 
-        if (tournaments.stream()
-                .count()>0
-        )
-        {
-            return false;
-        }
-        return true;
+        return tournaments.stream()
+                .count() <= 0;
 
 
     }

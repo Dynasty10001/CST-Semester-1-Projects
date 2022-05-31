@@ -10,6 +10,7 @@ import models.Tournament;
 import org.junit.*;
 
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
@@ -22,6 +23,7 @@ public class TestStandings {
     Team testAwayTeam;
     String testLocation = "field1";
     Tournament masterTournament;
+    Date date;
 
     //Sets up a database for testing
     @BeforeClass
@@ -43,11 +45,14 @@ public class TestStandings {
         testAwayTeam = TeamController.createTeam("team Away", "London", "Brixton", "Margret Thatcher", "234 567 5555");
         tc.addTeam(testHometeam);
         tc.addTeam(testAwayTeam);
-    
-    
-        masterTournament = TC.createTournament("MasterTournament");
 
-        game = gc.createGame(testHometeam, testAwayTeam, new Date(), testLocation, masterTournament);
+        Calendar time = Calendar.getInstance();
+        time.set(2022, Calendar.JUNE,10);
+        time.add(Calendar.HOUR_OF_DAY, 10);
+        date = time.getTime();
+        masterTournament = TC.createTournament("MasterTournament", date, date);
+
+        game = gc.createGame(testHometeam, testAwayTeam, date, testLocation, masterTournament);
         gc.addGame(game);
     
     }

@@ -122,13 +122,4 @@ public class TournamentControllerTest {
 
         //assertEquals( testTournamentController.addTournament(testTournamentController.createTournament("Test3", null, new Date())).getTournamentID(),0);
     }
-
-
-
-
-
-
-
-
-
 }

@@ -68,7 +68,6 @@ public class GameControllerTest {
         date = time.getTime();
 
 
-
         testTeamController = new TeamController(dbConn);
         testGameController = new GameController( dbConn);
         testTournamentController = new TournamentController(dbConn);

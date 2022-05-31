@@ -11,8 +11,8 @@
          <font>
             <Font size="20.0" />
          </font></Label>
-      <Button layoutX="22.0" layoutY="155.0" mnemonicParsing="false" onAction="#newTournamentHandler" text="New Tournament" />
-      <Button layoutX="214.0" layoutY="155.0" mnemonicParsing="false" onAction="#addTournamentSubmitHandler" text="Submit" />
+      <Button fx:id="tournamentNewTournamentBtn" layoutX="22.0" layoutY="155.0" mnemonicParsing="false" onAction="#newTournamentHandler" text="New Tournament" />
+      <Button fx:id="tournamentSubmitBtn" layoutX="214.0" layoutY="155.0" mnemonicParsing="false" onAction="#addTournamentSubmitHandler" text="Submit" />
       <Label fx:id="lblERRTournamentBox" layoutX="278.0" layoutY="56.0" prefHeight="17.0" prefWidth="0.0" textAlignment="RIGHT" textFill="#bf0000" />
    </children>
 </AnchorPane>
