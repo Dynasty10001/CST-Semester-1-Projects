@@ -17,6 +17,13 @@ public class GameController
     public Dao<Game, Long> repo;
     private ValidationHelper vh = new ValidationHelper();
 
+
+
+    public static final int POINTS_FOR_WIN = 3;
+    public static final int POINTS_FOR_LOSS = 0;
+    public static final int POINTS_FOR_TIE = 1;
+
+
     public GameController(ConnectionSource dbConn){
         try {
             this.repo = DaoManager.createDao(dbConn,Game.class);
@@ -77,11 +84,11 @@ public class GameController
         List<Game> awayGames = repo.queryForEq("awayTeam_id", game.getAwayTeam().getId());
         List<Game> homeGames = repo.queryForEq("homeTeam_id", game.getAwayTeam().getId());
 
-       if (awayGames.stream().filter(g->g.getHomeTeam().getId()==game.getHomeTeam().getId())
-               .count()>0)
-       {
-           return false;
-       }
+        if (awayGames.stream().filter(g->g.getHomeTeam().getId()==game.getHomeTeam().getId())
+                .count()>0)
+        {
+            return false;
+        }
 
         if (homeGames.stream().filter(g->g.getAwayTeam().getId()==game.getHomeTeam().getId())
                 .count()>0)
@@ -97,16 +104,16 @@ public class GameController
         List<Game> awayGames = repo.query(repo.queryBuilder()
                 .where()
                 .eq("homeTeam_id",game.getAwayTeam().getId())
-                        .or()
+                .or()
                 .eq("awayTeam_id",game.getAwayTeam().getId())
                 .prepare());
-       if ( awayGames.stream()
-        .filter(g->g.getStartTime().getTime()<(game.getStartTime().getTime()+2*60*60*1000)
-                && (g.getStartTime().getTime()+2*60*60*1000)>game.getStartTime().getTime())
+        if ( awayGames.stream()
+                .filter(g->g.getStartTime().getTime()<(game.getStartTime().getTime()+2*60*60*1000)
+                        && (g.getStartTime().getTime()+2*60*60*1000)>game.getStartTime().getTime())
                 .count()>0)
-       {
-           return false;
-       }
+        {
+            return false;
+        }
 
         List<Game> homeGames = repo.query(repo.queryBuilder()
                 .where()
@@ -124,7 +131,75 @@ public class GameController
         return true;
     }
 
-    public void filterByDate() {
+    public static int computeScore(int win, int loss, int tie){
+
+        return win * POINTS_FOR_WIN + tie * POINTS_FOR_TIE + loss * POINTS_FOR_LOSS;
+    }
+
+
+    public int queryWins(Team team) {
+        ArrayList<Game> games = getGamesWithTeam(team);
+
+
+        return (int) games.stream().filter(e-> e.getWinner() != null && e.getWinner().getId()==team.getId() && e.isPlayed()).count();
+
+    }
+
+    public int queryLosses(Team team) {
+        ArrayList<Game> games = getGamesWithTeam(team);
+
+        return (int) games.stream().filter(e-> e.getWinner() != null && e.getWinner().getId() != team.getId() && e.getWinner() != null && e.isPlayed()).count();
+    }
+
+    public int queryTies(Team team) {
+        ArrayList<Game> games = getGamesWithTeam(team);
+
+        return (int) games.stream().filter(e-> e.getWinner()==null && e.isPlayed()).count();
+    }
+
+    public ArrayList<Game> getGamesWithTeam(Team team)
+    {
+        try {
+            return (ArrayList<Game>) repo.query(repo.queryBuilder()
+                    .where()
+                    .eq("homeTeam_id",team)
+                    .or()
+                    .eq("awayTeam_id",team)
+                    .prepare());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * Removes the game from the game
+     * @param game
+     */
+    public void removeGame(Game game)
+    {
+        try
+        {
+            repo.delete(game);
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * updates the supplied game in the db
+     * @param game
+     */
+    public void update(Game game)
+    {
+        try
+        {
+            repo.update(game);
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
 
     }
 }

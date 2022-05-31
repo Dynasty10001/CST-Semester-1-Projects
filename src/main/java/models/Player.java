@@ -90,7 +90,7 @@ public class Player implements Serializable {
     @Size(min = 10,max = 10, message="Invalid Phone Number")
     private String emergencyPhoneNumber;
 
-
+    //empty constructor for ORM
     public Player()
     {}
 

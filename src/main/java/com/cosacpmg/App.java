@@ -29,7 +29,7 @@ public class App extends Application
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(App.class.getResource("app-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Hello!");
+        stage.setTitle("Molez's Stats and Schedulez");
         stage.setScene(scene);
         stage.show();
         startDB();

@@ -34,7 +34,7 @@
                      <children>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Label fx:id="lblForward" alignment="CENTER" maxWidth="1.7976931348623157E308" onMouseEntered="#onMouseEnter" prefHeight="34.0" prefWidth="80.0" text="Empty Forward" textAlignment="CENTER" HBox.hgrow="ALWAYS" />
+                              <Label fx:id="lblForward" alignment="CENTER" maxWidth="1.7976931348623157E308" onMouseEntered="#onMouseEnter" onMousePressed="#onClickLabel" prefHeight="34.0" prefWidth="80.0" text="Empty Forward" textAlignment="CENTER" HBox.hgrow="ALWAYS" />
                            </children>
                            <VBox.margin>
                               <Insets top="50.0" />
@@ -42,9 +42,9 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0">
                            <children>
-                              <Label fx:id="lblMidfield1" alignment="CENTER" maxWidth="1.7976931348623157E308" onMouseEntered="#onMouseEnter" prefHeight="34.0" prefWidth="89.0" text="Empty Midfield" textAlignment="CENTER" HBox.hgrow="ALWAYS" />
-                              <Label fx:id="lblMidfield2" alignment="CENTER" maxWidth="1.7976931348623157E308" onMouseEntered="#onMouseEnter" prefHeight="34.0" prefWidth="89.0" text="Empty Midfield" textAlignment="CENTER" HBox.hgrow="ALWAYS" />
-                              <Label fx:id="lblMidfield3" alignment="CENTER" maxWidth="1.7976931348623157E308" onMouseEntered="#onMouseEnter" prefHeight="34.0" prefWidth="89.0" text="Empty Midfield" textAlignment="CENTER" HBox.hgrow="ALWAYS" />
+                              <Label fx:id="lblMidfield1" alignment="CENTER" maxWidth="1.7976931348623157E308" onMouseEntered="#onMouseEnter" onMousePressed="#onClickLabel" prefHeight="34.0" prefWidth="89.0" text="Empty Midfield" textAlignment="CENTER" HBox.hgrow="ALWAYS" />
+                              <Label fx:id="lblMidfield2" alignment="CENTER" maxWidth="1.7976931348623157E308" onMouseEntered="#onMouseEnter" onMousePressed="#onClickLabel" prefHeight="34.0" prefWidth="89.0" text="Empty Midfield" textAlignment="CENTER" HBox.hgrow="ALWAYS" />
+                              <Label fx:id="lblMidfield3" alignment="CENTER" maxWidth="1.7976931348623157E308" onMouseEntered="#onMouseEnter" onMousePressed="#onClickLabel" prefHeight="34.0" prefWidth="89.0" text="Empty Midfield" textAlignment="CENTER" HBox.hgrow="ALWAYS" />
                            </children>
                            <opaqueInsets>
                               <Insets />
@@ -52,8 +52,8 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
                            <children>
-                              <Label fx:id="lblDefence1" alignment="CENTER" maxWidth="1.7976931348623157E308" onMouseEntered="#onMouseEnter" prefHeight="34.0" prefWidth="80.0" text="Empty Defence" textAlignment="CENTER" HBox.hgrow="ALWAYS" />
-                              <Label fx:id="lblDefence2" alignment="CENTER" maxWidth="1.7976931348623157E308" onMouseEntered="#onMouseEnter" prefHeight="34.0" prefWidth="80.0" text="Empty Defence" textAlignment="CENTER" HBox.hgrow="ALWAYS" />
+                              <Label fx:id="lblDefence1" alignment="CENTER" maxWidth="1.7976931348623157E308" onMouseEntered="#onMouseEnter" onMousePressed="#onClickLabel" prefHeight="34.0" prefWidth="80.0" text="Empty Defence" textAlignment="CENTER" HBox.hgrow="ALWAYS" />
+                              <Label fx:id="lblDefence2" alignment="CENTER" maxWidth="1.7976931348623157E308" onMouseEntered="#onMouseEnter" onMousePressed="#onClickLabel" prefHeight="34.0" prefWidth="80.0" text="Empty Defence" textAlignment="CENTER" HBox.hgrow="ALWAYS" />
                            </children>
                            <VBox.margin>
                               <Insets />
@@ -61,7 +61,7 @@
                         </HBox>
                         <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Label fx:id="lblGoalTender" alignment="CENTER" maxWidth="1.7976931348623157E308" onMouseEntered="#onMouseEnter" prefHeight="34.0" prefWidth="104.0" text="Empty Goaltender" textAlignment="CENTER" HBox.hgrow="ALWAYS" />
+                              <Label fx:id="lblGoalTender" alignment="CENTER" maxWidth="1.7976931348623157E308" onMouseEntered="#onMouseEnter" onMousePressed="#onClickLabel" prefHeight="34.0" prefWidth="104.0" text="Empty Goaltender" textAlignment="CENTER" HBox.hgrow="ALWAYS" />
                            </children>
                            <opaqueInsets>
                               <Insets />

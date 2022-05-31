@@ -37,7 +37,13 @@ public class TournamentController
         myTournament.setTeamList(new ArrayList<Team>());
         return myTournament;
     }
-
+    
+    /**
+     * This method takes in a tournament and adds it to the database, returning the Tournament
+     * @param tourney
+     * @return
+     * @throws SQLException
+     */
     public Tournament addTournament(Tournament tourney) throws SQLException
     {
         try
@@ -49,11 +55,20 @@ public class TournamentController
         }
         return tourney;
     }
-
+    
+    /**
+     * This method  returns the current tournament
+     * @return the current selected tournament
+     */
     public Tournament getTournament(){
         return CurrentTournament;
     }
-
+    
+    
+    /**
+     * this method changes the current Tournament to the supplied tournament
+     * @param tournament new tournament to be the setTournament
+     */
     public void changeTournament(Tournament tournament) {
         CurrentTournament = tournament;
     }

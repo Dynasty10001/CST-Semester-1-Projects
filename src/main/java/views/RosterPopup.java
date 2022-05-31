@@ -1,7 +1,6 @@
 package views;
 
 import com.cosacpmg.App;
-import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
 import controllers.PlayerController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -10,10 +9,7 @@ import javafx.scene.input.MouseEvent;
 import models.Player;
 import models.Team;
 
-import java.sql.Array;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 
 public class RosterPopup {
@@ -40,7 +36,7 @@ public class RosterPopup {
 
 	Player[] fieldPosArray = new Player[7];
 
-	Player draggedPLayer;
+	Player draggedPlayer;
 	
 	@FXML
 	protected void initialize(){
@@ -54,7 +50,11 @@ public class RosterPopup {
 		AllLabels.add(lblMidfield2);
 		AllLabels.add(lblMidfield3);
 		AllLabels.add(lblGoalTender);
+
+
 		initAllPlayerList(pc);
+		MakePlayerList(pc);
+		positionNumberValidator();
 		initTeamPlayerList(pc);
 
 		
@@ -76,13 +76,11 @@ public class RosterPopup {
 	 */
 	protected void initTeamPlayerList(PlayerController pc)
 	{
-		MakePlayerList(pc);
-		subList = new ArrayList<>();
-		positionNumberValidator();
 		teamPlayerList.getItems().setAll(subList);
 	}
 
 	public void MakePlayerList(PlayerController pc) {
+		subList = new ArrayList<>();
 		playersOnTeam = new ArrayList<>();
 		playersOnTeam.addAll(pc.queryForPlayersOnTeam(currentTeam));
 		//playersOnTeam.get(0).setAssignPosition("Forward");
@@ -97,10 +95,10 @@ public class RosterPopup {
 	{
 		
 		
-		ArrayList<Player> allPlayertTemp = pc.queryForPlayersOnTeam(null);
-		if (allPlayertTemp != null)
+		ArrayList<Player> allPlayerTemp = pc.queryForPlayersOnTeam(null);
+		if (allPlayerTemp != null)
 		{
-			allPlayerList.getItems().setAll(allPlayertTemp);
+			allPlayerList.getItems().setAll(allPlayerTemp);
 		}
 		
 	}
@@ -179,32 +177,36 @@ public class RosterPopup {
 	 * Purpose:
 	 * this method will be the main method for dragging a player across the screen and into their positions
 	 */
-	public void playerDragger()
+	public void playerDragger(Label label)
 	{
-
-
 
 
 	}
 
 	@FXML
 	public void onClickSub(){
-		draggedPLayer = (Player) teamPlayerList.getSelectionModel().getSelectedItems().get(0);
-
-		if(draggedPLayer != null){
-		}
+		draggedPlayer = teamPlayerList.getSelectionModel().getSelectedItems().get(0);
 	}
 
-	public void onClickLabel(){
+	public void onClickLabel(MouseEvent event){
+		Label label = (Label) event.getSource();
+		int i = AllLabels.indexOf(label);
+		if(fieldPosArray[i] == null)
+		{
+			return;
+		}
+		draggedPlayer = fieldPosArray[i];
+		subList.add(fieldPosArray[i]);
+
 	}
 
 	@FXML
 	public void onMouseEnter(MouseEvent event){
-		if(draggedPLayer == null){
+		if(draggedPlayer == null){
 			return;
 		}
-		System.out.println("I Worked");
-		Label label = (Label)event.getSource();
+
+		Label label = (Label) event.getSource();
 		int i = AllLabels.indexOf(label);
 
 		if(fieldPosArray[i] != null){
@@ -228,16 +230,16 @@ public class RosterPopup {
 				break;
 		}
 
-		givePlayerPosition(draggedPLayer,thisPosition);
+		givePlayerPosition(draggedPlayer,thisPosition);
 
-		fieldPosArray[i] = draggedPLayer;
-		subList.remove(draggedPLayer);
-		label.setText(draggedPLayer.toString());
+		fieldPosArray[i] = draggedPlayer;
+		subList.remove(draggedPlayer);
+		label.setText(draggedPlayer.toString());
 		updateUI();
 	}
 
 	public void onMouseMoved(){
-		draggedPLayer = null;
+		draggedPlayer = null;
 	}
 
 	/**
@@ -342,7 +344,7 @@ public class RosterPopup {
 					break;
 
 				case "Defence":
-					if (fieldPosArray[1] != null)
+					if (fieldPosArray[1] == null)
 					{
 						fieldPosArray[1] = player;
 						lblDefence1.setText(player.getFirstName() + " " + player.getLastName() + " \n Defence");
@@ -355,12 +357,12 @@ public class RosterPopup {
 					break;
 
 				case "Midfield":
-					if (fieldPosArray[3] != null)
+					if (fieldPosArray[3] == null)
 					{
 						fieldPosArray[3] = player;
 						lblMidfield1.setText(player.getFirstName() + " " + player.getLastName() + " \n Midfield");
 					}
-					else if (fieldPosArray[4] != null)
+					else if (fieldPosArray[4] == null)
 					{
 						fieldPosArray[4] = player;
 						lblMidfield2.setText(player.getFirstName() + " " + player.getLastName() + " \n Midfield");
