@@ -25,7 +25,7 @@ public class TournamentController
 
         this.repo = DaoManager.createDao(dbConn,Tournament.class);
         repo.setAutoCommit(dbConn.getReadWriteConnection("Game"), true);
-        //ensure table exist
+        //ensure table existgit 
         TableUtils.createTableIfNotExists(dbConn, Tournament.class);
         CurrentTournament = repo.queryForFirst(repo.queryBuilder().prepare());
     }
@@ -68,20 +68,42 @@ public class TournamentController
 
     }
 
+
     /**
-     * This method  returns the current tournament
+     * This method  returns all tournaments
      * @return the current selected tournament
      */
+
     public List<Tournament> getAllTournaments()
     {
         try
         {
+
             return repo.queryForAll();
+
         } catch (SQLException e)
         {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public boolean tournamentNameUnique (Tournament tourney) throws SQLException {
+        List <Tournament> tournaments = repo.query(repo.queryBuilder()
+                .where()
+                .eq("tournamentName", tourney.getTournamentName())
+                .prepare()
+        );
+
+        if (tournaments.stream()
+                .count()>0
+        )
+        {
+            return false;
+        }
+        return true;
+
+
     }
 
 }

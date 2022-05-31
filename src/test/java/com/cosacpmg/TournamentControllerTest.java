@@ -73,7 +73,7 @@ public class TournamentControllerTest {
         time.add(Calendar.HOUR_OF_DAY, 10);
         date = time.getTime();
 
-        assertNotNull( testTournamentController.createTournament("Test2", new Date(), new Date()));
+        assertNotNull( testTournamentController.createTournament("Test2", date, date));
     }
 
     /*
@@ -82,6 +82,8 @@ public class TournamentControllerTest {
     @Test
     public void createInvalidTournament()
     {
+
+
         assertNull(testTournamentController.createTournament("MasterTournament", date, date));
     }
 
@@ -106,8 +108,19 @@ public class TournamentControllerTest {
     @Test
     public void addInvalidTournament()
     {
+        Tournament tourneyGood = testTournamentController.createTournament("Good Torunety", date, date);
 
-        assertEquals( testTournamentController.addTournament(testTournamentController.createTournament("Test3", null, new Date())).getTournamentID(),0);
+        tourneyGood.setStartDate(null);
+        try {
+            testTournamentController.addTournament(tourneyGood);
+        }
+        catch(NullPointerException exp)
+        {
+            assertTrue( true);
+            exp.printStackTrace();
+        }
+
+        //assertEquals( testTournamentController.addTournament(testTournamentController.createTournament("Test3", null, new Date())).getTournamentID(),0);
     }
 
 
