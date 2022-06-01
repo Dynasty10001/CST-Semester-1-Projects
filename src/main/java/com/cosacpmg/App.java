@@ -10,7 +10,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import models.Game;
+import models.Player;
 import models.Team;
+import views.RosterPopup;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -47,7 +49,8 @@ public class App extends Application
         try
         {
             connection = new JdbcPooledConnectionSource(CONNECTION_STRING);
-//            PlaceDummyData(TC,GC,TUC);
+            //DataBaseDummyData.PlaceDummyData();
+            //todo finish this and run it to fill the database with dummy data
         }
         catch (SQLException e)
         {
@@ -59,24 +62,6 @@ public class App extends Application
      * Just loads in dummy data.
      * @return
      */
-    public static ArrayList<Game> PlaceDummyData(TeamController tc, GameController gc, TournamentController TUC) throws SQLException {
-        ArrayList<Game> gameList = new ArrayList<>();
-        TUC.createTournament("Dummy");
-        Team one = tc.createTeam("Saskatoon","Sparks" , "Brighton","Jack" ,"111 111 1111" );
-        tc.addTeam(one);
-        Team two = tc.createTeam("Royals", "Regina", "redArbour", "Jack", "111 111 1111");
-        tc.addTeam(two);
-        Date first = new Date();
-        Date second = new Date();
-        second.setTime(second.getTime()+3600000);
-        gameList.add(gc.createGame(one,two, first,new String(),TUC.getTournament()));
-        gameList.add(gc.createGame(one,two, second,new String(),TUC.getTournament()));
-
-
-        return gameList;
-    }
-
-
 
     @FXML
     private Label welcomeText;

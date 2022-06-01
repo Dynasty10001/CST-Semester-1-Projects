@@ -136,18 +136,18 @@ public class RosterPopup {
 	@FXML
 	protected void rosterRemovePlayerHandler() {
 		Player selectedPlayer = (Player) teamPlayerList.getSelectionModel().getSelectedItems().get(0);
-		PlayerController pc = new PlayerController(App.connection);
+
+		pc = new PlayerController(App.connection);
 		
 		if(selectedPlayer != null)
 		{
+			removePlayerPosition(selectedPlayer);
 			selectedPlayer.setTeam(null);
 			pc.updatePlayer(selectedPlayer);
 			updateUI();
 		}
 		//todo ErrorMessage for no selectedplayer
-		
-		
-		
+
 	}
 
 	/**
@@ -170,6 +170,10 @@ public class RosterPopup {
 	public void removePlayerPosition(Player player)
 	{
 		player.setAssignPosition("Substitution");
+		if (!subList.contains(player))
+		{
+			subList.add(player);
+		}
 		pc.updatePlayer(player);
 	}
 
@@ -177,29 +181,33 @@ public class RosterPopup {
 	 * Purpose:
 	 * this method will be the main method for dragging a player across the screen and into their positions
 	 */
-	public void playerDragger(Label label)
-	{
-
-
-	}
-
 	@FXML
 	public void onClickSub(){
 		draggedPlayer = teamPlayerList.getSelectionModel().getSelectedItems().get(0);
 	}
 
+	/**
+	 * Purpose:
+	 * this method will be for selecting a player that is currently set into a position
+	 */
 	public void onClickLabel(MouseEvent event){
 		Label label = (Label) event.getSource();
 		int i = AllLabels.indexOf(label);
-		if(fieldPosArray[i] == null)
+		Player player = fieldPosArray[i];
+		if(player == null)
 		{
 			return;
 		}
-		draggedPlayer = fieldPosArray[i];
-		subList.add(fieldPosArray[i]);
+		draggedPlayer = player;
+		removePlayerPosition(player);
+		label.setText("Empty "+ getPositionName(i));
 
 	}
 
+	/**
+	 * Purpose:
+	 * this method will be the main method for dragging a player across the screen and into their positions
+	 */
 	@FXML
 	public void onMouseEnter(MouseEvent event){
 		if(draggedPlayer == null){
@@ -211,8 +219,17 @@ public class RosterPopup {
 
 		if(fieldPosArray[i] != null){
 			removePlayerPosition(fieldPosArray[i]);
-			subList.add(fieldPosArray[i]);
 		}
+		String thisPosition = getPositionName(i);
+		givePlayerPosition(draggedPlayer,thisPosition);
+
+		fieldPosArray[i] = draggedPlayer;
+		subList.remove(draggedPlayer);
+		label.setText(draggedPlayer.getFirstName() + " " + draggedPlayer.getLastName() + " \n" + thisPosition);
+		updateUI();
+	}
+
+	private String getPositionName(int i) {
 		String thisPosition = "";
 
 		switch (i){
@@ -229,13 +246,7 @@ public class RosterPopup {
 				thisPosition = "GoalTender";
 				break;
 		}
-
-		givePlayerPosition(draggedPlayer,thisPosition);
-
-		fieldPosArray[i] = draggedPlayer;
-		subList.remove(draggedPlayer);
-		label.setText(draggedPlayer.toString());
-		updateUI();
+		return thisPosition;
 	}
 
 	public void onMouseMoved(){
@@ -385,10 +396,5 @@ public class RosterPopup {
 					break;
 			}
 		}
-	}
-	@FXML
-	public void doThing()
-	{
-		fieldPositionFiller();
 	}
 }

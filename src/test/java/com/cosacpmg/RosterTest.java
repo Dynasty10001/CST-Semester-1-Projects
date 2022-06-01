@@ -33,6 +33,7 @@ public class RosterTest {
 
         try {
             PC = new PlayerController(new JdbcPooledConnectionSource(App.CONNECTION_STRING));
+            TC = new TeamController(new JdbcPooledConnectionSource(App.CONNECTION_STRING));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -166,12 +167,6 @@ public class RosterTest {
                 "S7V0A1");
 
         PlayerList = new Player[] {validPlayer1, validPlayer2, validPlayer3,validPlayer4,validPlayer5,validPlayer6,validPlayer7,validPlayer8};
-
-        try {
-            TC = new TeamController(new JdbcPooledConnectionSource(App.CONNECTION_STRING));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
         TC.addTeam(testTeam);
         RosterPopup.setCurrentTeam(testTeam);
