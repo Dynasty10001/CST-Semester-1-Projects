@@ -160,7 +160,7 @@ public class DataBaseDummyData {
                 "Bob",
                 "Heffington",
                 17,
-                "Midfield",
+                "GoalTender",
                 "Heff1234@gmail.com",
                 "Mother Heffington",
                 "3061234567",

@@ -261,7 +261,7 @@ public class RosterPopup {
 
 		fieldPosArray[i] = draggedPlayer;
 		subList.remove(draggedPlayer);
-		label.setText(draggedPlayer.getFirstName() + "\n " + draggedPlayer.getLastName() + " \n" + thisPosition);
+		label.setText(thisPosition + " \n" + draggedPlayer.getFirstName() + "\n " + draggedPlayer.getLastName());
 		setLabelColor(label,draggedPlayer);
 		updateUI();
 		changeCursor("pointy");
@@ -420,19 +420,19 @@ public class RosterPopup {
 			switch (POS) {
 				case "Forward":
 					fieldPosArray[0] = player;
-					lblForward.setText(player.getFirstName() + "\n " + player.getLastName() + " \n Forward");
+					lblForward.setText("Forward \n" + player.getFirstName() + "\n " + player.getLastName());
 					break;
 
 				case "Defence":
 					if (fieldPosArray[1] == null)
 					{
 						fieldPosArray[1] = player;
-						lblDefence1.setText(player.getFirstName() + "\n " + player.getLastName() + " \n Defence");
+						lblDefence1.setText(player.getFirstName() + "\n " + player.getLastName() );
 					}
 					else
 					{
 						fieldPosArray[2] = player;
-						lblDefence2.setText(player.getFirstName() + "\n " + player.getLastName() + " \n Defence");
+						lblDefence2.setText("Defence \n" + player.getFirstName() + "\n " + player.getLastName());
 					}
 					break;
 
@@ -440,23 +440,23 @@ public class RosterPopup {
 					if (fieldPosArray[3] == null)
 					{
 						fieldPosArray[3] = player;
-						lblMidfield1.setText(player.getFirstName() + "\n " + player.getLastName() + " \n Midfield");
+						lblMidfield1.setText("Midfield \n" + player.getFirstName() + "\n " + player.getLastName());
 					}
 					else if (fieldPosArray[4] == null)
 					{
 						fieldPosArray[4] = player;
-						lblMidfield2.setText(player.getFirstName() + "\n " + player.getLastName() + " \n Midfield");
+						lblMidfield2.setText("Midfield \n" + player.getFirstName() + "\n " + player.getLastName());
 					}
 					else
 					{
 						fieldPosArray[5] = player;
-						lblMidfield3.setText(player.getFirstName() + "\n " + player.getLastName() + " \n Midfield");
+						lblMidfield3.setText("Midfield \n" + player.getFirstName() + "\n " + player.getLastName());
 					}
 					break;
 
 				case "GoalTender":
 					fieldPosArray[6] = player;
-					lblGoalTender.setText(player.getFirstName() + "\n " + player.getLastName() + " \n GoalTender");
+					lblGoalTender.setText("GoalTender \n" + player.getFirstName() + "\n " + player.getLastName());
 					break;
 				case "Substitution":
 					subList.add(player);

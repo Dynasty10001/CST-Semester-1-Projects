@@ -49,7 +49,7 @@ public class App extends Application
         try
         {
             connection = new JdbcPooledConnectionSource(CONNECTION_STRING);
-            //DataBaseDummyData.PlaceDummyData();
+            DataBaseDummyData.PlaceDummyData();
             //todo finish this and run it to fill the database with dummy data
         }
         catch (SQLException e)

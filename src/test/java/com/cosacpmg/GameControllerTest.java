@@ -31,7 +31,6 @@ import static org.junit.Assert.fail;
  */
 public class GameControllerTest {
     private static ValidatorFactory VF;
-    private static Validator validator;
     Game masterTest;
     Tournament masterTournament;
     private static GameController testGameController;
@@ -45,7 +44,6 @@ public class GameControllerTest {
     @BeforeClass
     public static void SetupValidator() throws SQLException {
         VF = Validation.buildDefaultValidatorFactory();
-        validator = VF.getValidator();
 
         dbConn = new JdbcPooledConnectionSource("jdbc:sqlite:schedule.db");
     }

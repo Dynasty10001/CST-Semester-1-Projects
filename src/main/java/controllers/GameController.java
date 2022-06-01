@@ -18,18 +18,14 @@ public class GameController
     private ValidationHelper vh = new ValidationHelper();
 
 
-    /**
-     * This method starts up the game controller and connects it to the database
-     * @param dbConn
-     */
-    
-    
-    
     public static final int POINTS_FOR_WIN = 3;
     public static final int POINTS_FOR_LOSS = 0;
     public static final int POINTS_FOR_TIE = 1;
 
-
+    /**
+     * This method starts up the game controller and connects it to the database
+     * @param dbConn
+     */
     public GameController(ConnectionSource dbConn){
         try {
             this.repo = DaoManager.createDao(dbConn,Game.class);

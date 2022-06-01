@@ -2,6 +2,7 @@ package com.cosacpmg;
 
 import static org.junit.Assert.assertTrue;
 
+import org.junit.AfterClass;
 import org.junit.Test;
 
 /**
@@ -17,6 +18,5 @@ public class AppTest
     {
         assertTrue( true );
     }
-
 
 }

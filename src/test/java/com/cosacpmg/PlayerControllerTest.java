@@ -21,8 +21,7 @@ public class PlayerControllerTest {
      * Test settup
      */
     @Before
-    public void setUp()
-    {
+    public void setUp() throws SQLException {
         player = new Player();
         player.setFirstName ("Heff");
         player.setLastName("Heffington");
@@ -39,9 +38,7 @@ public class PlayerControllerTest {
         player.setProvince("Saskatchewan");
         player.setPostalCode("S7V0A1");
 
-        new App().startDB();//Jank, but just for testing
-
-        PC = new PlayerController(App.connection);
+        PC = new PlayerController(new JdbcPooledConnectionSource("jdbc:h2:mem:default"));
         PC.addPlayer(player);
     }
     

@@ -1,9 +1,12 @@
 package com.cosacpmg;
 
+import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
 import controllers.TeamController;
 import models.Team;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.sql.SQLException;
 
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -36,10 +39,9 @@ public class TeamControllerTest
      * Test if a team was added to the database
      */
     @Test
-    public void testThatTeamIsAddedToDB()
-    {
-        new App().startDB();
-        TeamController tc = new TeamController(App.connection);
+    public void testThatTeamIsAddedToDB() throws SQLException {
+
+        TeamController tc = new TeamController(new JdbcPooledConnectionSource("jdbc:h2:mem:default"));
         tc.addTeam(compareTeam);
         assertTrue(compareTeam.getId() > 0);
 
@@ -51,10 +53,9 @@ public class TeamControllerTest
      * Test that a team will not be added to the database that contains a null entry
      */
     @Test
-    public void testThatTeamIsNotAddedWillNull()
-    {
-        new App().startDB();
-        TeamController tc= new TeamController(App.connection);
+    public void testThatTeamIsNotAddedWillNull() throws SQLException {
+        //new App().startDB();
+        TeamController tc= new TeamController(new JdbcPooledConnectionSource("jdbc:h2:mem:default"));
         try{
 
             compareTeam.setCoachName(null);

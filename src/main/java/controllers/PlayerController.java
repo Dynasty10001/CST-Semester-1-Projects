@@ -16,7 +16,6 @@ public class PlayerController {
 
     public Dao<Player, Long> repo;
     private ValidationHelper vh = new ValidationHelper();
-    private static final String CONNECT_STRING = "jdbc:sqlite:schedule.db";
 
     /**
      * Contructor that also sets up the connection for the db
