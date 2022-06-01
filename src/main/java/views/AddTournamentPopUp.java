@@ -4,6 +4,7 @@ import com.cosacpmg.App;
 import controllers.GameController;
 import controllers.TeamController;
 import controllers.TournamentController;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
@@ -14,13 +15,19 @@ import models.ValidationHelper;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAmount;
+import java.time.temporal.TemporalUnit;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 public class AddTournamentPopUp
 {
+    public Label dateWarning;
     @FXML
     TextField tournamentNameField;
 
@@ -85,11 +92,18 @@ public class AddTournamentPopUp
         {
             lblERRTournamentName.setText("Tournament name is already used, please enter a different name");
         }
+
     }
 
 
+    public void secondDateSelected(ActionEvent actionEvent) {
+        tournamentStartDatePicker.getValue();
+        tournamentEndDatePicker.getValue();
 
+        if (((LocalDate)tournamentEndDatePicker.getValue()).minus(3,java.time.temporal.TemporalAmount.).compareTo(tournamentStartDatePicker.getValue()))
+        {
+            dateWarning.setText("Tournament duration  should be 3 days or less");
+        }
 
-
-
+    }
 }

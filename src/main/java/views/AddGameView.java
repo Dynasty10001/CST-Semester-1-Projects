@@ -51,6 +51,8 @@ public class AddGameView
         }
 
 
+
+
     @FXML
     protected void addGameSubmitHandler() throws SQLException, IOException {
 
