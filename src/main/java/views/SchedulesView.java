@@ -11,6 +11,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
 import models.Game;
@@ -28,6 +29,7 @@ public class SchedulesView implements Initializable
     public Label homeTeamName;
     public Label gameDate;
     public Label gameLocation;
+    public AnchorPane rightPane;
     @FXML protected TableView<Game> gameList;
 
     @FXML BorderPane borderPane;
@@ -47,6 +49,10 @@ public class SchedulesView implements Initializable
         return returnCol;
     }
 
+    /**
+     * This handles the changing of the view to the add game view.
+     * @throws IOException
+     */
     @FXML
     protected void gameViewAddGameHandler() throws IOException
     {
@@ -70,14 +76,15 @@ public class SchedulesView implements Initializable
         updateGameList();
 
     }
-    
+
+    /**
+     * This method updates the game list with all available data from the database.
+     */
     public void updateGameList()
     {
     
         try
         {
-        
-        
             gameList.getItems().addAll(new GameController(App.connection)
                                                .getSchedule(new TournamentController(App.connection).getTournament())); //Query call goes in here
         
@@ -86,15 +93,22 @@ public class SchedulesView implements Initializable
             e.printStackTrace();
         }
     }
-    
+
+    /**
+     * This method creates the popup for the date picker.
+     * @param actionEvent
+     */
     public void scheduleViewOnFilterHandler(ActionEvent actionEvent)
     {
         FilterDatePopup.setView(this);
         AppView.popupHandler("filter-date-popup.fxml");
-        
     
     }
-    
+
+    /**
+     * Method for the button that clears the filter and displays all data.
+     * @param actionEvent
+     */
     public void clearFilterHandler(ActionEvent actionEvent)
     {
         updateGameList();
@@ -105,13 +119,7 @@ public class SchedulesView implements Initializable
      * this method shows the labels on the right pane before an entry is selected
      */
     public void showRightInfo(boolean value){
-        homeTeamName.setVisible(value);
-        awayTeamName.setVisible(value);
-        gameDate.setVisible(value);
-        gameLocation.setVisible(value);
-        
-        
-        
+        rightPane.setVisible(value);
     }
     
     

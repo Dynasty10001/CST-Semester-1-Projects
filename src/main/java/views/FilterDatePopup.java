@@ -20,7 +20,12 @@ public class FilterDatePopup
 	
 	
 	static SchedulesView view;
-	
+
+	/**
+	 * This method fires on the submission of the date picker form and filters the schedule views game list
+	 * based on the chosen date.
+	 * @param actionEvent
+	 */
 	public void submitDate(ActionEvent actionEvent)
 	{
 		
@@ -50,7 +55,12 @@ public class FilterDatePopup
 			e.printStackTrace();
 		}
 	}
-	
+
+	/**
+	 * This method is used on the creation of this Popup, it is seting a static reference to scheduleView
+	 * so that we can get and modify the list view within it
+	 * @param view
+	 */
 	public static void setView(SchedulesView view)
 	{
 		FilterDatePopup.view = view;

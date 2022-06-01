@@ -39,7 +39,7 @@ public class AddGameView
         ComboBox<java.lang.String> ampmBox;
 
         @FXML
-        Label teamFieldError, cityFieldError, areaFieldError, coachFieldError, coachNumFieldError;
+        Label teamFieldError, cityFieldError, areaFieldError, coachFieldError, coachNumFieldError, miscErr;
 
         @FXML
         protected void initialize() throws SQLException {
@@ -92,13 +92,18 @@ public class AddGameView
 
         HashMap<String, String> error = vh.getErrors(game);
 
+        GC.spaceTimeValidator(game);
+
         teamFieldError.setText(error.get("teamName"));
         cityFieldError.setText(error.get("city"));
         areaFieldError.setText(error.get("area"));
         coachFieldError.setText((error.get("coachName")));
         coachNumFieldError.setText(error.get("coachNumber"));
 
-        if (error.isEmpty())
+        miscErr.setText(GC.spaceTimeValidator(game) ? "" : "Space and/or Time Validation Error");
+        miscErr.setText(GC.roundRobinValidator(game) ? miscErr.getText() : "Teams can only play another team once in a tournament");
+
+        if (error.isEmpty() && GC.spaceTimeValidator(game) && GC.roundRobinValidator(game))
         {
             GameController gc = new GameController(App.connection);
             gc.addGame(game);
