@@ -34,6 +34,7 @@ public class PlayerControllerTest {
         player.setEmergencyPhoneNumber("3061234567");
         player.setEmergencyEmail("MotherHeffington@gmail.com");
         player.setStreetAddress("123 Fake Street");
+        player.setAssignPosition("Substitution");
         player.setCity("Saskatoon");
         player.setProvince("Saskatchewan");
         player.setPostalCode("S7V0A1");

@@ -67,6 +67,7 @@ public class PlayerTest {
         validPlayer.setEmergencyPhoneNumber("3061234567");
         validPlayer.setEmergencyEmail("MotherHeffington@gmail.com");
         validPlayer.setStreetAddress("123 Fake Street");
+        validPlayer.setAssignPosition("Substitution");
         validPlayer.setCity("Saskatoon");
         validPlayer.setProvince("Saskatchewan");
         validPlayer.setPostalCode("S7V0A1");
@@ -152,8 +153,8 @@ public class PlayerTest {
     @Test
     public void testPlayerPositionEmpty()
     {
-        validPlayer.setPosition(null);
-        assertInvalidPlayer("position", "All fields must be filled out with valid information", "");
+        validPlayer.setPosition("");
+        assertInvalidPlayer("position", "Position must be one of the following: Forward, Midfield, Defence, or GoalTender", "");
     }
 
     @Test

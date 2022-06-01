@@ -35,12 +35,12 @@ public class Player implements Serializable {
 
     @DatabaseField(canBeNull = false)
     @Pattern(regexp = "^(Forward|Midfield|Defence|GoalTender)$", message = "Position must be one of the following: Forward, Midfield, Defence, or GoalTender")
-    @NotEmpty(message = "All fields must be filled out with valid information")
+    //@NotEmpty(message = "All fields must be filled out with valid information")
     private String position;
 
     @DatabaseField(canBeNull = false)
     @Pattern(regexp = "^(Forward|Midfield|Defence|GoalTender|Substitution)$", message = "Position must be one of the following: Forward, Midfield, Defence, or GoalTender")
-    @NotEmpty(message = "All fields must be filled out with valid information" )
+    //@NotEmpty(message = "All fields must be filled out with valid information" )
     private String assignedPosition;
 
     @DatabaseField(canBeNull = false)
