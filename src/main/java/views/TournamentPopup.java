@@ -7,14 +7,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import models.Tournament;
 
 import java.io.IOException;
 import java.sql.SQLException;
-
-import static views.AppView.staticBorderPane;
 
 public class TournamentPopup
 {
@@ -23,6 +22,8 @@ public class TournamentPopup
 
     @FXML
     Button tournamentSubmitBtn, tournamentNewTournamentBtn;
+
+
 
     //Starts the Popup combo box values
     @FXML
@@ -37,8 +38,7 @@ public class TournamentPopup
     protected void addTournamentSubmitHandler() throws IOException {
         App.currentTournament = tournamentBox.getValue();
 //        Platform.exit();
-        //todo close window not entire program and Update Nav
-        AppView.changePaneHandler("home-view.fxml", staticBorderPane);
+        AppView.changePaneHandler("home-view.fxml", AppView.staticBorderPane);
         Stage stage = (Stage) tournamentSubmitBtn.getScene().getWindow();
         stage.close();
     }

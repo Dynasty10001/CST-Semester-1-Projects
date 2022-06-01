@@ -5,10 +5,9 @@ import controllers.GameController;
 import controllers.TeamController;
 import controllers.TournamentController;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
 import models.Game;
 import models.Tournament;
 import models.ValidationHelper;
@@ -30,11 +29,14 @@ public class AddTournamentPopUp
     @FXML
     Label lblERRTournamentName, lblERRTournamentStartDate,lblERRTournamentEndDate;
 
+    @FXML
+    Button addTournamentSubmitBtn;
+
 
     @FXML
-    protected void addTournamentSubmitHandler() throws SQLException, IOException {
+    private void addTournamentSubmitHandler() throws SQLException, IOException {
 
-        TournamentController TornamentCntrl = new TournamentController(App.connection);
+        TournamentController TournamentCntrl = new TournamentController(App.connection);
 
 
         ValidationHelper vh = new ValidationHelper();
@@ -50,28 +52,39 @@ public class AddTournamentPopUp
 
 
 
-        Tournament tourney = TornamentCntrl.createTournament(tournamentNameField.getText(), startDate.getTime(), endDate.getTime());
+        Tournament tourney = TournamentCntrl.createTournament(tournamentNameField.getText(), startDate.getTime(), endDate.getTime());
 
 
         HashMap<String, String> error = vh.getErrors(tourney);
+        if(TournamentCntrl.tournamentNameUnique(tourney))
+        {
+
+        }
+
 
         lblERRTournamentName.setText(error.get("tournamentName"));
         lblERRTournamentStartDate.setText(error.get("startDate"));
         lblERRTournamentEndDate.setText(error.get("endDate"));
 
 
-        if (error.isEmpty())
+        if(TournamentCntrl.tournamentNameUnique(tourney))
         {
-           TornamentCntrl.addTournament(tourney);
-
-            if(tourney.getTournamentID()>0L)
+            if (error.isEmpty())
             {
-                AppView.changePaneHandler("schedules-view.fxml",AppView.staticBorderPane);
+                TournamentCntrl.addTournament(tourney);
+                if(tourney.getTournamentID()>0L)
+                {
+                    App.currentTournament = tourney;
+                    AppView.changePaneHandler("home-view.fxml", AppView.staticBorderPane);
+                    Stage stage = (Stage) addTournamentSubmitBtn.getScene().getWindow();
+                    stage.close();
+                }
             }
-
         }
-
-
+        else
+        {
+            lblERRTournamentName.setText("Tournament name is already used, please enter a different name");
+        }
     }
 
 

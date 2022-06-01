@@ -1,6 +1,7 @@
 package views;
 
 import com.cosacpmg.App;
+import com.sun.deploy.panel.RuleSetViewerDialog;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,12 +16,12 @@ import java.io.IOException;
 
 public class AppView
 {
-    public Button scheduleNavButton;
-    public Button teamsNavButton;
-    public Button playerNavButton;
-    public Button homeNavButton;
-    public Button backNavButton;
-    public Button standingNavButton;
+    public  Button scheduleNavButton;
+    public  Button teamsNavButton;
+    public  Button playerNavButton;
+    public  Button homeNavButton;
+    public  Button backNavButton;
+    public  Button standingNavButton;
 
     @FXML
     BorderPane borderPane;
@@ -40,6 +41,7 @@ public class AppView
         {
             showNavButtons();
         }
+
 
     }
     
@@ -161,6 +163,18 @@ public class AppView
         standingNavButton.setVisible(true);
 //        backNavButton.setVisible(false);
     }
+
+//    public static void showNavButtonsP(){
+//
+//        scheduleNavButton.setVisible(true);
+//        teamsNavButton.setVisible(true);
+//        playerNavButton.setVisible(true);
+//        homeNavButton.setVisible(true);
+//        standingNavButton.setVisible(true);
+//        this.
+////        backNavButton.setVisible(false);
+//    }
+
 
 
 
