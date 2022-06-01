@@ -32,8 +32,8 @@ public class RosterTest {
         testView = new RosterPopup();
 
         try {
-            PC = new PlayerController(new JdbcPooledConnectionSource(App.CONNECTION_STRING));
-            TC = new TeamController(new JdbcPooledConnectionSource(App.CONNECTION_STRING));
+            PC = new PlayerController(new JdbcPooledConnectionSource("jdbc:h2:mem:default"));
+            TC = new TeamController(new JdbcPooledConnectionSource("jdbc:h2:mem:default"));
         } catch (SQLException e) {
             e.printStackTrace();
         }

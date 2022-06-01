@@ -60,6 +60,7 @@ public class RosterPopup {
 		initAllPlayerList(pc);
 		MakePlayerList(pc);
 		positionNumberValidator();
+		fieldPositionFiller();
 		initTeamPlayerList(pc);
 
 		
@@ -397,8 +398,6 @@ public class RosterPopup {
 				removePlayerPosition(player);
 			}
 		}
-
-		fieldPositionFiller();
 	}
 
 	/**
