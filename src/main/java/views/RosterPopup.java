@@ -1,11 +1,9 @@
 package views;
 
 import com.cosacpmg.App;
-import com.sun.javafx.cursor.CursorFrame;
 import controllers.PlayerController;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
@@ -25,7 +23,7 @@ public class RosterPopup {
 	@FXML
 	private AnchorPane rosterAnchor;
 
-	ArrayList<Label> AllLabels;
+	ArrayList<Label> allLabels;
 
 	
 	@FXML
@@ -49,14 +47,14 @@ public class RosterPopup {
 	protected void initialize(){
 //		System.out.println("Current team is " + currentTeam.getId());
 		pc = new PlayerController(App.connection);
-		AllLabels = new ArrayList<>();
-		AllLabels.add(lblForward);
-		AllLabels.add(lblDefence1);
-		AllLabels.add(lblDefence2);
-		AllLabels.add(lblMidfield1);
-		AllLabels.add(lblMidfield2);
-		AllLabels.add(lblMidfield3);
-		AllLabels.add(lblGoalTender);
+		allLabels = new ArrayList<>();
+		allLabels.add(lblForward);
+		allLabels.add(lblDefence1);
+		allLabels.add(lblDefence2);
+		allLabels.add(lblMidfield1);
+		allLabels.add(lblMidfield2);
+		allLabels.add(lblMidfield3);
+		allLabels.add(lblGoalTender);
 
 
 		initAllPlayerList(pc);
@@ -200,6 +198,7 @@ public class RosterPopup {
 	@FXML
 	public void onMouseReleased()
 	{
+
 		updateUI();
 	}
 
@@ -225,7 +224,7 @@ public class RosterPopup {
 	 */
 	public void onClickLabel(MouseEvent event){
 		Label label = (Label) event.getSource();
-		int i = AllLabels.indexOf(label);
+		int i = allLabels.indexOf(label);
 		Player player = fieldPosArray[i];
 		fieldPosArray[i] = null;
 		if(player == null)
@@ -235,6 +234,7 @@ public class RosterPopup {
 		draggedPlayer = player;
 		removePlayerPosition(player);
 		label.setText("Empty "+ getPositionName(i));
+		setLabelColor(label,null);
 		changeCursor("grabby");
 
 	}
@@ -250,7 +250,7 @@ public class RosterPopup {
 		}
 
 		Label label = (Label) event.getSource();
-		int i = AllLabels.indexOf(label);
+		int i = allLabels.indexOf(label);
 
 		if(fieldPosArray[i] != null){
 			removePlayerPosition(fieldPosArray[i]);
@@ -261,10 +261,38 @@ public class RosterPopup {
 		fieldPosArray[i] = draggedPlayer;
 		subList.remove(draggedPlayer);
 		label.setText(draggedPlayer.getFirstName() + "\n " + draggedPlayer.getLastName() + " \n" + thisPosition);
+		setLabelColor(label,draggedPlayer);
 		updateUI();
 		changeCursor("pointy");
 	}
 
+	private void setLabelColor(Label label, Player draggedPlayer) {
+		if(draggedPlayer == null)
+		{
+			label.setStyle("-fx-border-color: black; -fx-border-width: 2");
+		}
+		else
+		{
+			String preferred = draggedPlayer.getPosition();
+			String assigned = getPositionName(allLabels.indexOf(label));
+
+			if(assigned.compareTo(preferred)!=0)
+			{
+				label.setStyle("-fx-border-color: yellow; -fx-border-width: 3");
+			}
+			else
+			{
+				label.setStyle("-fx-border-color: lightgreen; -fx-border-width: 3");
+			}
+		}
+	}
+
+	/**
+	 * Purpose:
+	 * this is a helper method for finding which position an array location corresponds to
+	 * @param i: the index number for the position
+	 * @return	The String name for the position
+	 */
 	private String getPositionName(int i) {
 		String thisPosition = "";
 
@@ -385,6 +413,8 @@ public class RosterPopup {
 
 		// This will loop through all players on the team and set the field labels
 		// to their names depending on their position
+
+		//For positions that have multiple spots, it will position them right to left based on their player ID
 		for (Player player : playersOnTeam)
 		{
 			String POS = player.getAssignPosition();
@@ -435,6 +465,12 @@ public class RosterPopup {
 				default:
 					break;
 			}
+		}
+
+		// After all players have been placed in their positions, run through all positions and set the label colors based on if their position is their preferred position
+		for (int i = 0; i<7; i++)
+		{
+			setLabelColor(allLabels.get(i),fieldPosArray[i]);
 		}
 	}
 }
