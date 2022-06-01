@@ -3,11 +3,15 @@ package views;
 import com.cosacpmg.App;
 import controllers.GameController;
 import controllers.TournamentController;
+import javafx.event.ActionEvent;
 import javafx.fxml.*;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
 import models.Game;
@@ -19,8 +23,13 @@ import java.util.ResourceBundle;
 
 public class SchedulesView implements Initializable
 {
-
-
+    
+    
+    public Label awayTeamName;
+    public Label homeTeamName;
+    public Label gameDate;
+    public Label gameLocation;
+    public AnchorPane rightPane;
     @FXML protected TableView<Game> gameList;
 
     @FXML BorderPane borderPane;
@@ -60,6 +69,7 @@ public class SchedulesView implements Initializable
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("UI: TeamView Initialization");
 
+        showRightInfo(false);
 
         //This adds colomns to the table view, a method called create column is used to make this easier
         gameList.getColumns().setAll(
@@ -68,24 +78,68 @@ public class SchedulesView implements Initializable
                 ViewUtilities.getColumn("Date", "startTime")
         );
 
+        updateGameList();
 
-        try {
+    }
+
+    /**
+     * This method updates the game list with all available data from the database.
+     */
+    public void updateGameList()
+    {
+    
+        try
+        {
             gameList.getItems().addAll(new GameController(App.connection)
-                    .getSchedule(new TournamentController(App.connection).getTournament())); //Query call goes in here
-//            gameList.stream().foreach(x->{
-//
-//            });
-//            loop i // For Every Game in the Game List
-//            int teamid = gameList.getColumns() //Get all columns in team list
-//                              .get(teamColumn) // get home/away team column
-//                              .get(i) // get the home/away team for that game
-//                              .getID // get its ID ( the only valid value)
-//            team correctTeam = querry TeamTable for teamid // get the ACTUAL team for that ID
-//            gameList.getColums.get(teamColumn).replace(i to correctTeam) // replace the blank team with the correct one
-
-
-        } catch (SQLException e) {
+                                               .getSchedule(new TournamentController(App.connection).getTournament())); //Query call goes in here
+        
+        } catch (SQLException e)
+        {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * This method creates the popup for the date picker.
+     * @param actionEvent
+     */
+    public void scheduleViewOnFilterHandler(ActionEvent actionEvent)
+    {
+        FilterDatePopup.setView(this);
+        AppView.popupHandler("filter-date-popup.fxml");
+    
+    }
+
+    /**
+     * Method for the button that clears the filter and displays all data.
+     * @param actionEvent
+     */
+    public void clearFilterHandler(ActionEvent actionEvent)
+    {
+        updateGameList();
+    }
+    
+    
+    /**
+     * this method shows the labels on the right pane before an entry is selected
+     */
+    public void showRightInfo(boolean value){
+        rightPane.setVisible(value);
+    }
+    
+    
+    /**
+     * Triggeres when an entry is selected in the list
+     * @param mouseEvent
+     */
+    public void selectScheduleEntryHandler(MouseEvent mouseEvent)
+    {
+        Game currentGame = gameList.getSelectionModel().getSelectedItem();
+        homeTeamName.setText(currentGame.getHomeTeam().toString());
+        awayTeamName.setText(currentGame.getAwayTeam().toString());
+        gameDate.setText(currentGame.getStartTime().toLocaleString());
+        gameLocation.setText(currentGame.getLocation());
+    
+        showRightInfo(true);
     }
 }
