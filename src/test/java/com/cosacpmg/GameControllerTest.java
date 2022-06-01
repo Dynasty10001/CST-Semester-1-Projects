@@ -7,6 +7,7 @@ import controllers.GameController;
 import controllers.TeamController;
 import controllers.TournamentController;
 import models.Game;
+import models.StandingsEntry;
 import models.Team;
 import models.Tournament;
 import org.junit.AfterClass;
@@ -91,7 +92,7 @@ public class GameControllerTest {
 
     }
     /**
-     * Rigorous Test :-)
+     * Rigorous Test :-)m
      */
     @Test
     public void shouldAnswerWithTrue()
@@ -177,15 +178,28 @@ public class GameControllerTest {
         assertFalse(schedule.size()>1);
     }
 
-    //@Test
-    public void CreateGameRoundRobinRescheduled()
-    {
-        fail();
+
+    /**
+     * This test is testing the computeScore() method to ensure that the method is correctly calculating a teams score.
+     */
+    @Test
+    public void testThatScoreIsCalculatedCorrectly(){
+        int wins = 10;
+        int losses = 10;
+        int ties = 10;
+        
+        assertEquals(wins * GameController.POINTS_FOR_WIN +
+                     losses * GameController.POINTS_FOR_LOSS +
+                     ties * GameController.POINTS_FOR_TIE,GameController.computeScore(wins,losses, ties));
+    
+    
     }
-    //@Test
-    public void CreateGameRoundRobinNotReschedule()
-    {
-        fail();
-    }
+    
+    
+
+    
+    
+ 
+    
 
 }

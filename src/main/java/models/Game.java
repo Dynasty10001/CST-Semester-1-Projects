@@ -30,6 +30,9 @@ public class Game {
     @Max(value = 1,message = "Error with winner Field. 1 is Home Team wins, -1 is Away Team Wins, 0 is Tie, null is Game not Played")
     @Min(value = -1 , message = "Error with winner Field. 1 is Home Team wins, -1 is Away Team Wins, 0 is Tie, null is Game not Played")
     private Integer winners; // 1 is Home, -1 is Away, 0 is a tie game, null = Game not played yet
+    
+    @DatabaseField()
+    private boolean played = false;
 
     //@Column(nullable = false)
     @DatabaseField(canBeNull = false)
@@ -79,11 +82,19 @@ public class Game {
     {
         this.awayTeam = awayTeam;
     }
-
-    public int getWinners()
+    
+    /**
+     * This will return the winner, as long as there  was a winner, if there was not a winner(tie) or if the game is
+     * yet to be played it will return null
+     * @return
+     */
+    public Team getWinner()
     {
-        //gameEvents.get()
-        return winners;
+        if(winners == null)
+        {
+            return null;
+        }
+        return winners==1? homeTeam: winners == -1? awayTeam: null;
     }
 
     public void setWinners(Integer winners)
@@ -130,6 +141,19 @@ public class Game {
     {
         this.tournament = tournament;
     }
+    
+    public boolean isPlayed()
+    {
+        return played;
+    }
+    
+    public void setPlayed(boolean played)
+    {
+        this.played = played;
+    }
+    
+    
+    
 }
 
 

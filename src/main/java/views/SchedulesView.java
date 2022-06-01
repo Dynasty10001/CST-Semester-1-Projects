@@ -48,9 +48,9 @@ public class SchedulesView implements Initializable
         returnCol.setCellValueFactory(new PropertyValueFactory<Game, String>(propertyName));
         return returnCol;
     }
-
+    
     /**
-     * This handles the changing of the view to the add game view.
+     * Handles the button press of adding a game
      * @throws IOException
      */
     @FXML
@@ -58,8 +58,13 @@ public class SchedulesView implements Initializable
     {
         AppView.changePaneHandler("add-game-view.fxml",AppView.staticBorderPane);
     }
-
-
+    
+    
+    /**
+     *
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("UI: TeamView Initialization");

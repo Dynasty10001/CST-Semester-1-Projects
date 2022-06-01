@@ -117,7 +117,7 @@ public class AppView
     @FXML
     protected void onStandingNavHandler() throws IOException
     {
-//        changePaneHandler("standing-view-pane.fxml");
+        changePaneHandler("standings-view.fxml");
         showNavButtons();
     }
     
