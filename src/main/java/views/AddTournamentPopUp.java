@@ -1,15 +1,14 @@
 package views;
 
 import com.cosacpmg.App;
-import controllers.GameController;
-import controllers.TeamController;
+
 import controllers.TournamentController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
+
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import models.Game;
+
 import models.Tournament;
 import models.ValidationHelper;
 
@@ -18,11 +17,11 @@ import java.sql.SQLException;
 
 import java.time.LocalDate;
 
-import java.time.chrono.ChronoLocalDate;
+
 import java.util.Calendar;
-import java.util.Date;
+
 import java.util.HashMap;
-import java.util.concurrent.TimeUnit;
+
 
 public class AddTournamentPopUp
 {
@@ -126,7 +125,7 @@ public class AddTournamentPopUp
     tournamentStartDatePicker.getValue();
         LocalDate EndDate= tournamentEndDatePicker.getValue();
 
-            if (tournamentEndDatePicker.getValue()!=null)
+            if (tournamentEndDatePicker.getValue().getDayOfYear()-tournamentStartDatePicker.getValue().getDayOfYear()>3)
         {
             dateWarning.setText("Tournament duration  should be 3 days or less");
         }
