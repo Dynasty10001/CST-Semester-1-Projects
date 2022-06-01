@@ -1,11 +1,15 @@
 package views;
 
 import com.cosacpmg.App;
+import com.sun.javafx.cursor.CursorFrame;
 import controllers.PlayerController;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import models.Player;
 import models.Team;
 
@@ -17,6 +21,9 @@ public class RosterPopup {
 
 	@FXML
 	protected Label lblForward, lblDefence1, lblDefence2, lblMidfield1 ,lblMidfield2, lblMidfield3, lblGoalTender;
+
+	@FXML
+	private AnchorPane rosterAnchor;
 
 	ArrayList<Label> AllLabels;
 
@@ -184,6 +191,32 @@ public class RosterPopup {
 	@FXML
 	public void onClickSub(){
 		draggedPlayer = teamPlayerList.getSelectionModel().getSelectedItems().get(0);
+		changeCursor("grabby");
+	}
+
+	/**
+	 * This method is for resolving a UI updating bug. It will repopulate the sub bench with correct entries.
+	 */
+	@FXML
+	public void onMouseReleased()
+	{
+		updateUI();
+	}
+
+	/**
+	 * This method will change all fxml elements to display a different cursor images depending on what the user is doing.
+	 * @param hand
+	 */
+	private void changeCursor(String hand)
+	{
+		if (hand.compareTo("grabby") == 0)
+		{
+			rosterAnchor.setCursor(Cursor.CLOSED_HAND);
+		}
+		else
+		{
+			rosterAnchor.setCursor(Cursor.DEFAULT);
+		}
 	}
 
 	/**
@@ -194,6 +227,7 @@ public class RosterPopup {
 		Label label = (Label) event.getSource();
 		int i = AllLabels.indexOf(label);
 		Player player = fieldPosArray[i];
+		fieldPosArray[i] = null;
 		if(player == null)
 		{
 			return;
@@ -201,6 +235,7 @@ public class RosterPopup {
 		draggedPlayer = player;
 		removePlayerPosition(player);
 		label.setText("Empty "+ getPositionName(i));
+		changeCursor("grabby");
 
 	}
 
@@ -225,8 +260,9 @@ public class RosterPopup {
 
 		fieldPosArray[i] = draggedPlayer;
 		subList.remove(draggedPlayer);
-		label.setText(draggedPlayer.getFirstName() + " " + draggedPlayer.getLastName() + " \n" + thisPosition);
+		label.setText(draggedPlayer.getFirstName() + "\n " + draggedPlayer.getLastName() + " \n" + thisPosition);
 		updateUI();
+		changeCursor("pointy");
 	}
 
 	private String getPositionName(int i) {
@@ -250,7 +286,11 @@ public class RosterPopup {
 	}
 
 	public void onMouseMoved(){
-		draggedPlayer = null;
+		if (draggedPlayer != null)
+		{
+			draggedPlayer = null;
+			changeCursor("pointy");
+		}
 	}
 
 	/**
@@ -351,19 +391,19 @@ public class RosterPopup {
 			switch (POS) {
 				case "Forward":
 					fieldPosArray[0] = player;
-					lblForward.setText(player.getFirstName() + " " + player.getLastName() + " \n Forward");
+					lblForward.setText(player.getFirstName() + "\n " + player.getLastName() + " \n Forward");
 					break;
 
 				case "Defence":
 					if (fieldPosArray[1] == null)
 					{
 						fieldPosArray[1] = player;
-						lblDefence1.setText(player.getFirstName() + " " + player.getLastName() + " \n Defence");
+						lblDefence1.setText(player.getFirstName() + "\n " + player.getLastName() + " \n Defence");
 					}
 					else
 					{
 						fieldPosArray[2] = player;
-						lblDefence2.setText(player.getFirstName() + " " + player.getLastName() + " \n Defence");
+						lblDefence2.setText(player.getFirstName() + "\n " + player.getLastName() + " \n Defence");
 					}
 					break;
 
@@ -371,23 +411,23 @@ public class RosterPopup {
 					if (fieldPosArray[3] == null)
 					{
 						fieldPosArray[3] = player;
-						lblMidfield1.setText(player.getFirstName() + " " + player.getLastName() + " \n Midfield");
+						lblMidfield1.setText(player.getFirstName() + "\n " + player.getLastName() + " \n Midfield");
 					}
 					else if (fieldPosArray[4] == null)
 					{
 						fieldPosArray[4] = player;
-						lblMidfield2.setText(player.getFirstName() + " " + player.getLastName() + " \n Midfield");
+						lblMidfield2.setText(player.getFirstName() + "\n " + player.getLastName() + " \n Midfield");
 					}
 					else
 					{
 						fieldPosArray[5] = player;
-						lblMidfield3.setText(player.getFirstName() + " " + player.getLastName() + " \n Midfield");
+						lblMidfield3.setText(player.getFirstName() + "\n " + player.getLastName() + " \n Midfield");
 					}
 					break;
 
 				case "GoalTender":
 					fieldPosArray[6] = player;
-					lblGoalTender.setText(player.getFirstName() + " " + player.getLastName() + " \n GoalTender");
+					lblGoalTender.setText(player.getFirstName() + "\n " + player.getLastName() + " \n GoalTender");
 					break;
 				case "Substitution":
 					subList.add(player);
