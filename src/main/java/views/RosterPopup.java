@@ -122,9 +122,11 @@ public class RosterPopup {
 		{
 			selectedPlayer.setTeam(currentTeam);
 			pc.updatePlayer(selectedPlayer);
-			updateUI();
+			subList.add(selectedPlayer);
+
 			
 		}
+		updateUI();
 	}
 	
 	/**
@@ -151,7 +153,9 @@ public class RosterPopup {
 			selectedPlayer.setTeam(null);
 			pc.updatePlayer(selectedPlayer);
 			updateUI();
+			subList.remove(selectedPlayer);
 		}
+		updateUI();
 		//todo ErrorMessage for no selectedplayer
 
 	}
@@ -199,7 +203,6 @@ public class RosterPopup {
 	@FXML
 	public void onMouseReleased()
 	{
-
 		updateUI();
 	}
 
