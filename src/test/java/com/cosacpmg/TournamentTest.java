@@ -114,7 +114,7 @@ public class TournamentTest
     {
         validTournament.setStartDate(null);
         assertInvalidTournament("startDate",
-                "A date must be selected for the game",
+                "A date must be selected for the Tournament",
                 null);
     }
 
@@ -123,7 +123,7 @@ public class TournamentTest
     {
         validTournament.setEndDate(null);
         assertInvalidTournament("endDate",
-                "A date must be selected for the game",
+                "A date must be selected for the Tournament",
                 null);
     }
 

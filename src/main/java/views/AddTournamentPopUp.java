@@ -15,11 +15,10 @@ import models.ValidationHelper;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.time.Duration;
+
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalAmount;
-import java.time.temporal.TemporalUnit;
+
+import java.time.chrono.ChronoLocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -51,56 +50,83 @@ public class AddTournamentPopUp
         Calendar endDate = Calendar.getInstance();
         startDate.clear();
         endDate.clear();
-        LocalDate pickTime = tournamentStartDatePicker.getValue();
-        startDate.set(pickTime.getYear(), pickTime.getMonthValue()-1, pickTime.getDayOfMonth(),23,59);
-        pickTime = tournamentEndDatePicker.getValue();
-        endDate.set(pickTime.getYear(), pickTime.getMonthValue()-1, pickTime.getDayOfMonth(),23,59);
+
+        LocalDate pickTime;
 
 
-
-
-        Tournament tourney = TournamentCntrl.createTournament(tournamentNameField.getText(), startDate.getTime(), endDate.getTime());
-
-
-        HashMap<String, String> error = vh.getErrors(tourney);
-        if(TournamentCntrl.tournamentNameUnique(tourney))
+        if (tournamentStartDatePicker.getValue() == null)
         {
-
-        }
-
-
-        lblERRTournamentName.setText(error.get("tournamentName"));
-        lblERRTournamentStartDate.setText(error.get("startDate"));
-        lblERRTournamentEndDate.setText(error.get("endDate"));
-
-
-        if(TournamentCntrl.tournamentNameUnique(tourney))
-        {
-            if (error.isEmpty())
-            {
-                TournamentCntrl.addTournament(tourney);
-                if(tourney.getTournamentID()>0L)
-                {
-                    App.currentTournament = tourney;
-                    AppView.changePaneHandler("home-view.fxml", AppView.staticBorderPane);
-                    Stage stage = (Stage) addTournamentSubmitBtn.getScene().getWindow();
-                    stage.close();
-                }
-            }
+            lblERRTournamentStartDate.setText("A date must be selected for the Tournament");
         }
         else
         {
-            lblERRTournamentName.setText("Tournament name is already used, please enter a different name");
+            if (tournamentStartDatePicker.getValue().compareTo(LocalDate.now())<0)
+            {
+                lblERRTournamentStartDate.setText("Date must not be in the past");
+            }
+            else {
+                lblERRTournamentStartDate.setText("");
+                pickTime = tournamentStartDatePicker.getValue();
+                startDate.set(pickTime.getYear(), pickTime.getMonthValue() - 1, pickTime.getDayOfMonth(), 23, 59);
+            }
+        }
+
+        if (tournamentEndDatePicker.getValue() == null)
+        {
+            lblERRTournamentEndDate.setText("A date must be selected for the Tournament");
+        }
+        else
+        {
+            if (tournamentStartDatePicker.getValue().compareTo(tournamentEndDatePicker.getValue())>0)
+            {
+                lblERRTournamentEndDate.setText("End date must be after the start date");
+            }
+            else {
+                lblERRTournamentEndDate.setText("");
+                pickTime = tournamentEndDatePicker.getValue();
+                endDate.set(pickTime.getYear(), pickTime.getMonthValue() - 1, pickTime.getDayOfMonth(), 23, 59);
+            }
+        }
+
+        if (tournamentEndDatePicker.getValue() != null && tournamentStartDatePicker.getValue() != null) {
+
+
+            Tournament tourney = TournamentCntrl.createTournament(tournamentNameField.getText(), startDate.getTime(), endDate.getTime());
+
+
+            HashMap<String, String> error = vh.getErrors(tourney);
+
+
+            lblERRTournamentName.setText(error.get("tournamentName"));
+            lblERRTournamentStartDate.setText(error.get("startDate"));
+            lblERRTournamentEndDate.setText(error.get("endDate"));
+
+
+            if (tournamentEndDatePicker.getValue() != null)
+
+                if (TournamentCntrl.tournamentNameUnique(tourney)) {
+                    if (error.isEmpty()) {
+                        TournamentCntrl.addTournament(tourney);
+                        if (tourney.getTournamentID() > 0L) {
+                            App.currentTournament = tourney;
+                            AppView.changePaneHandler("home-view.fxml", AppView.staticBorderPane);
+                            Stage stage = (Stage) addTournamentSubmitBtn.getScene().getWindow();
+                            stage.close();
+                        }
+                    }
+                } else {
+                    lblERRTournamentName.setText("Tournament name is already used, please enter a different name");
+                }
         }
 
     }
 
 
     public void secondDateSelected(ActionEvent actionEvent) {
-        tournamentStartDatePicker.getValue();
-        tournamentEndDatePicker.getValue();
+    tournamentStartDatePicker.getValue();
+        LocalDate EndDate= tournamentEndDatePicker.getValue();
 
-        if (((LocalDate)tournamentEndDatePicker.getValue()).minus(3,java.time.temporal.TemporalAmount.).compareTo(tournamentStartDatePicker.getValue()))
+            if (tournamentEndDatePicker.getValue()!=null)
         {
             dateWarning.setText("Tournament duration  should be 3 days or less");
         }
