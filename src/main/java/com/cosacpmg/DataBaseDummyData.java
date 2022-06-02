@@ -13,6 +13,8 @@ import models.Tournament;
 import views.RosterPopup;
 
 import java.sql.SQLException;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -44,8 +46,10 @@ public class DataBaseDummyData {
         TableUtils.clearTable(dbConn,Team.class);
         TableUtils.clearTable(dbConn,Player.class);
 
-        TUC.createTournament("Dummy",date,date );
-        Team testTeam = null;
+
+
+
+
         Player validPlayer1 = null;
         Player validPlayer2 = null;
         Player validPlayer3 = null;
@@ -56,21 +60,69 @@ public class DataBaseDummyData {
         Player validPlayer8 = null;
         Player[] playerList = new Player[] {validPlayer1, validPlayer2, validPlayer3,validPlayer4,validPlayer5,validPlayer6,validPlayer7,validPlayer8};
 
-        CreateTeams(testTeam, playerList);
+        ArrayList<Team> teams= CreateTeams(playerList);
 
-
+        CreateGames(teams);
 
     }
 
-    private static void CreateTeams(Team testTeam, Player[] playerList)
+    private static void CreateGames(ArrayList<Team> teams) throws SQLException {
+
+        Calendar time = Calendar.getInstance();
+        time.set(2022, Calendar.JUNE,10);
+        time.add(Calendar.HOUR_OF_DAY, 10);
+        Date date = time.getTime();
+        Tournament dummy = TUC.createTournament("Dummy",date,date );;
+
+        ArrayList<Game> schedule = new ArrayList<>();
+
+        String location1 = "field1";
+        String location2 = "field2";
+        int x = 0;
+        schedule.add(gc.createGame(teams.get(x++), teams.get(x++), date, location1, dummy));
+        schedule.add(gc.createGame(teams.get(x++), teams.get(x++), date, location2, dummy));
+
+        x = 1;
+        date.setTime(date.getTime()+6000000);
+        schedule.add(gc.createGame(teams.get(x++), teams.get(x++), date, location1, dummy));
+        schedule.add(gc.createGame(teams.get(x++), teams.get(0), date, location2, dummy));
+
+        date.setTime(date.getTime()+6000000);
+        schedule.add(gc.createGame(teams.get(1), teams.get(3), date, location1, dummy));
+        schedule.add(gc.createGame(teams.get(2), teams.get(0), date, location2, dummy));
+
+        x = 0;
+        schedule.get(x).setPlayed(true);
+        schedule.get(x++).setWinners(-1);
+        schedule.get(x).setPlayed(true);
+        schedule.get(x++).setWinners(1);
+        schedule.get(x).setPlayed(true);
+        schedule.get(x++).setWinners(1);
+        schedule.get(x).setPlayed(true);
+        schedule.get(x++).setWinners(1);
+        schedule.get(x).setPlayed(true);
+        schedule.get(x).setWinners(0);
+
+        for (int i = 0; i < schedule.size(); i++)
+        {
+            gc.addGame(schedule.get(i));
+        }
+    }
+
+    private static ArrayList<Team> CreateTeams(Player[] playerList)
     {
-        CreateHuffs(testTeam,playerList);
-        CreateRWBY(testTeam,playerList);
-        CreateOnePiece(testTeam,playerList);
+        ArrayList<Team> teams = new ArrayList<>();
+
+        teams.add(CreateHuffs(playerList));
+        teams.add(CreateRWBY(playerList));
+        teams.add(CreateOnePiece(playerList));
+        teams.add(CreateFastFood(playerList));
+
+        return teams;
     }
 
-    private static void CreateHuffs(Team testTeam, Player[] playerList) {
-        testTeam = TeamController.createTeam(
+    private static Team CreateHuffs(Player[] playerList) {
+        Team testTeam = TeamController.createTeam(
                 "Heffs",
                 "Heffington",
                 "brighton",
@@ -195,22 +247,25 @@ public class DataBaseDummyData {
                 "Saskatchewan",
                 "S7V0A1");
 
-        playerList[7].setAssignPosition("GoalTender");
-        playerList[1].setAssignPosition("Forward");
-        playerList[5].setAssignPosition("Defence");
+        //playerList[7].setAssignPosition("GoalTender");
+        //playerList[1].setAssignPosition("Forward");
+        //playerList[5].setAssignPosition("Defence");
 
         tc.addTeam(testTeam);
         RosterPopup.setCurrentTeam(testTeam);
 
         for (int i = 0; i < 8; i++){
             pc.addPlayer(playerList[i]);
-            pc.addPlayerToTeam(playerList[i],testTeam);
+            pc.addPlayerToTeam(playerList[i], testTeam);
         }
+
+        return testTeam;
     }
 
-    private static void CreateRWBY(Team testTeam, Player[] playerList) {
-        testTeam = TeamController.createTeam(
-                "Hunters",
+    private static Team CreateRWBY(Player[] playerList) {
+
+        Team testTeam = TeamController.createTeam(
+                "Hunteresses",
                 "Vale",
                 "Beacon",
                 "Coach Coachington",
@@ -346,14 +401,15 @@ public class DataBaseDummyData {
 
         for (int i = 0; i < 8; i++){
             pc.addPlayer(playerList[i]);
-            pc.addPlayerToTeam(playerList[i],testTeam);
+            pc.addPlayerToTeam(playerList[i], testTeam);
         }
 
+        return testTeam;
     }
 
-    private static void CreateOnePiece(Team testTeam, Player[] playerList) {
-        testTeam = TeamController.createTeam(
-                "StrawhatCrew",
+    private static Team CreateOnePiece( Player[] playerList) {
+        Team testTeam = TeamController.createTeam(
+                "StrawHat Crew",
                 "Pirates",
                 "GrandLine",
                 "Coach Coachington",
@@ -492,6 +548,168 @@ public class DataBaseDummyData {
             pc.addPlayerToTeam(playerList[i],testTeam);
         }
 
+        return testTeam;
+    }
+
+    private static Team CreateFastFood(Player[] playerList) {
+        Team testTeam = TeamController.createTeam(
+                "FFFD",
+                "Everywhere",
+                "America",
+                "Coach Coachington",
+                "555 555 1234");
+
+        playerList[1] = PlayerController.createPlayer(
+                "Mac",
+                "Donalds",
+                15,
+                "Forward",
+                "Heff1234@gmail.com",
+                "3061234567",
+                "Ozpin",
+                "Ozpinn@gmail.com",
+                "3061234567",
+                "123 Fake Street",
+                "New York",
+                "New York",
+                "S7V0A1");
+
+
+        playerList[2] = PlayerController.createPlayer(
+                "Dairy",
+                "Queen",
+                7,
+                "Midfield",
+                "Heff1234@gmail.com",
+                "3061234567",
+                "Ozpin",
+                "Ozpinn@gmail.com",
+                "3061234567",
+                "123 Fake Street",
+                "New York",
+                "New York",
+                "S7V0A1");
+
+        playerList[3] = PlayerController.createPlayer(
+                "Fat",
+                "Burger",
+                13,
+                "Defence",
+                "Heff1234@gmail.com",
+                "3061234567",
+                "Ozpin",
+                "Ozpinn@gmail.com",
+                "3061234567",
+                "123 Fake Street",
+                "New York",
+                "New York",
+                "S7V0A1");
+
+        playerList[4] = PlayerController.createPlayer(
+                "Wendy",
+                "Eeeez",
+                99,
+                "Defence",
+                "Heff1234@gmail.com",
+                "3061234567",
+                "Ozpin",
+                "Ozpinn@gmail.com",
+                "3061234567",
+                "123 Fake Street",
+                "New York",
+                "New York",
+                "S7V0A1");
+
+        playerList[5] = PlayerController.createPlayer(
+                "Allan",
+                "& Wright",
+                72,
+                "Midfield",
+                "Heff1234@gmail.com",
+                "3061234567",
+                "Ozpin",
+                "Ozpinn@gmail.com",
+                "3061234567",
+                "123 Fake Street",
+                "New York",
+                "New York",
+                "S7V0A1");
+
+        playerList[7] = PlayerController.createPlayer(
+                "Five",
+                "Guys",
+                69,
+                "GoalTender",
+                "Heff1234@gmail.com",
+                "3061234567",
+                "Ozpin",
+                "Ozpinn@gmail.com",
+                "3061234567",
+                "123 Fake Street",
+                "New York",
+                "New York",
+                "S7V0A1");
+
+        playerList[6] = PlayerController.createPlayer(
+                "Kentucky",
+                "FriedChicken",
+                17,
+                "Midfield",
+                "Heff1234@gmail.com",
+                "3061234567",
+                "Ozpin",
+                "Ozpinn@gmail.com",
+                "3061234567",
+                "123 Fake Street",
+                "Frankfort",
+                "Kentucky",
+                "S7V0A1");
+
+        playerList[0] = PlayerController.createPlayer(
+                "Tim Horton",
+                "Robin",
+                17,
+                "GoalTender",
+                "Heff1234@gmail.com",
+                "3061234567",
+                "Ozpin",
+                "Ozpinn@gmail.com",
+                "3061234567",
+                "123 Fake Street",
+                "Toronto",
+                "Ontario",
+                "S7V0A1");
+
+        tc.addTeam(testTeam);
+        RosterPopup.setCurrentTeam(testTeam);
+
+        for (int i = 0; i < 7; i++) {
+            playerList[i].setAssignPosition(playerList[i].getPosition());
+        }
+
+        for (int i = 0; i < 8; i++){
+            pc.addPlayer(playerList[i]);
+            pc.addPlayerToTeam(playerList[i], testTeam);
+        }
+
+        pc.addPlayer(
+                PlayerController.createPlayer(
+                        "Burger",
+                        "King",
+                        1,
+                        "GoalTender",
+                        "Heff1234@gmail.com",
+                        "3061234567",
+                        "Ozpin",
+                        "Ozpinn@gmail.com",
+                        "3061234567",
+                        "123 Fake Street",
+                        "New York",
+                        "New Yorke",
+                        "S7V0A1")
+                );
+
+        return testTeam;
     }
 }
 

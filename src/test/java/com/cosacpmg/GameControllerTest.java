@@ -60,10 +60,7 @@ public class GameControllerTest {
     public void TestSetup() throws SQLException {
 
 
-        Calendar time = Calendar.getInstance();
-        time.set(2022, Calendar.JUNE,10);
-        time.add(Calendar.HOUR_OF_DAY, 10);
-        date = time.getTime();
+
 
 
         testTeamController = new TeamController(dbConn);

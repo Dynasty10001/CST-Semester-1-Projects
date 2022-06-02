@@ -74,7 +74,7 @@ public class AddPlayerView {
         String tempS = tfJersey.getText();
         int tempJ = -1;
 
-        if (tempS.matches("^[//d]+$"))
+        if (tempS.matches("^[0-9][0-9]$"))
         {
             tempJ = Integer.parseInt(tempS);
 
