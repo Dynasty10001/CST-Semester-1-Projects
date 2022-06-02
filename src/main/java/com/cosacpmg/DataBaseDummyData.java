@@ -13,6 +13,8 @@ import models.Tournament;
 import views.RosterPopup;
 
 import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.Date;
 
 public class DataBaseDummyData {
 
@@ -32,13 +34,17 @@ public class DataBaseDummyData {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        Calendar time = Calendar.getInstance();
+        time.set(2022, Calendar.JUNE,10);
+        time.add(Calendar.HOUR_OF_DAY, 10);
+        Date date = time.getTime();
 
         TableUtils.clearTable(dbConn, Tournament.class);
         TableUtils.clearTable(dbConn,Game.class);
         TableUtils.clearTable(dbConn,Team.class);
         TableUtils.clearTable(dbConn,Player.class);
 
-        TUC.createTournament("Dummy");
+        TUC.createTournament("Dummy",date,date );
         Team testTeam = null;
         Player validPlayer1 = null;
         Player validPlayer2 = null;

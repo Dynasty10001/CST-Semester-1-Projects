@@ -34,7 +34,7 @@ public class FilterDatePopup
 		{
 			
 			view.gameList.getItems().setAll(
-					gc.getSchedule(new TournamentController(App.connection).getTournament()).stream().filter(e->{
+					gc.getAllGamesByTournament(App.currentTournament).stream().filter(e->{
 						int year = e.getStartTime().getYear() + 1900;
 						int month = e.getStartTime().getMonth() + 1;
 						int day = e.getStartTime().getDate();

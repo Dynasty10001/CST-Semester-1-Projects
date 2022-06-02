@@ -82,9 +82,7 @@ public class TournamentControllerTest {
     @Test
     public void createInvalidTournament()
     {
-
-
-        assertNull(testTournamentController.createTournament("MasterTournament", date, date));
+        assertEquals(testTournamentController.addTournament(testTournamentController.createTournament("MasterTournament", date, date)).getTournamentID(),0);
     }
 
     /*

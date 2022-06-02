@@ -25,6 +25,7 @@ public class TournamentTest
     private static ValidatorFactory Vf;
     private static Validator validator;
     private static Tournament validTournament;
+    private static Date date;
 
     private String repeatA(int count){
         return new String(new char[count]).replace('\0','A');
@@ -69,8 +70,8 @@ public class TournamentTest
     @Before
     public void TestSetup()
     {
-        Date date= new Date();
-        date.setTime(date.getTime()+7000);
+        date = new Date();
+        date.setTime(date.getTime()+70000);
         validTournament = new Tournament();
         validTournament.setTournamentName("Test");
         validTournament.setStartDate(date);
@@ -161,7 +162,6 @@ public class TournamentTest
     @Test
     public void testEndDateFuture()
     {
-        Date date = new Date();
         date.setTime(date.getTime()+1000*60*60*48);
         validTournament.setEndDate(date);
         assertEquals(0,validator.validate(validTournament).size());
@@ -180,13 +180,4 @@ public class TournamentTest
                 "End date must be after the start date",
                 date);
     }
-
-
-
-
-
-
-
-
-
 }
