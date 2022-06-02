@@ -2,6 +2,7 @@ package models;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import org.hibernate.validator.constraints.Range;
 
 
 import javax.validation.constraints.*;
@@ -33,8 +34,14 @@ public class Player implements Serializable {
     private Team team;
 
     @DatabaseField(canBeNull = false)
-    @NotEmpty(message = "All fields must be filled out with valid information" )
+    @Pattern(regexp = "^(Forward|Midfield|Defence|GoalTender)$", message = "Position must be one of the following: Forward, Midfield, Defence, or GoalTender")
+    //@NotEmpty(message = "All fields must be filled out with valid information")
     private String position;
+
+    @DatabaseField(canBeNull = false)
+    @Pattern(regexp = "^(Forward|Midfield|Defence|GoalTender|Substitution)$", message = "Position must be one of the following: Forward, Midfield, Defence, or GoalTender")
+    //@NotEmpty(message = "All fields must be filled out with valid information" )
+    private String assignedPosition;
 
     @DatabaseField(canBeNull = false)
     @NotEmpty(message = "All fields must be filled out with valid information" )
@@ -143,6 +150,7 @@ public class Player implements Serializable {
         this.streetAddress = streetAddress;
     }
 
+
     public String getCity() {
         return city;
     }
@@ -206,7 +214,13 @@ public class Player implements Serializable {
     public void setEmergencyPhoneNumber(String emergencyPhoneNumber) {
         this.emergencyPhoneNumber = emergencyPhoneNumber;
     }
-    
+
+    public void setAssignPosition(String assignPosition) {
+        this.assignedPosition = assignPosition;
+    }
+
+    public String getAssignPosition() {return assignedPosition;}
+
     /**
      * This is used by the Roster View to display the player name when placed in a list
      * @return
@@ -214,6 +228,7 @@ public class Player implements Serializable {
     @Override
     public String toString()
     {
-        return firstName + " " + lastName;
+        return firstName + " " + lastName + " - " + position;
     }
+
 }

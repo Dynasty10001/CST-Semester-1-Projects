@@ -24,7 +24,6 @@ public class TeamTest
     String area = "Brighton";
     String coachName = "John C. Coachington";
     String coachNum = "306 555 6356";
-    TeamController teamController;
 
     // Validation Variables
     private static ValidatorFactory validationFactory;
@@ -55,8 +54,7 @@ public class TeamTest
     @Before
     public void createCompatibleValidTeam()
     {
-        teamController = new TeamController();
-        compareTeam = teamController.createTeam(teamName, city, area, coachName, coachNum);
+        compareTeam = TeamController.createTeam(teamName, city, area, coachName, coachNum);
     }
     
     /**

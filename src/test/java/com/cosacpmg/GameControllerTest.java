@@ -32,7 +32,6 @@ import static org.junit.Assert.fail;
  */
 public class GameControllerTest {
     private static ValidatorFactory VF;
-    private static Validator validator;
     Game masterTest;
     Tournament masterTournament;
     private static GameController testGameController;
@@ -46,7 +45,6 @@ public class GameControllerTest {
     @BeforeClass
     public static void SetupValidator() throws SQLException {
         VF = Validation.buildDefaultValidatorFactory();
-        validator = VF.getValidator();
 
         dbConn = new JdbcPooledConnectionSource("jdbc:sqlite:schedule.db");
     }
@@ -161,11 +159,6 @@ public class GameControllerTest {
         assertTrue(testGameController.roundRobinValidator(secondGame));
     }
 
-
-
-
-
-
     @Test
     public void CreateGameOnUsedField() throws SQLException {
         Team UnusedTeamOne = new Team();
@@ -174,7 +167,7 @@ public class GameControllerTest {
 
         List<Game> schedule = testGameController.getAllGamesByTournament(masterTournament);
         assertTrue(schedule.size()>0);
-//        assertFalse(schedule.contains(SecondGame));
+        assertFalse(schedule.contains(SecondGame));
         assertFalse(schedule.size()>1);
     }
 
@@ -248,7 +241,6 @@ public class GameControllerTest {
         assertEquals(wins * GameController.POINTS_FOR_WIN +
                      losses * GameController.POINTS_FOR_LOSS +
                      ties * GameController.POINTS_FOR_TIE,GameController.computeScore(wins,losses, ties));
-
     }
 
 

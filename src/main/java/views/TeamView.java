@@ -3,6 +3,7 @@ package views;
 import com.cosacpmg.App;
 import controllers.PlayerController;
 import controllers.TeamController;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -115,4 +116,5 @@ public class TeamView
 		teamViewDetailPane.setVisible(true);
 	
 	}
+	
 }

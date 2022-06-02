@@ -92,7 +92,7 @@
                           </FXCollections>
                    </items>
                </ComboBox>
-                  <ComboBox id="gameAMPMBox" fx:id="ampmBox" prefHeight="25.0" prefWidth="131.0" promptText="AM">
+                  <ComboBox id="gameAMPMBox" fx:id="ampmBox" prefHeight="25.0" prefWidth="131.0" promptText="--">
                           <items>
                               <FXCollections fx:factory="observableArrayList">
                                   <String fx:value="AM" />
@@ -115,5 +115,6 @@
             <Font name="System Italic" size="27.0" />
          </font>
       </Label>
+      <Label fx:id="miscErr" textFill="RED" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="150.0" />
    </children>
 </AnchorPane>

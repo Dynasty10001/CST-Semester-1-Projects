@@ -28,7 +28,7 @@ public class StandingsView {
     public void initialize() {
         ArrayList<Team> teams = new TeamController(App.connection).getAllTeams();
 
-        ArrayList<StandingsEntry> entries = teams.stream().map(StandingsEntry::new).collect(Collectors.toCollection(ArrayList::new));
+        ArrayList<StandingsEntry> entries = teams.stream().map((Team team1) -> new StandingsEntry(team1)).collect(Collectors.toCollection(ArrayList::new));
 
         standingsTeamTable.getColumns().setAll(
                 ViewUtilities.getColumn("Team Name", "team"),

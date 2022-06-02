@@ -71,8 +71,8 @@
                  <FXCollections fx:factory="observableArrayList">
                      <String fx:value="Defence" />
                      <String fx:value="Forward" />
-                     <String fx:value="Goalkeeper" />
-                     <String fx:value="Mid-Field" />
+                     <String fx:value="Goaltender" />
+                     <String fx:value="Midfield" />
                  </FXCollections>
              </items>
 

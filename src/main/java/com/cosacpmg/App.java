@@ -10,8 +10,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import models.Game;
+import models.Player;
 import models.Team;
 import models.Tournament;
+import views.RosterPopup;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -20,7 +22,6 @@ import java.util.Date;
 
 public class App extends Application
 {
-
     public static final java.lang.String CONNECTION_STRING = "jdbc:sqlite:schedule.db";
     public static ConnectionSource connection;
     private static Stage mainStage;
@@ -50,45 +51,12 @@ public class App extends Application
         try
         {
             connection = new JdbcPooledConnectionSource(CONNECTION_STRING);
-//            PlaceDummyData(TC,GC,TUC);
+            DataBaseDummyData.PlaceDummyData();
+            //todo finish this and run it to fill the database with dummy data
         }
         catch (SQLException e)
         {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * Just loads in dummy data.
-     * @return
-     */
-    public static ArrayList<Game> PlaceDummyData(TeamController tc, GameController gc, TournamentController TUC) throws SQLException {
-        ArrayList<Game> gameList = new ArrayList<>();
-        TUC.createTournament("Dummy", new Date(),new Date() );
-        Team one = tc.createTeam("Saskatoon","Sparks" , "Brighton","Jack" ,"111 111 1111" );
-        tc.addTeam(one);
-        Team two = tc.createTeam("Royals", "Regina", "redArbour", "Jack", "111 111 1111");
-        tc.addTeam(two);
-        Date first = new Date();
-        Date second = new Date();
-        second.setTime(second.getTime()+3600000);
-        gameList.add(gc.createGame(one,two, first,new String(),currentTournament));
-        gameList.add(gc.createGame(one,two, second,new String(),currentTournament));
-
-
-        return gameList;
-    }
-
-
-
-
-
-
-    @FXML
-    private Label welcomeText;
-
-    @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
     }
 }

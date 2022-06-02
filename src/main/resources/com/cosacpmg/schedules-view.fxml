@@ -3,6 +3,7 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.SchedulesView">
    <children>
@@ -10,21 +11,36 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <TableView fx:id="gameList" layoutY="49.0" prefHeight="321.0" prefWidth="296.0" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="49.0">
+                  <TableView fx:id="gameList" layoutY="49.0" onMouseClicked="#selectScheduleEntryHandler" prefHeight="321.0" prefWidth="296.0" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="49.0">
                     <columns>
                       <TableColumn prefWidth="75.0" text="C1" />
                       <TableColumn prefWidth="75.0" text="C2" />
                     </columns>
                   </TableView>
                   <Button layoutX="213.0" layoutY="372.0" mnemonicParsing="false" onAction="#gameViewAddGameHandler" prefHeight="25.0" prefWidth="83.0" text="Add Game" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="0.0" />
+                  <Button layoutX="229.0" layoutY="14.0" mnemonicParsing="false" onAction="#scheduleViewOnFilterHandler" text="Filter" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="14.0" />
+                  <Button mnemonicParsing="false" onAction="#clearFilterHandler" text="Clear" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding></AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+          <AnchorPane fx:id="rightPane" minHeight="0.0" minWidth="0.0">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding></AnchorPane>
+               </padding>
+               <children>
+                  <Label fx:id="homeTeamName" alignment="CENTER" layoutX="89.0" layoutY="24.0" text="Label" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="15.0">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font></Label>
+                  <Label fx:id="awayTeamName" alignment="CENTER" layoutX="91.0" layoutY="93.0" text="Label" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="90.0">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font></Label>
+                  <Label fx:id="gameDate" layoutX="43.0" layoutY="123.0" text="Date" AnchorPane.leftAnchor="43.0" AnchorPane.rightAnchor="67.0" AnchorPane.topAnchor="123.0" />
+                  <Label fx:id="gameLocation" layoutX="43.0" layoutY="143.0" text="Location" AnchorPane.leftAnchor="43.0" AnchorPane.rightAnchor="67.0" AnchorPane.topAnchor="143.0" />
+                  <Label fx:id="vsLabel" alignment="CENTER" layoutX="107.0" layoutY="70.0" text="VS" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="63.0" />
+               </children></AnchorPane>
         </items>
       </SplitPane>
    </children>

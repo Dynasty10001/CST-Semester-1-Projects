@@ -16,8 +16,7 @@ public class PlayerController {
 
     public Dao<Player, Long> repo;
     private ValidationHelper vh = new ValidationHelper();
-    private static final String CONNECT_STRING = "jdbc:sqlite:schedule.db";
-    
+
     /**
      * Contructor that also sets up the connection for the db
      * @param dbConn connection object pass it the connection from App.Connection
@@ -33,19 +32,24 @@ public class PlayerController {
             e.printStackTrace();
         }
     }
-    
-    
+
+
     /**
      * Stub Method
      * @return
      */
-    public Player getPlayer()
+    public Player getPlayer(Player player)
     {
         Player returnedPlayer = null;
+        try {
+           returnedPlayer = repo.queryForEq("playerId", player.getPlayerId()).get(0);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         return returnedPlayer;
     }
-    
+
     /**
      * Returns all players that match the supplied player object, null fields are not searched
      * @param player search Player object
@@ -53,7 +57,7 @@ public class PlayerController {
      */
     public ArrayList<Player>  getAllPlayersMatch(Player player)
     {
-    
+
         try
         {
             List queryList = repo.queryForMatching(player);
@@ -61,14 +65,14 @@ public class PlayerController {
             {
                 return (ArrayList<Player>)queryList;
             }
-            
+
         } catch (SQLException e)
         {
             e.printStackTrace();
         }
         return null;
     }
-    
+
     /**
      * Returns an arraylist of all players in the database
      * @return arraylist of all players
@@ -84,7 +88,7 @@ public class PlayerController {
         }
         return null;
     }
-    
+
     /**
      * Constuctor method that returns a filled player usign the supplied parameters
      * @param First firstname
@@ -109,6 +113,7 @@ public class PlayerController {
         player.setLastName(Last);
         player.setJerseyNo(Jersey);
         player.setPosition(Pos);
+        player.setAssignPosition("Substitution");
         player.setEmail(Email);
         player.setPhoneNumber(Phone);
         player.setEmergencyName(EName);
@@ -121,7 +126,7 @@ public class PlayerController {
 
         return player;
     }
-    
+
     /**
      * This method adds the supplie dplayer to the database, it will return the player, or return null if an error is
      * encountered
@@ -139,7 +144,7 @@ public class PlayerController {
 
         return returnedPlayer;
     }
-    
+
     /**
      * This method updates the player in the Player Databaes using the supplied player variable, It will return the
      * player that is currently within the database, if it failed to write the player object returned will have the
@@ -164,8 +169,8 @@ public class PlayerController {
         }
         return null;
     }
-    
-    
+
+
     /**
      * A passthrough method that calls the update player, as long the player's team is unnassigned (null)
      * @param player player to change team
@@ -181,7 +186,7 @@ public class PlayerController {
 
         return player;
     }
-    
+
     /**
      * Removes the player from the team, setting it to null
      * @param player player to change
@@ -195,7 +200,7 @@ public class PlayerController {
 
         return player;
     }
-    
+
     /**
      * this method querries the database using the getAllPlayersMatch method and seraches by the teamId provided
      * @param team
@@ -203,8 +208,8 @@ public class PlayerController {
      */
     public ArrayList<Player> queryForPlayersOnTeam(Team team)
     {
-        
-        
+
+
         try {
             if (team == null)
             {
@@ -216,5 +221,9 @@ public class PlayerController {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void removePlayer(Player player) throws SQLException {
+            repo.delete(player);
     }
 }

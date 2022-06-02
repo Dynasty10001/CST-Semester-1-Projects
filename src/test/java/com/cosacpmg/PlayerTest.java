@@ -2,6 +2,7 @@ package com.cosacpmg;
 
 
 import models.Player;
+import models.Position;
 import org.junit.*;
 
 import javax.validation.*;
@@ -66,6 +67,7 @@ public class PlayerTest {
         validPlayer.setEmergencyPhoneNumber("3061234567");
         validPlayer.setEmergencyEmail("MotherHeffington@gmail.com");
         validPlayer.setStreetAddress("123 Fake Street");
+        validPlayer.setAssignPosition("Substitution");
         validPlayer.setCity("Saskatoon");
         validPlayer.setProvince("Saskatchewan");
         validPlayer.setPostalCode("S7V0A1");
@@ -145,14 +147,14 @@ public class PlayerTest {
     @Test
     public void testPlayerPositionValid()
     {
-    validPlayer.setPosition("MidField");
+    validPlayer.setPosition("Midfield");
         assertEquals (0, validator.validate(validPlayer ).size());
     }
     @Test
     public void testPlayerPositionEmpty()
     {
         validPlayer.setPosition("");
-        assertInvalidPlayer("position", "All fields must be filled out with valid information", "");
+        assertInvalidPlayer("position", "Position must be one of the following: Forward, Midfield, Defence, or GoalTender", "");
     }
 
     @Test

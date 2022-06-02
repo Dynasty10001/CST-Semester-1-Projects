@@ -21,8 +21,12 @@ public class AddTeamView
 
 	@FXML
 	Label teamFieldError, cityFieldError, areaFieldError, coachFieldError, coachNumFieldError;
-	
-	
+
+	/**
+	 * This is the submithandler method for adding a team. It is responsible for showing errors (if any exist) and
+	 * calling the team controller to add a valid team to the database.
+	 * @throws IOException
+	 */
 	@FXML
 	protected void addTeamSubmitHandler() throws IOException
 	{
@@ -65,6 +69,10 @@ public class AddTeamView
 
 	}
 
+	/**
+	 * This method returns to the team view when
+	 * @throws IOException
+	 */
 	@FXML
 	protected void addTeamCancelHandler() throws IOException
 	{
