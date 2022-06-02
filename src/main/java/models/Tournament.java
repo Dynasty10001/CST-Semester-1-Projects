@@ -4,15 +4,14 @@ import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
-import org.hibernate.validator.constraints.UniqueElements;
+import models.custom.constraints.StartEndDate;
 
-import javax.validation.constraints.Future;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
+
 import java.util.*;
 
 @DatabaseTable(tableName = "Tournaments")
+@StartEndDate
 public class Tournament
 {
     @DatabaseField(generatedId = true)

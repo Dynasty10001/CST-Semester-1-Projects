@@ -17,7 +17,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class TournamentTest
 {
@@ -151,9 +151,8 @@ public class TournamentTest
         Date date = new Date();
         date.setTime(date.getTime()-1000*60*60*48);
         validTournament.setEndDate(date);
-        assertInvalidTournament("endDate",
-                "Date must not be in the past",
-                date);
+        validTournament.setStartDate(new Date(date.getTime()-5000));
+        assertEquals(2,validator.validate(validTournament).size());
     }
 
     @Test
@@ -172,20 +171,21 @@ public class TournamentTest
         validTournament.setEndDate(date);
         assertEquals(0,validator.validate(validTournament).size());
     }
-/*
+
     @Test
     public void testStartDateAfterEndDate()
     {
-        Date date = new Date();
+
         date.setTime(date.getTime()+(1000*60*60*48*7));
         validTournament.setStartDate(date);
         Date date2 = (Date) date.clone();
-        date2.setTime(date2.getTime()+(1000*60*60*48*2));
+        date2.setTime(date2.getTime()-(1000*60*60*48*2));
         validTournament.setEndDate(date2);
-        assertInvalidTournament("endDate",
-                "End date must be after the start date",
-                date);
+
+//        assertEquals(validTournament.getEndDate().getTime() > validTournament.getStartDate().getTime(), true);
+
+        assertEquals(1,validator.validate(validTournament).size());
     }
 
- */
+
 }
