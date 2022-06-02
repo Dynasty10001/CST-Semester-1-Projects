@@ -92,27 +92,9 @@ public class TournamentController
         return null;
     }
 
-    //todo Add to view
-
-    /**
-     * This method with ensure that the tournament namet
-     * @param tourney
-     * @return
-     * @throws SQLException
-     */
-    public boolean tournamentNameUnique (Tournament tourney) throws SQLException
-    {
-        List <Tournament> tournaments = repo.query(repo.queryBuilder()
-                .where()
-                .eq("tournamentName", tourney.getTournamentName())
-                .prepare()
-        );
-
-        return tournaments.stream()
-                .count() <= 0;
 
 
-    }
+
 
 
 

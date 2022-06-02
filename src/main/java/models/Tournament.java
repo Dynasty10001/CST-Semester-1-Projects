@@ -17,7 +17,7 @@ public class Tournament
     @DatabaseField(generatedId = true)
     private long tournamentID;
 
-    @DatabaseField(canBeNull = false)
+    @DatabaseField(canBeNull = false, unique = true)
     @Size(max = 64, message = "Validation Error: Tournament name has to be 64 characters or less")
     @NotEmpty(message = "Validation Error: Tournament name field is empty, please enter valid entry")
     //@UniqueElements(message = "Validation Error: Tournament name is already used, please enter a different name")

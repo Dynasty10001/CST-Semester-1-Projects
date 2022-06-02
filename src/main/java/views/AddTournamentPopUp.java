@@ -103,9 +103,10 @@ public class AddTournamentPopUp
 
             if (tournamentEndDatePicker.getValue() != null)
 
-                if (TournamentCntrl.tournamentNameUnique(tourney)) {
+                TournamentCntrl.addTournament(tourney);
+                if (tourney.getTournamentID() > 0) {
                     if (error.isEmpty()) {
-                        TournamentCntrl.addTournament(tourney);
+
                         if (tourney.getTournamentID() > 0L) {
                             App.currentTournament = tourney;
                             AppView.changePaneHandler("home-view.fxml", AppView.staticBorderPane);

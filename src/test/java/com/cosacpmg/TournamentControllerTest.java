@@ -82,8 +82,21 @@ public class TournamentControllerTest {
     @Test
     public void createInvalidTournament()
     {
-        assertEquals(testTournamentController.addTournament(testTournamentController.createTournament("MasterTournament", date, date)).getTournamentID(),0);
+        assertNull(testTournamentController.createTournament("MasterTournament", date, null));
     }
+
+    /**
+     *
+     */
+    @Test
+    public void createUsedTournamentName() throws SQLException
+    {
+        Tournament testTourney = testTournamentController.createTournament("MasterTournament", date, date);
+        assertEquals(testTournamentController.addTournament(testTourney).getTournamentID(),0);
+
+
+    }
+
 
     /*
      we are testing adding valid tournament
