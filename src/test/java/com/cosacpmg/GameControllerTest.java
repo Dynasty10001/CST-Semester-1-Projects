@@ -60,7 +60,10 @@ public class GameControllerTest {
     public void TestSetup() throws SQLException {
 
 
-
+        Calendar time = Calendar.getInstance();
+        time.set(2022, Calendar.JUNE,10);
+        time.add(Calendar.HOUR_OF_DAY, 10);
+        date = time.getTime();
 
 
         testTeamController = new TeamController(dbConn);
@@ -206,32 +209,13 @@ public class GameControllerTest {
 
     @Test
     public void testGamesByTournamentNotValid() throws SQLException {
-        Date newDate = new Date();
-        newDate.setTime(date.getTime()+900000);
-
-        Tournament tourney = testTournamentController.createTournament("test", date, newDate);
+        Tournament tourney = new Tournament();
         testTournamentController.addTournament(tourney);
         masterTest.setTournament(tourney);
-        masterTest = testGameController.addGame(masterTest);
-
-        date.setTime(date.getTime()+36000);
-        Game secondGame = testGameController.createGame(testHometeam,testUnusedTeam, date, testLocation,tourney );
-        secondGame = testGameController.addGame(secondGame);
-
+        testGameController.addGame(masterTest);
         List<Game> validGames = new ArrayList<Game>();
         validGames.add(masterTest);
-        validGames.add(secondGame);
-        List<Game> validGamesFromDB = testGameController.getAllGamesByTournament(tourney);
-
-        validGames.stream().sorted((x,y) -> (int) (y.getGameID() - x.getGameID()));
-        validGamesFromDB.stream().sorted((x,y) -> (int) (y.getGameID() - x.getGameID()));
-//        assertEquals(validGames, testGameController.getAllGamesByTournament(tourney));
-        for(int i = 0; i < validGamesFromDB.size()-1; i++)
-        {
-            Long validGameID = validGames.get(i).getGameID();
-            Long validGameDBID = validGamesFromDB.get(i).getGameID();
-            assertEquals(validGameID, validGameDBID);
-        }
+        assertNotEquals(validGames, testGameController.getAllGamesByTournament(masterTournament));
     }
 
     //@Test
@@ -252,10 +236,10 @@ public class GameControllerTest {
         int wins = 10;
         int losses = 10;
         int ties = 10;
-        
+
         assertEquals(wins * GameController.POINTS_FOR_WIN +
-                     losses * GameController.POINTS_FOR_LOSS +
-                     ties * GameController.POINTS_FOR_TIE,GameController.computeScore(wins,losses, ties));
+                losses * GameController.POINTS_FOR_LOSS +
+                ties * GameController.POINTS_FOR_TIE,GameController.computeScore(wins,losses, ties));
     }
 
 
