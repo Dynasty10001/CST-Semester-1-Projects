@@ -18,7 +18,7 @@ public class Tournament
     @DatabaseField(generatedId = true)
     private long tournamentID;
 
-    @DatabaseField(canBeNull = false, unique = true)
+    @DatabaseField(canBeNull = false)
     @Size(max = 64, message = "Validation Error: Tournament name has to be 64 characters or less")
     @NotEmpty(message = "Validation Error: Tournament name field is empty, please enter valid entry")
     //@UniqueElements(message = "Validation Error: Tournament name is already used, please enter a different name")
@@ -30,12 +30,12 @@ public class Tournament
 
 
     @DatabaseField(canBeNull = false)
-    @NotNull(message = "A date must be selected for the game")
+    @NotNull(message = "A date must be selected for the Tournament")
     @Future(message = "Date must not be in the past")
     private  Date startDate;
 
     @DatabaseField(canBeNull = false)
-    @NotNull(message = "A date must be selected for the game")
+    @NotNull(message = "A date must be selected for the Tournament")
     @Future(message = "Date must not be in the past")
     private Date endDate;
 
