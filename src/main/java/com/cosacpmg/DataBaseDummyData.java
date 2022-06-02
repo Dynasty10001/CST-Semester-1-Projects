@@ -72,7 +72,8 @@ public class DataBaseDummyData {
         time.set(2022, Calendar.JUNE,10);
         time.add(Calendar.HOUR_OF_DAY, 10);
         Date date = time.getTime();
-        Tournament dummy = TUC.createTournament("Dummy",date,date );;
+        Tournament dummy = TUC.createTournament("Dummy",date,date );
+        TUC.addTournament(dummy);
 
         ArrayList<Game> schedule = new ArrayList<>();
 
